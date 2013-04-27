@@ -9,11 +9,13 @@
 #import "GalleryViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "Math.h"
+#import "EANWebService.h"
+#import "Hotel.h"
 
 @interface GalleryViewController ()
 @property (nonatomic, strong) UIView *imagesCanvas;
-@property (nonatomic, strong) NSMutableArray *hotelImagesURL;
-@property (nonatomic, strong) NSDictionary *visibleHotels;
+@property (nonatomic, strong) NSArray *allHotels;
+//@property (nonatomic, strong) NSMutableArray *hotelImagesURL;
 
 @property (nonatomic, strong) UILabel *sliderValueLabel;
 @property (nonatomic, strong) UISlider *slider;
@@ -43,9 +45,15 @@
     [self.view setBackgroundColor:[UIColor blackColor]];
     
     [self setupImagesCanvas];
-    [self updateImages];
-    [self setupSlider];
-    [self setupSliderValueLabel];
+    //[self updateImages];
+    //[self setupSlider];
+    //[self setupSliderValueLabel];
+    
+    [self downloadHotelsforCity:@"London"
+                   provinceCode:@""
+                    countryCode:@"GB"
+                      startDate:[NSDate date]
+                        endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,7 +117,7 @@
 }
 
 - (void)updateImages {
-    
+  /*
     for (UIView *subview in self.imagesCanvas.subviews) {
         [subview removeFromSuperview];
     }
@@ -125,24 +133,22 @@
         NSString *url = [NSString stringWithFormat:@"http://farm9.staticflickr.com/8536/8685310573_c8b50f7e59_d.jpg"];
         [self.hotelImagesURL addObject:url];
     }
-    
-    [self updateUIWithImages:self.hotelImagesURL];
+    */
 }
 
 
 #pragma mark - UpdateUI
-- (void)updateUIWithImages:(NSArray *)imageURLs {
+- (void)updateUIWithHotels:(NSArray *)selectedHotels {
     
-    int square = [self getSquare:imageURLs];
-    int imageCount = [imageURLs count];
+    int square = [self getSquare:[selectedHotels count]];
+    int hotelCount = [selectedHotels count];
     
     int cols = square +1;
-    if(square *square == imageCount)
-    {
+    if(square * square == hotelCount) {
         cols = square;
     }
     
-    int rows = imageCount -(square * square) > square ? square + 1 : square;
+    int rows = hotelCount -(square * square) > square ? square + 1 : square;
 //    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
     
     CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
@@ -150,7 +156,7 @@
     
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
-    int currentImage = 0;
+    int currentHotel = 0;
     for (int y = 0; y < rows; y++)
     {
         for(int x = 0; x< cols; x++)
@@ -163,15 +169,15 @@
             [hotelImageView setClipsToBounds:YES];
             [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
             
-            if(currentImage >= imageCount) {
+            if(currentHotel >= hotelCount) {
                 [hotelImageView setBackgroundColor:[UIColor clearColor]];
             } else {
-                NSString *imageURL = self.hotelImagesURL[currentImage];
-                [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
+                Hotel *hotel = selectedHotels[currentHotel];
+                [hotelImageView setImageWithURL:[NSURL URLWithString:hotel.thumbnailURL]];
             }
             
             [self.imagesCanvas addSubview:hotelImageView];
-            currentImage++;
+            currentHotel++;
         }
     }
 }
@@ -180,13 +186,37 @@
 #pragma mark - UISlider Listener
 - (void)sliderValueChanged:(UISlider *)sender {
     [self updateImages];
-    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", [self.hotelImagesURL count]]];
+  //  [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", [self.hotelImagesURL count]]];
 }
 
 
+#pragma mark - Update
+- (void)downloadHotelsforCity:(NSString *)city provinceCode:(NSString *)provinceCode countryCode:(NSString *)countyCode startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    
+    [EANWebService hotelDetailsForCity:city
+                     stateProvinceCode:provinceCode
+                           countryCode:countyCode
+                             startDate:startDate
+                               endDate:endDate
+                           withSuccess:^(NSURLRequest *request, NSURLResponse *response, id JSON) {
+                               
+                              /* NSData *jsonData = [NSJSONSerialization dataWithJSONObject:JSON
+                                                                                  options:NSJSONWritingPrettyPrinted
+                                                                                    error:nil];
+                               NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                              */
+                               NSDictionary *json = (NSDictionary *)JSON;
+                               NSArray *hotelSummaries = json[@"HotelListResponse"][@"HotelList"][@"HotelSummary"];
+                               [self updateUIWithHotels:hotelSummaries];
+                           }
+                            andFailure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON) {
+                                NSLog(@"ERROR : %@", error);
+                            }];
+}
+
 #pragma mark - Math Helpers
-- (int)getSquare:(NSArray *)images{
-    return floor(sqrt([images count]));
+- (int)getSquare:(NSInteger)numToSquareRoot{
+    return floor(sqrt(numToSquareRoot));
 }
 
 @end
