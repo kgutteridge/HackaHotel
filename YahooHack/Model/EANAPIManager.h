@@ -12,4 +12,6 @@
 
 + (EANAPIManager *)sharedManager;
 
++ (NSString *)generateAPISignatureWithKey:(NSString  *)_APIKey withSecret:(NSString *)_APISecret;
+
 @end

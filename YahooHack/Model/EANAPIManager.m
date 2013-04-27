@@ -21,7 +21,7 @@
     static EANAPIManager *_sharedManager = nil;
     
     dispatch_once(&pred, ^{
-        NSString *url = @"someURL";
+        NSString *url = EANURL;
         _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:url]];
     });
     return _sharedManager;
@@ -33,7 +33,6 @@
     self = [super initWithBaseURL:url];
     if(!self)
         return nil;
-    
     //  [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     //  [self setDefaultHeader:@"Accept" value:@"application/json"];
     // [self setParameterEncoding:AFJSONParameterEncoding];
@@ -43,7 +42,7 @@
 }
 
 
--(NSString *)generateAPISignatureWithKey:(NSString  *)_APIKey withSecret:(NSString *)_APISecret
++(NSString *)generateAPISignatureWithKey:(NSString  *)_APIKey withSecret:(NSString *)_APISecret
 {
     int timeStamp = [NSDate timeIntervalSinceReferenceDate];
     

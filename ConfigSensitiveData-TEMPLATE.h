@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ConfigSensitiveData_TEMPLATE : NSObject
-
 #define SECRET_API_KEY @"YOURKEY"
 #define SECRET_API_SECRET @"YOURSECRET"
 
-@end

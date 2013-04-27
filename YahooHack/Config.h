@@ -17,7 +17,3 @@
 #define APIKey                      SECRET_API_KEY
 #define APISecret                   SECRET_API_SECRET
 #define APICID                      @"55505"
-
-
-
-
