@@ -8,16 +8,18 @@
 
 #import "GalleryViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "Math.h"
 
 @interface GalleryViewController ()
 @property (nonatomic, strong) UIView *imagesCanvas;
-@property (nonatomic, strong) NSArray *hotelImagesURL;
+@property (nonatomic, strong) NSMutableArray *hotelImagesURL;
 @property (nonatomic, strong) NSDictionary *visibleHotels;
 
 @end
 
 #define MAX_IMAGES_PER_ROW 10.0f
 #define MAX_ROWS 5
+#define MIN_PADDING_BETWEEN_IMAGES 5.0f
 
 @implementation GalleryViewController
 
@@ -69,81 +71,78 @@
 #pragma mark - Setup
 - (void)setupImagesCanvas {
     
-    self.imagesCanvas = [[UIView alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 10 - 50)];
-    [self.imagesCanvas setBackgroundColor:[UIColor colorWithWhite:0.05 alpha:1.0]];
+    self.imagesCanvas = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 700, 700)];
+    [self.imagesCanvas setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1.0]];
     [self.view addSubview:self.imagesCanvas];
 }
 
 - (void)updateImages {
-  /*
-    self.hotelImagesURL = @[@"http://www.duchysoftware.com/yahoohack/0.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/1.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/2.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/1.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/2.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/1.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/2.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/1.jpg",
-                            @"http://www.duchysoftware.com/yahoohack/2.jpg"
-                         ];
-   */
     
-    self.hotelImagesURL = @[@"http://www.duchysoftware.com/yahoohack/0.png",
-                            @"http://www.duchysoftware.com/yahoohack/1.png"];
+    self.hotelImagesURL = [[NSMutableArray alloc] init];
+    for (int loop = 0; loop < 15; loop++) {
+        int filenumber = loop % 3;
+        NSString *url = [NSString stringWithFormat:@"http://www.duchysoftware.com/yahoohack/%d.png", filenumber];
+        [self.hotelImagesURL addObject:url];
+        [self updateUIWithImages:self.hotelImagesURL];
+    }
 }
 
 
 #pragma mark - UpdateUI
 - (void)updateUIWithImages:(NSArray *)imageURLs {
     
-    NSInteger rows = [self numberOfRowsForImages:imageURLs];
-    NSInteger cols = [self numberOfColumnsForImages:imageURLs];
-    NSLog(@"R%d,C%d", rows, cols);
+    int square = [self getSquare:imageURLs];
+    
+    int cols = [imageURLs count] - (square * square)  <= square ? square + 1 : square;
+    int rows = [imageURLs count] - (square * square)   > square ? square + 1 : square;
+    NSLog(@"COLS(%d) ROWS(%d)", cols, rows);
+    
+   /* NSInteger cols = [imageURLs count] / square;
+    NSInteger rows = ([imageURLs count] % square == 0) ? square : square + 1;
+    NSLog(@"COLS(%d) ROWS(%d)", cols, rows);
+    */
+    CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
+   // NSLog(@"Img Size: %f", imageSize);
+    
+    CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
+    
+    
+    
+    
+    int yOff = 0;
+    
+    
+   
+    
+    
+    /*
     // calculate image dimensions
-    
-    
-    
     for (int index = 0; index < [imageURLs count]; index++) {
         
-        CGRect frame = [self frameForImageAtIndex:index];
+        int thisIndexRow = (index == 0) ? 0 : floor(index / cols);
+        int thisIndexCol = (index == 0) ? 0 : floor(index % cols);
+      //  NSLog(@"Row:%d - Col:%d", thisIndexRow, thisIndexCol);
         
         NSString *imageURL = imageURLs[index];
-        UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:frame];
-        [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
+        CGRect frame = CGRectMake((thisIndexCol * imageWidth) + leftInset,
+                                  (thisIndexRow * imageWidth),
+                                  imageWidth, imageWidth);
+        
+        UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, 3, 3)];
+        [hotelImageView setClipsToBounds:YES];
+        [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
+       // [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
+        [hotelImageView setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:1 alpha:1]];
         [self.imagesCanvas addSubview:hotelImageView];
     }
-    
+     
+     */
 }
 
 
-#pragma mark - Layout Helpers
-- (NSInteger)numberOfRowsForImages:(NSArray *)images {
-    
-    NSLog(@"%f", ([images count] / MAX_IMAGES_PER_ROW));
-    NSInteger rows = ceil([images count] / MAX_IMAGES_PER_ROW);
-    return rows;
-}
-
-- (NSInteger)numberOfColumnsForImages:(NSArray *)images {
-    
-   // NSInteger col = ceil([images count] / MAX_IMAGES_PER_ROW);
-    return 10;
-}
-
-- (CGRect)frameForImageAtIndex:(NSInteger)index {
-    
-    // Dummy
-    switch (index) {
-        case 0:
-            return CGRectMake(0, 0, 200, 180);
-            break;
-        case 1:
-            return CGRectMake(205, 0, 200, 180);
-            break;
-            
-        default:
-            break;
-    }
+#pragma mark - Math Helpers
+- (int)getSquare:(NSArray *)images{
+    return floor(sqrt([images count]));
 }
 
 @end
