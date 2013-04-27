@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Hotel" representedClassName="Hotel" syncable="YES">
+        <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="airportCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="amenityMask" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="confidenceRating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="countryCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deepLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eanShortDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highRate" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="hotelId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="hotelInDestination" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="hotelRating" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="locationDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longtitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lowRate" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propertyCategory" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="proximityDistance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="proximityUnit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rateCurrencyCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stateProvinceCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="supplierType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tripAdvisorRating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Hotel" positionX="1960" positionY="-8406" width="128" height="433"/>
+    </elements>
+</model>
