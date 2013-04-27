@@ -199,15 +199,22 @@
                              startDate:startDate
                                endDate:endDate
                            withSuccess:^(NSURLRequest *request, NSURLResponse *response, id JSON) {
-                               
-                              /* NSData *jsonData = [NSJSONSerialization dataWithJSONObject:JSON
-                                                                                  options:NSJSONWritingPrettyPrinted
-                                                                                    error:nil];
-                               NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-                              */
+                            
                                NSDictionary *json = (NSDictionary *)JSON;
                                NSArray *hotelSummaries = json[@"HotelListResponse"][@"HotelList"][@"HotelSummary"];
-                               [self updateUIWithHotels:hotelSummaries];
+                               
+                               NSMutableArray *hotels = [NSMutableArray array];
+                               for(NSDictionary *hotelDict in hotelSummaries)
+                               {
+                                   
+                                   //need to search and see if this is unique 
+                                   Hotel *hotel = [Hotel MR_createEntity];
+                                   [hotel setPropertiesFromDictionary:hotelDict];
+                                   [hotels addObject:hotel];
+                               }
+                               
+                               
+                               [self updateUIWithHotels:hotels];
                            }
                             andFailure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON) {
                                 NSLog(@"ERROR : %@", error);

@@ -41,6 +41,7 @@
 		FD257483172C36C100EE0E85 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257481172C36C100EE0E85 /* Hotel.m */; };
 		FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257488172C373200EE0E85 /* NSString+Helper.m */; };
 		FD257496172C75A900EE0E85 /* EANWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257495172C75A900EE0E85 /* EANWebService.m */; };
+		FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */; };
 		FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC48F1F172C25830037B17F /* EANAPIManager.m */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		FD25748E172C47D400EE0E85 /* ConfigSensitiveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigSensitiveData.h; sourceTree = "<group>"; };
 		FD257494172C75A900EE0E85 /* EANWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANWebService.h; sourceTree = "<group>"; };
 		FD257495172C75A900EE0E85 /* EANWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANWebService.m; sourceTree = "<group>"; };
+		FD25749A172C95F600EE0E85 /* NSDictionary+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Helper.h"; path = "YahooHack/NSDictionary+Helper.h"; sourceTree = SOURCE_ROOT; };
+		FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Helper.m"; path = "YahooHack/NSDictionary+Helper.m"; sourceTree = SOURCE_ROOT; };
 		FDC48F1A172C24E00037B17F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = YahooHack/Config.h; sourceTree = "<group>"; };
 		FDC48F1E172C25830037B17F /* EANAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANAPIManager.h; sourceTree = "<group>"; };
 		FDC48F1F172C25830037B17F /* EANAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANAPIManager.m; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 			children = (
 				FD257487172C373200EE0E85 /* NSString+Helper.h */,
 				FD257488172C373200EE0E85 /* NSString+Helper.m */,
+				FD25749A172C95F600EE0E85 /* NSDictionary+Helper.h */,
+				FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 				FD257483172C36C100EE0E85 /* Hotel.m in Sources */,
 				FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */,
 				FD257496172C75A900EE0E85 /* EANWebService.m in Sources */,
+				FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
