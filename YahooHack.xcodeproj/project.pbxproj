@@ -34,8 +34,6 @@
 		E256EA5C172C1D3F00379760 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E256EA5B172C1D3F00379760 /* GalleryViewController.m */; };
 		E256EA5F172C1E4500379760 /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E256EA5E172C1E4500379760 /* HotelDetailViewController.m */; };
 		FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD257460172C2CF800EE0E85 /* HotelModel.xcdatamodeld */; };
-		FD257467172C2D2A00EE0E85 /* _Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257464172C2D2A00EE0E85 /* _Hotel.m */; };
-		FD257468172C2D2A00EE0E85 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257466172C2D2A00EE0E85 /* Hotel.m */; };
 		FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC48F1F172C25830037B17F /* EANAPIManager.m */; };
 /* End PBXBuildFile section */
 
@@ -60,10 +58,6 @@
 		E256EA5D172C1E4500379760 /* HotelDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailViewController.h; sourceTree = "<group>"; };
 		E256EA5E172C1E4500379760 /* HotelDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailViewController.m; sourceTree = "<group>"; };
 		FD257461172C2CF800EE0E85 /* HotelModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HotelModel.xcdatamodel; sourceTree = "<group>"; };
-		FD257463172C2D2A00EE0E85 /* _Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Hotel.h; sourceTree = "<group>"; };
-		FD257464172C2D2A00EE0E85 /* _Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Hotel.m; sourceTree = "<group>"; };
-		FD257465172C2D2A00EE0E85 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotel.h; sourceTree = "<group>"; };
-		FD257466172C2D2A00EE0E85 /* Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hotel.m; sourceTree = "<group>"; };
 		FDC48F1A172C24E00037B17F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		FDC48F1E172C25830037B17F /* EANAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANAPIManager.h; sourceTree = "<group>"; };
 		FDC48F1F172C25830037B17F /* EANAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANAPIManager.m; sourceTree = "<group>"; };
@@ -194,21 +188,9 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		FD257469172C2D2E00EE0E85 /* mogenerated */ = {
-			isa = PBXGroup;
-			children = (
-				FD257463172C2D2A00EE0E85 /* _Hotel.h */,
-				FD257464172C2D2A00EE0E85 /* _Hotel.m */,
-			);
-			name = mogenerated;
-			sourceTree = "<group>";
-		};
 		FDC48F21172C26590037B17F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				FD257469172C2D2E00EE0E85 /* mogenerated */,
-				FD257465172C2D2A00EE0E85 /* Hotel.h */,
-				FD257466172C2D2A00EE0E85 /* Hotel.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -316,7 +298,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd DataModel\nmogenerator -m HotelModel.xcdatamodeld/HotelModel.xcdatamodel/";
+			shellScript = "cd DataModel\nmogenerator --template-var arc=true -m HotelModel.xcdatamodeld/HotelModel.xcdatamodel/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -331,8 +313,6 @@
 				E256EA5F172C1E4500379760 /* HotelDetailViewController.m in Sources */,
 				FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */,
 				FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */,
-				FD257467172C2D2A00EE0E85 /* _Hotel.m in Sources */,
-				FD257468172C2D2A00EE0E85 /* Hotel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
