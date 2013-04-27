@@ -15,11 +15,15 @@
 @property (nonatomic, strong) NSMutableArray *hotelImagesURL;
 @property (nonatomic, strong) NSDictionary *visibleHotels;
 
+@property (nonatomic, strong) UILabel *sliderValueLabel;
+@property (nonatomic, strong) UISlider *slider;
+
 @end
 
 #define MAX_IMAGES_PER_ROW 10.0f
 #define MAX_ROWS 5
 #define MIN_PADDING_BETWEEN_IMAGES 5.0f
+#define HOTEL_IMAGEVIEW_EDGE_INSET 1.0f
 
 @implementation GalleryViewController
 
@@ -40,12 +44,12 @@
     
     [self setupImagesCanvas];
     [self updateImages];
+    [self setupSlider];
+    [self setupSliderValueLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self updateUIWithImages:self.hotelImagesURL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,6 +73,34 @@
 
 
 #pragma mark - Setup
+- (void)setupSlider {
+    
+    self.slider = [[UISlider alloc] initWithFrame:
+                   CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
+                              400,
+                              CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.imagesCanvas.bounds) - 40,
+                              44)];
+    [self.slider setMaximumValue:256.0];
+    [self.slider setMinimumValue:1.0];
+    [self.slider setValue:10];
+    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.view addSubview:self.slider];
+}
+
+- (void)setupSliderValueLabel {
+    
+    self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [self.sliderValueLabel setFont:[UIFont boldSystemFontOfSize:40]];
+    [self.sliderValueLabel setTextColor:[UIColor whiteColor]];
+    [self.sliderValueLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.sliderValueLabel setBackgroundColor:self.view.backgroundColor];
+    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 10]];
+    [self.sliderValueLabel setCenter:CGPointMake(CGRectGetMidX(self.slider.frame), CGRectGetMaxY(self.slider.frame) + CGRectGetHeight(self.sliderValueLabel.bounds))];
+    
+    [self.view addSubview:self.sliderValueLabel];
+}
+
 - (void)setupImagesCanvas {
     
     self.imagesCanvas = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 700, 700)];
@@ -78,13 +110,23 @@
 
 - (void)updateImages {
     
-    self.hotelImagesURL = [[NSMutableArray alloc] init];
-    for (int loop = 0; loop < 5500; loop++) {
-        int filenumber = loop % 3;
-        NSString *url = [NSString stringWithFormat:@"http://www.duchysoftware.com/yahoohack/%d.png", filenumber];
-        [self.hotelImagesURL addObject:url];
-        //[self updateUIWithImages:self.hotelImagesURL];
+    for (UIView *subview in self.imagesCanvas.subviews) {
+        [subview removeFromSuperview];
     }
+    [self.hotelImagesURL removeAllObjects];
+    self.hotelImagesURL = nil;
+    
+    // temp
+    int numberOfImages = floorf([self.slider value]) > 0 ? floorf([self.slider value]) : 10 ;
+    
+    self.hotelImagesURL = [[NSMutableArray alloc] init];
+    for (int loop = 0; loop < numberOfImages; loop++) {
+        int filenumber = loop % 3;
+        NSString *url = [NSString stringWithFormat:@"http://farm9.staticflickr.com/8536/8685310573_c8b50f7e59_d.jpg"];
+        [self.hotelImagesURL addObject:url];
+    }
+    
+    [self updateUIWithImages:self.hotelImagesURL];
 }
 
 
@@ -99,71 +141,46 @@
     {
         cols = square;
     }
-
-    int rows = imageCount -(square * square) > square ? square + 1 : square;
-    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
     
-   /* NSInteger cols = [imageURLs count] / square;
-    NSInteger rows = ([imageURLs count] % square == 0) ? square : square + 1;
-    NSLog(@"COLS(%d) ROWS(%d)", cols, rows);
-    */
+    int rows = imageCount -(square * square) > square ? square + 1 : square;
+//    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
+    
     CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
-    NSLog(@"Img Size: %f", imageSize);
+//    NSLog(@"Img Size: %f", imageSize);
     
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
     int currentImage = 0;
-    for (int x = 0; x < cols; x++)
+    for (int y = 0; y < rows; y++)
     {
-        for(int y = 0; y< rows; y++)
+        for(int x = 0; x< cols; x++)
         {
-            CGRect frame = CGRectMake((y * imageSize) + leftInset,
-                                      (x * imageSize),
+            CGRect frame = CGRectMake((x * imageSize) + leftInset,
+                                      (y * imageSize),
                                       imageSize, imageSize);
             
-            UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, 3, 3)];
+            UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
             [hotelImageView setClipsToBounds:YES];
             [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
-            // [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
             
-            if(currentImage > imageCount)
-            {
-                [hotelImageView setBackgroundColor:[UIColor whiteColor]];
+            if(currentImage >= imageCount) {
+                [hotelImageView setBackgroundColor:[UIColor clearColor]];
+            } else {
+                NSString *imageURL = self.hotelImagesURL[currentImage];
+                [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
             }
-            else
-            {
-                [hotelImageView setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:1 alpha:1]];
-            }
+            
             [self.imagesCanvas addSubview:hotelImageView];
-            
             currentImage++;
         }
     }
-    
+}
 
-    
-    /*
-    // calculate image dimensions
-    for (int index = 0; index < [imageURLs count]; index++) {
-        
-        int thisIndexRow = (index == 0) ? 0 : floor(index / cols);
-        int thisIndexCol = (index == 0) ? 0 : floor(index % cols);
-      //  NSLog(@"Row:%d - Col:%d", thisIndexRow, thisIndexCol);
-        
-        NSString *imageURL = imageURLs[index];
-        CGRect frame = CGRectMake((thisIndexCol * imageWidth) + leftInset,
-                                  (thisIndexRow * imageWidth),
-                                  imageWidth, imageWidth);
-        
-        UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, 3, 3)];
-        [hotelImageView setClipsToBounds:YES];
-        [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
-       // [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
-        [hotelImageView setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:1 alpha:1]];
-        [self.imagesCanvas addSubview:hotelImageView];
-    }
-     
-     */
+
+#pragma mark - UISlider Listener
+- (void)sliderValueChanged:(UISlider *)sender {
+    [self updateImages];
+    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", [self.hotelImagesURL count]]];
 }
 
 
