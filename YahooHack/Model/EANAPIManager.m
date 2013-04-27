@@ -43,11 +43,11 @@
 }
 
 
--(NSString *)generateAPISignatureWithKey:(NSString  *)APIKey withSecret:(NSString *)APISecret
+-(NSString *)generateAPISignatureWithKey:(NSString  *)_APIKey withSecret:(NSString *)_APISecret
 {
     int timeStamp = [NSDate timeIntervalSinceReferenceDate];
     
-    NSString *string = [NSString stringWithFormat:@"%@%@%i",APIKey,APISecret,timeStamp];
+    NSString *string = [NSString stringWithFormat:@"%@%@%i",_APIKey,_APISecret,timeStamp];
     
     return string;
 }

@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Config : NSObject
+#define EANBaseURL                  @"http://api.ean.com/ean-services/rs/hotel/"
+#define EANVersion                  @"v3"
+#define EANMinorVersion             @"5"
 
-@end
+#define EANURL                      [NSString stringWithFormat:@"%@/%@/",EANBaseURL,EANVersion]
+
+#define APIKey                      SECRET_API_KEY
+#define APISecret                   SECRET_API_SECRET
+#define APICID                      @"55505"
+
+
+
+

@@ -79,11 +79,11 @@
 - (void)updateImages {
     
     self.hotelImagesURL = [[NSMutableArray alloc] init];
-    for (int loop = 0; loop < 15; loop++) {
+    for (int loop = 0; loop < 5500; loop++) {
         int filenumber = loop % 3;
         NSString *url = [NSString stringWithFormat:@"http://www.duchysoftware.com/yahoohack/%d.png", filenumber];
         [self.hotelImagesURL addObject:url];
-        [self updateUIWithImages:self.hotelImagesURL];
+        //[self updateUIWithImages:self.hotelImagesURL];
     }
 }
 
@@ -92,28 +92,55 @@
 - (void)updateUIWithImages:(NSArray *)imageURLs {
     
     int square = [self getSquare:imageURLs];
+    int imageCount = [imageURLs count];
     
-    int cols = [imageURLs count] - (square * square)  <= square ? square + 1 : square;
-    int rows = [imageURLs count] - (square * square)   > square ? square + 1 : square;
-    NSLog(@"COLS(%d) ROWS(%d)", cols, rows);
+    int cols = square +1;
+    if(square *square == imageCount)
+    {
+        cols = square;
+    }
+
+    int rows = imageCount -(square * square) > square ? square + 1 : square;
+    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
     
    /* NSInteger cols = [imageURLs count] / square;
     NSInteger rows = ([imageURLs count] % square == 0) ? square : square + 1;
     NSLog(@"COLS(%d) ROWS(%d)", cols, rows);
     */
     CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
-   // NSLog(@"Img Size: %f", imageSize);
+    NSLog(@"Img Size: %f", imageSize);
     
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
+    int currentImage = 0;
+    for (int x = 0; x < cols; x++)
+    {
+        for(int y = 0; y< rows; y++)
+        {
+            CGRect frame = CGRectMake((y * imageSize) + leftInset,
+                                      (x * imageSize),
+                                      imageSize, imageSize);
+            
+            UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, 3, 3)];
+            [hotelImageView setClipsToBounds:YES];
+            [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
+            // [hotelImageView setImageWithURL:[NSURL URLWithString:imageURL]];
+            
+            if(currentImage > imageCount)
+            {
+                [hotelImageView setBackgroundColor:[UIColor whiteColor]];
+            }
+            else
+            {
+                [hotelImageView setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:1 alpha:1]];
+            }
+            [self.imagesCanvas addSubview:hotelImageView];
+            
+            currentImage++;
+        }
+    }
     
-    
-    
-    int yOff = 0;
-    
-    
-   
-    
+
     
     /*
     // calculate image dimensions
