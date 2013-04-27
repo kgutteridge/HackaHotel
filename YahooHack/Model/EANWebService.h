@@ -14,7 +14,17 @@
 @interface EANWebService : AFHTTPRequestOperation
 
 +(void)hotelDetailsForSearchTerm:(NSString *)searchTerm
-                     withSuccess:(void (^)(NSURLRequest *request, NSURLResponse *response, id JSON))success
-                      andFailure:(void (^)(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON))failure;
+                       startDate:(NSDate *)startDate
+                         endDate:(NSDate *)endDate
+                     withSuccess:(void (^)(NSURLRequest *request, NSURLResponse *response, id JSON))successBlock
+                      andFailure:(void (^)(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON))failureBlock;
+
++(void)hotelDetailsForCity:(NSString *)city
+         stateProvinceCode:(NSString *)province
+               countryCode:(NSString *)countyCode
+                 startDate:(NSDate *)startDate
+                   endDate:(NSDate *)endDate
+               withSuccess:(void (^)(NSURLRequest *request, NSURLResponse *response, id JSON))successBlock
+                andFailure:(void (^)(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON))failureBlock;
 
 @end
