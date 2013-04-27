@@ -9,8 +9,23 @@
 #import "EANAPIManager.h"
 #import "AFNetworking/AFJSONRequestOperation.h"
 #import "AFNetworking/AFNetworkActivityIndicatorManager.h"
+#import "NSString+Helper.h"
 
 @implementation EANAPIManager
+
+#pragma mark - Singleton Methods
+
++ (EANAPIManager *)sharedManager
+{
+    static dispatch_once_t pred;
+    static EANAPIManager *_sharedManager = nil;
+    
+    dispatch_once(&pred, ^{
+        NSString *url = @"someURL";
+        _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:url]];
+    });
+    return _sharedManager;
+}
 
 
 - (id)initWithBaseURL:(NSURL *)url
@@ -27,19 +42,22 @@
     return self;
 }
 
-#pragma mark - Singleton Methods
 
-+ (EANAPIManager *)sharedManager
+-(NSString *)generateAPISignatureWithKey:(NSString  *)APIKey withSecret:(NSString *)APISecret
 {
-    static dispatch_once_t pred;
-    static EANAPIManager *_sharedManager = nil;
+    int timeStamp = [NSDate timeIntervalSinceReferenceDate];
     
-    dispatch_once(&pred, ^{
-        NSString *url = @"someURL";
-        _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:url]];
-    }); 
-    return _sharedManager;
+    NSString *string = [NSString stringWithFormat:@"%@%@%i",APIKey,APISecret,timeStamp];
+    
+    return string;
 }
+
+
+
+
+
+
+
 
 
 

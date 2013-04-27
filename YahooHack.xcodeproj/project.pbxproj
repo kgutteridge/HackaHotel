@@ -67,6 +67,8 @@
 		FD257481172C36C100EE0E85 /* Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hotel.m; path = DataModel/Hotel.m; sourceTree = SOURCE_ROOT; };
 		FD257487172C373200EE0E85 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "YahooHack/NSString+Helper.h"; sourceTree = SOURCE_ROOT; };
 		FD257488172C373200EE0E85 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "YahooHack/NSString+Helper.m"; sourceTree = SOURCE_ROOT; };
+		FD25748B172C475100EE0E85 /* ConfigSensitiveData-TEMPLATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfigSensitiveData-TEMPLATE.h"; sourceTree = "<group>"; };
+		FD25748E172C47D400EE0E85 /* ConfigSensitiveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigSensitiveData.h; sourceTree = "<group>"; };
 		FDC48F1A172C24E00037B17F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		FDC48F1E172C25830037B17F /* EANAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANAPIManager.h; sourceTree = "<group>"; };
 		FDC48F1F172C25830037B17F /* EANAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANAPIManager.m; sourceTree = "<group>"; };
@@ -90,6 +92,8 @@
 		E256EA2B172C17D800379760 = {
 			isa = PBXGroup;
 			children = (
+				FD25748E172C47D400EE0E85 /* ConfigSensitiveData.h */,
+				FD25748B172C475100EE0E85 /* ConfigSensitiveData-TEMPLATE.h */,
 				E256EA3D172C17D800379760 /* YahooHack */,
 				E256EA36172C17D800379760 /* Frameworks */,
 				E256EA35172C17D800379760 /* Products */,

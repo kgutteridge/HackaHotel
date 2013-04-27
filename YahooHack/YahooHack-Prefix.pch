@@ -15,4 +15,6 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <QuartzCore/QuartzCore.h>
+    #import "ConfigSensitiveData.h"
+    #import "Config.h"
 #endif
