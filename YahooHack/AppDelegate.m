@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "GalleryViewController.h"
 
 @implementation AppDelegate
 
@@ -15,6 +16,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+  
+    GalleryViewController *gallaryViewController = [[GalleryViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:gallaryViewController];
+    [navController setNavigationBarHidden:YES];
+    
+    [self.window setRootViewController:navController];
+  
     [self.window makeKeyAndVisible];
     return YES;
 }

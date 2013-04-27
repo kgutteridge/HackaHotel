@@ -7,3 +7,4 @@
 #define __POD_HTAutocompleteTextField
 #define __POD_MagicalRecord
 #define __POD_SVProgressHUD
+#define __POD_ViewDeck

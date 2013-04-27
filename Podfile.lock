@@ -5,6 +5,7 @@ PODS:
   - HTAutocompleteTextField (1.1.2)
   - MagicalRecord (2.1)
   - SVProgressHUD (0.9)
+  - ViewDeck (2.2.11)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.2.1)
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - HTAutocompleteTextField (~> 1.1.2)
   - MagicalRecord (~> 2.1)
   - SVProgressHUD (~> 0.9)
+  - ViewDeck (~> 2.2.11)
 
 SPEC CHECKSUMS:
   AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
@@ -21,5 +23,6 @@ SPEC CHECKSUMS:
   HTAutocompleteTextField: 69eaa27fb32f44a2dcda8c969863a2aa79504d1b
   MagicalRecord: 64e7184c240087a45e9588a722eaf05b0ad837f7
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+  ViewDeck: b5eddc8559b0e47259ab7addbf2de6768061f139
 
 COCOAPODS: 0.18.1
