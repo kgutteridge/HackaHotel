@@ -5,32 +5,32 @@
 
 
 extern const struct HotelAttributes {
-	 NSString *address1;
-	 NSString *airportCode;
-	 NSString *amenityMask;
-	 NSString *city;
-	 NSString *confidenceRating;
-	 NSString *countryCode;
-	 NSString *deepLink;
-	 NSString *eanShortDescription;
-	 NSString *highRate;
-	 NSString *hotelId;
-	 NSString *hotelInDestination;
-	 NSString *hotelRating;
-	 NSString *latitude;
-	 NSString *locationDescription;
-	 NSString *longtitude;
-	 NSString *lowRate;
-	 NSString *name;
-	 NSString *postalCode;
-	 NSString *propertyCategory;
-	 NSString *proximityDistance;
-	 NSString *proximityUnit;
-	 NSString *rateCurrencyCode;
-	 NSString *stateProvinceCode;
-	 NSString *supplierType;
-	 NSString *thumbnailURL;
-	 NSString *tripAdvisorRating;
+	__unsafe_unretained NSString *address1;
+	__unsafe_unretained NSString *airportCode;
+	__unsafe_unretained NSString *amenityMask;
+	__unsafe_unretained NSString *city;
+	__unsafe_unretained NSString *confidenceRating;
+	__unsafe_unretained NSString *countryCode;
+	__unsafe_unretained NSString *deepLink;
+	__unsafe_unretained NSString *eanShortDescription;
+	__unsafe_unretained NSString *highRate;
+	__unsafe_unretained NSString *hotelId;
+	__unsafe_unretained NSString *hotelInDestination;
+	__unsafe_unretained NSString *hotelRating;
+	__unsafe_unretained NSString *latitude;
+	__unsafe_unretained NSString *locationDescription;
+	__unsafe_unretained NSString *longtitude;
+	__unsafe_unretained NSString *lowRate;
+	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *postalCode;
+	__unsafe_unretained NSString *propertyCategory;
+	__unsafe_unretained NSString *proximityDistance;
+	__unsafe_unretained NSString *proximityUnit;
+	__unsafe_unretained NSString *rateCurrencyCode;
+	__unsafe_unretained NSString *stateProvinceCode;
+	__unsafe_unretained NSString *supplierType;
+	__unsafe_unretained NSString *thumbnailURL;
+	__unsafe_unretained NSString *tripAdvisorRating;
 } HotelAttributes;
 
 extern const struct HotelRelationships {
@@ -80,7 +80,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* address1;
+@property (nonatomic, strong) NSString* address1;
 
 
 
@@ -90,7 +90,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* airportCode;
+@property (nonatomic, strong) NSString* airportCode;
 
 
 
@@ -100,7 +100,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* amenityMask;
+@property (nonatomic, strong) NSNumber* amenityMask;
 
 
 
@@ -114,7 +114,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* city;
+@property (nonatomic, strong) NSString* city;
 
 
 
@@ -124,7 +124,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* confidenceRating;
+@property (nonatomic, strong) NSNumber* confidenceRating;
 
 
 
@@ -138,7 +138,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* countryCode;
+@property (nonatomic, strong) NSString* countryCode;
 
 
 
@@ -148,7 +148,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* deepLink;
+@property (nonatomic, strong) NSString* deepLink;
 
 
 
@@ -158,7 +158,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* eanShortDescription;
+@property (nonatomic, strong) NSString* eanShortDescription;
 
 
 
@@ -168,7 +168,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* highRate;
+@property (nonatomic, strong) NSNumber* highRate;
 
 
 
@@ -182,7 +182,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* hotelId;
+@property (nonatomic, strong) NSNumber* hotelId;
 
 
 
@@ -196,7 +196,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* hotelInDestination;
+@property (nonatomic, strong) NSNumber* hotelInDestination;
 
 
 
@@ -210,7 +210,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* hotelRating;
+@property (nonatomic, strong) NSNumber* hotelRating;
 
 
 
@@ -224,7 +224,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* latitude;
+@property (nonatomic, strong) NSNumber* latitude;
 
 
 
@@ -238,7 +238,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* locationDescription;
+@property (nonatomic, strong) NSString* locationDescription;
 
 
 
@@ -248,7 +248,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* longtitude;
+@property (nonatomic, strong) NSNumber* longtitude;
 
 
 
@@ -262,7 +262,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* lowRate;
+@property (nonatomic, strong) NSNumber* lowRate;
 
 
 
@@ -276,7 +276,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* name;
+@property (nonatomic, strong) NSString* name;
 
 
 
@@ -286,7 +286,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* postalCode;
+@property (nonatomic, strong) NSString* postalCode;
 
 
 
@@ -296,7 +296,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* propertyCategory;
+@property (nonatomic, strong) NSNumber* propertyCategory;
 
 
 
@@ -310,7 +310,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* proximityDistance;
+@property (nonatomic, strong) NSNumber* proximityDistance;
 
 
 
@@ -324,7 +324,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* proximityUnit;
+@property (nonatomic, strong) NSString* proximityUnit;
 
 
 
@@ -334,7 +334,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* rateCurrencyCode;
+@property (nonatomic, strong) NSString* rateCurrencyCode;
 
 
 
@@ -344,7 +344,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* stateProvinceCode;
+@property (nonatomic, strong) NSString* stateProvinceCode;
 
 
 
@@ -354,7 +354,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* supplierType;
+@property (nonatomic, strong) NSString* supplierType;
 
 
 
@@ -364,7 +364,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* thumbnailURL;
+@property (nonatomic, strong) NSString* thumbnailURL;
 
 
 
@@ -374,7 +374,7 @@ extern const struct HotelFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* tripAdvisorRating;
+@property (nonatomic, strong) NSNumber* tripAdvisorRating;
 
 
 
