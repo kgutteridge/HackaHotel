@@ -37,6 +37,9 @@
 		FD257467172C2D2A00EE0E85 /* _Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257464172C2D2A00EE0E85 /* _Hotel.m */; };
 		FD257468172C2D2A00EE0E85 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257466172C2D2A00EE0E85 /* Hotel.m */; };
 		FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC48F1F172C25830037B17F /* EANAPIManager.m */; };
+		E256EA63172C266300379760 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = E256EA60172C266300379760 /* 2.png */; };
+		E256EA64172C266300379760 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = E256EA61172C266300379760 /* 1.png */; };
+		E256EA65172C266300379760 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = E256EA62172C266300379760 /* 0.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,9 @@
 		FDC48F1A172C24E00037B17F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		FDC48F1E172C25830037B17F /* EANAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANAPIManager.h; sourceTree = "<group>"; };
 		FDC48F1F172C25830037B17F /* EANAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANAPIManager.m; sourceTree = "<group>"; };
+		E256EA60172C266300379760 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		E256EA61172C266300379760 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		E256EA62172C266300379760 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +189,9 @@
 		E256EA58172C1C7200379760 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E256EA60172C266300379760 /* 2.png */,
+				E256EA61172C266300379760 /* 1.png */,
+				E256EA62172C266300379760 /* 0.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -271,6 +280,9 @@
 				E256EA4A172C17D800379760 /* Default.png in Resources */,
 				E256EA4C172C17D800379760 /* Default@2x.png in Resources */,
 				E256EA4E172C17D800379760 /* Default-568h@2x.png in Resources */,
+				E256EA63172C266300379760 /* 2.png in Resources */,
+				E256EA64172C266300379760 /* 1.png in Resources */,
+				E256EA65172C266300379760 /* 0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
