@@ -1,0 +1,25 @@
+PODS:
+  - AFNetworking (1.2.1)
+  - BButton (2.0.0)
+  - Facebook-iOS-SDK (3.5.1)
+  - HTAutocompleteTextField (1.1.2)
+  - MagicalRecord (2.1)
+  - SVProgressHUD (0.9)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.2.1)
+  - BButton (~> 2.0.0)
+  - Facebook-iOS-SDK (~> 3.5.1)
+  - HTAutocompleteTextField (~> 1.1.2)
+  - MagicalRecord (~> 2.1)
+  - SVProgressHUD (~> 0.9)
+
+SPEC CHECKSUMS:
+  AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
+  BButton: cb3b6dbbb7d56c646f14c406be40fbc7c950295d
+  Facebook-iOS-SDK: 0dbd897e842cefeb012ec2eb8eba659ba6b96b12
+  HTAutocompleteTextField: 69eaa27fb32f44a2dcda8c969863a2aa79504d1b
+  MagicalRecord: 64e7184c240087a45e9588a722eaf05b0ad837f7
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+
+COCOAPODS: 0.18.1
