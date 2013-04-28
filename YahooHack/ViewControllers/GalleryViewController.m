@@ -12,6 +12,7 @@
 #import "EANWebService.h"
 #import "Hotel.h"
 #import "NSDictionary+Helper.h"
+#import "HotelDetailViewController.h"
 
 @interface GalleryViewController ()
 @property (nonatomic, strong) UIView *imagesCanvas;
@@ -173,7 +174,11 @@
                                       (y * imageSize),
                                       imageSize, imageSize);
             
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotelSelected:)];
+            
             UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
+            [hotelImageView setUserInteractionEnabled:YES];
+            [hotelImageView addGestureRecognizer:tapGesture];
             [hotelImageView setClipsToBounds:YES];
             [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
             if (!self.initialImageLoadComplete) {
@@ -186,6 +191,7 @@
                 Hotel *hotel = selectedHotels[currentHotel];
                 NSString *hotelImageURL = [NSString stringWithFormat:@"%@%@",MEDIA_URL_PREFIX,hotel.thumbnailURL];
                 [hotelImageView setImageWithURL:[NSURL URLWithString:hotelImageURL]];
+                [hotelImageView setTag:[hotel.hotelId integerValue]];
             }
             
             [self.imagesCanvas addSubview:hotelImageView];
@@ -194,8 +200,8 @@
     }
     
     if (!self.initialImageLoadComplete) {
-        [UIView animateWithDuration:1.25
-                              delay:1.0
+        [UIView animateWithDuration:1.0
+                              delay:0.0
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
                              for (UIView *hotelImageView in self.imagesCanvas.subviews) {
@@ -204,9 +210,60 @@
                          }
                          completion:^(BOOL finished) {
                              self.initialImageLoadComplete = YES;
+                             
+                             [UIView animateWithDuration:0.3
+                                              animations:^{
+                                                  for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                      [hotelImageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
+                                                      [hotelImageView setAlpha:0.7];
+                                                  }
+                                              } completion:^(BOOL finished) {
+                                                  [UIView animateWithDuration:0.3
+                                                                   animations:^{
+                                                                       for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                                           [hotelImageView setTransform:CGAffineTransformMakeScale(1.05, 1.05)];
+                                                                           [hotelImageView setAlpha:1.0];
+                                                                       }
+                                                                   }
+                                                                   completion:^(BOOL finished) {
+                                                                       [UIView animateWithDuration:0.3
+                                                                                        animations:^{
+                                                                                            for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                                                                [hotelImageView setTransform:CGAffineTransformIdentity];
+                                                                                            }
+                                                                                        } completion:nil
+                                                                        ];
+                                                                       
+                                                                   }];
+                                              }];
+                             
                          }];
     }
     
+}
+
+
+#pragma mark - UIGestureRecogniser Listener
+- (void)hotelSelected:(UITapGestureRecognizer *)gesture {
+    
+    UIView *hotelThumbnail = [gesture view];
+    
+    Hotel *selectedHotel = nil;
+    for (Hotel *hotel in self.allHotels) {
+        if ([hotel.hotelId integerValue] == hotelThumbnail.tag) {
+            selectedHotel = hotel;
+            break;
+        }
+    }
+    
+    if (selectedHotel) {
+        HotelDetailViewController *detailViewController = [[HotelDetailViewController alloc] init];
+        [detailViewController setHotel:selectedHotel];
+        
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    } else {
+        NSLog(@"Unable to display Hotel");
+    }
 }
 
 
