@@ -57,8 +57,10 @@
                     countryCode:@"GB"
                       startDate:[NSDate date]
                         endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
-
+    
     [self setupTempButton];
+    
+    [self setupViewDeckButtons];
     
     // [self setupSlider];
     // [self setupSliderValueLabel];
@@ -138,18 +140,42 @@
 - (void)setupTempButton {
     
     UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [tempButton setFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 80, 50, 80, 40)];
-    [tempButton setTitle:@"Remove 20 Hotels" forState:UIControlStateNormal];
+    [tempButton setFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 80, 50, 180, 40)];
+    [tempButton setTitle:@"Remove 100 Hotels" forState:UIControlStateNormal];
     [tempButton addTarget:self action:@selector(tempButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:tempButton];
 }
 
+- (void)setupViewDeckButtons {
+    
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [leftButton setFrame:CGRectMake(0, 0, 60, 60)];
+    [leftButton setTitle:@">" forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:leftButton];
+    
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [rightButton setFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 60, 0, 60, 60)];
+    [rightButton setTitle:@"<" forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:rightButton];
+    
+}
+
+- (void)leftButtonPressed:(UIButton *)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)rightButtonPressed:(UIButton *)sender {
+    NSLog(@"%s", __FUNCTION__);
+}
+
 - (void)tempButtonPressed:(UIButton *)sender {
     
-    // pick 20 random hotels to remove
-    NSMutableArray *randomHotels = [[NSMutableArray alloc] initWithCapacity:20];
+    // pick 100 random hotels to remove
+    NSMutableArray *randomHotels = [[NSMutableArray alloc] initWithCapacity:50];
     
-    while ([randomHotels count] < 20) {
+    while ([randomHotels count] < 100) {
         
         int randomIndex = rand() % ([self.allHotels count] - 1);
         Hotel *randomHotel = [self.allHotels objectAtIndex:randomIndex];
@@ -158,12 +184,12 @@
             [randomHotels addObject:randomHotel];
         }
     }
-
-NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.allHotels];
-[subSelectionHotels removeObjectsInArray:randomHotels];
-
-[self updateUIWithHotels:subSelectionHotels];
-
+    
+    NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.allHotels];
+    [subSelectionHotels removeObjectsInArray:randomHotels];
+    
+    [self updateUIWithHotels:subSelectionHotels];
+    
 }
 
 #pragma mark - UpdateUI
@@ -199,6 +225,7 @@ NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.
         for (UIView *hotelImageView in self.imagesCanvas.subviews) {
             if ([hotel.hotelId integerValue] == hotelImageView.tag) {
                 [selectedImageViews addObject:hotelImageView];
+                NSLog(@"X: %d", hotelImageView.tag);
                 break;
             }
         }
@@ -210,10 +237,10 @@ NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.
         }
     }
     
-    NSLog(@"Selected/Unselected : %d/%d", [selectedImageViews count], [unSelectedImageViews count]);
     
-    int square = [self getSquare:[selectedHotels count]];
-    int hotelCount = [selectedHotels count];
+    // Do the Grid sums based on whether or not we have existing views (either Selected or UnSelected)
+    int square      = [selectedImageViews count] > 0 ? [self getSquare:[selectedImageViews count]] : [self getSquare:[selectedHotels count]];
+    int hotelCount  = [selectedImageViews count] > 0 ? [selectedImageViews count] : [selectedHotels count];
     
     int cols = square +1;
     if(square * square == hotelCount) {
@@ -224,43 +251,86 @@ NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.
     CGFloat imageSize = floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
-    int currentHotel = 0;
-    for (int y = 0; y < rows; y++)
-    {
-        for(int x = 0; x< cols; x++)
+    if ([selectedImageViews count] > 0) {
+        // Hide Unselected Hotels (if any)
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             for (UIView *unselectedView in unSelectedImageViews) {
+                                 [unselectedView setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
+                                 [unselectedView setAlpha:0.0];
+                             }
+                         } completion:^(BOOL finished) {
+                                                         
+                             [UIView animateWithDuration:0.5
+                                              animations:^{
+                                                  
+                                                  int currentHotel = 0;
+                                                  for (int y = 0; y < rows; y++)
+                                                  {
+                                                      for(int x = 0; x< cols; x++)
+                                                      {
+                                                          CGRect frame = CGRectMake((x * imageSize) + leftInset,
+                                                                                    (y * imageSize),
+                                                                                    imageSize, imageSize);
+                                                          
+                                                          if(currentHotel >= hotelCount) {
+                                                             // Just Ignore
+                                                          } else {
+                                                              
+                                                              //   Hotel *hotel = (Hotel *)selectedHotels[currentHotel];
+                                                              //   UIImageView *thisHotelImageView = (UIImageView *)[self.imagesCanvas viewWithTag:[hotel.hotelId integerValue]];
+                                                              
+                                                              //[thisHotelImageView setCenter:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
+                                                              [selectedImageViews[currentHotel] setFrame:frame];
+                                                          }
+                                                          
+                                                          currentHotel++;
+                                                      }
+                                                  }
+                                              } completion:^(BOOL finished) {
+                                                  NSLog(@"Reordering Selected Hotels");
+                                              }];
+                         }];
+        
+    } else {
+        
+        int currentHotel = 0;
+        for (int y = 0; y < rows; y++)
         {
-            CGRect frame = CGRectMake((x * imageSize) + leftInset,
-                                      (y * imageSize),
-                                      imageSize, imageSize);
-            
-            
-            
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotelSelected:)];
-            UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
-            [hotelImageView setUserInteractionEnabled:YES];
-            [hotelImageView addGestureRecognizer:tapGesture];
-            [hotelImageView setClipsToBounds:YES];
-            [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
-            if (!self.initialImageLoadComplete) {
-                [self moveOffScreenInitialImageView:hotelImageView];
+            for(int x = 0; x< cols; x++)
+            {
+                CGRect frame = CGRectMake((x * imageSize) + leftInset,
+                                          (y * imageSize),
+                                          imageSize, imageSize);
+                
+                
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotelSelected:)];
+                UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
+                [hotelImageView setUserInteractionEnabled:YES];
+                [hotelImageView addGestureRecognizer:tapGesture];
+                [hotelImageView setClipsToBounds:YES];
+                [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
+                if (!self.initialImageLoadComplete) {
+                    [self moveOffScreenInitialImageView:hotelImageView];
+                }
+                
+                if(currentHotel >= hotelCount) {
+                    [hotelImageView setBackgroundColor:[UIColor clearColor]];
+                } else {
+                    Hotel *hotel = selectedHotels[currentHotel];
+                    NSString *hotelImageURL = [NSString stringWithFormat:@"%@%@",MEDIA_URL_PREFIX,hotel.thumbnailURL];
+                    [hotelImageView setImageWithURL:[NSURL URLWithString:hotelImageURL]];
+                    [hotelImageView setTag:[hotel.hotelId integerValue]];
+                }
+                
+                [self.imagesCanvas addSubview:hotelImageView];
+                currentHotel++;
             }
-            
-            if(currentHotel >= hotelCount) {
-                [hotelImageView setBackgroundColor:[UIColor clearColor]];
-            } else {
-                Hotel *hotel = selectedHotels[currentHotel];
-                NSString *hotelImageURL = [NSString stringWithFormat:@"%@%@",MEDIA_URL_PREFIX,hotel.thumbnailURL];
-                [hotelImageView setImageWithURL:[NSURL URLWithString:hotelImageURL]];
-                [hotelImageView setTag:[hotel.hotelId integerValue]];
-            }
-            
-            [self.imagesCanvas addSubview:hotelImageView];
-            currentHotel++;
         }
-    }
-    
-    if (!self.initialImageLoadComplete) {
-        [self onboardAnimateHotelImageViews];
+        
+        if (!self.initialImageLoadComplete) {
+            [self onboardAnimateHotelImageViews];
+        }
     }
 }
 
