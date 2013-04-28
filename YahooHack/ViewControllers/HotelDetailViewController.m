@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIView *overlayViewTop;
 @property (nonatomic, strong) UIView *overlayViewBottom;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @property (nonatomic, strong) OFFlickrAPIRequest *flickrRequest;
 @end
@@ -25,7 +26,7 @@
     // Switch view to be Landscape Only - Flip Height and Width
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, applicationFrame.size.height, applicationFrame.size.width)];
-    contentView.backgroundColor = [UIColor whiteColor];
+    contentView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
     
     self.view = contentView;
 }
@@ -34,10 +35,10 @@
     [super viewDidLoad];
     
     [self setupBackgroundImageView];
-    [self setupBackButton];
     
     [self setupOverlayTop];
     [self setupOverlayBottom];
+    [self setupSpinner];
     
 }
 
@@ -83,16 +84,6 @@
 }
 
 #pragma mark - Setup
-
--(void)setupBackButton
-{
-    UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [tempButton setFrame:CGRectMake(80, 50, 180, 40)];
-    [tempButton setTitle:@"Back" forState:UIControlStateNormal];
-    [tempButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:tempButton];
-    
-}
 
 - (void)setupBackgroundImageView {
     
@@ -197,6 +188,15 @@
     [self.view addSubview:self.overlayViewBottom];
 }
 
+- (void)setupSpinner {
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.spinner setCenter:self.view.center];
+    [self.spinner setHidesWhenStopped:YES];
+    [self.spinner startAnimating];
+    [self.view addSubview:self.spinner];
+}
+
 - (void)transitionOverlay:(UIGestureRecognizer *)gesture {
     
     [UIView animateWithDuration:0.5
@@ -215,16 +215,9 @@
                      }];
 }
 
--(IBAction)backButtonPressed:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)imageDoubleTapped:(UITapGestureRecognizer *)gesture {
     
-    UIImageView *backgroundImageView = (UIImageView *) [gesture view];
-    
-    //DO SOMETHING TO TRANSITION TO NEW IMAGE
+     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -252,6 +245,7 @@
     NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
 
     [self.backgroundImage setImageWithURL:staticPhotoURL placeholderImage:nil];
+    [self.spinner stopAnimating];
     
   //  [[UIApplication sharedApplication] openURL:staticPhotoURL];
 }
