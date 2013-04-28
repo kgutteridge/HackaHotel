@@ -51,7 +51,7 @@
 {
     [super viewWillAppear:animated];
     
-   // NSLog(@"Hotel location %@,%@",self.hotel.latitude, self.hotel.longtitude);
+    // NSLog(@"Hotel location %@,%@",self.hotel.latitude, self.hotel.longtitude);
     
     self.currentCounter = 0;
     
@@ -127,8 +127,8 @@
     [latLongLabel setBackgroundColor:[UIColor clearColor]];
     
     UILabel *tripAdvisorRatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                      CGRectGetMaxY(latLongLabel.frame),
-                                                                      CGRectGetWidth(self.overlayViewTop.bounds) - 12, 26)];
+                                                                                CGRectGetMaxY(latLongLabel.frame),
+                                                                                CGRectGetWidth(self.overlayViewTop.bounds) - 12, 26)];
     [tripAdvisorRatingLabel setText:[NSString stringWithFormat:@"Trip Advisor Rating : %@", self.hotel.tripAdvisorRating]];
     [tripAdvisorRatingLabel setTextColor:[UIColor colorWithWhite:1.0 alpha:1.0]];
     [tripAdvisorRatingLabel setFont:[UIFont systemFontOfSize:15]];
@@ -157,7 +157,7 @@
     [self.overlayViewBottom addSubview:hotelImageView];
     
     UILabel *hotelNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(hotelImageView.frame) + 20,
-                                                                       CGRectGetMinY(hotelImageView.frame),
+                                                                        CGRectGetMinY(hotelImageView.frame),
                                                                         CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 40)];
     [hotelNameLabel setText:self.hotel.name];
     [hotelNameLabel setTextColor:[UIColor colorWithWhite:0.95 alpha:1.0]];
@@ -167,8 +167,8 @@
     [hotelNameLabel setBackgroundColor:[UIColor clearColor]];
     
     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(hotelImageView.frame) + 20,
-                                                                        CGRectGetMaxY(hotelNameLabel.frame) + 10,
-                                                                        CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
+                                                                      CGRectGetMaxY(hotelNameLabel.frame) + 10,
+                                                                      CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
     [addressLabel setText:[NSString stringWithFormat:@"%@ %@ %@", self.hotel.address1, self.hotel.city, self.hotel.postalCode]];
     [addressLabel setTextColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
     [addressLabel setFont:[UIFont systemFontOfSize:20]];
@@ -177,8 +177,8 @@
     [addressLabel setBackgroundColor:[UIColor clearColor]];
     
     UILabel *telLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(addressLabel.frame) + 20,
-                                                                      CGRectGetMaxY(addressLabel.frame) + 10,
-                                                                      CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
+                                                                  CGRectGetMaxY(addressLabel.frame) + 10,
+                                                                  CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
     [telLabel setText:[NSString stringWithFormat:@"%@", self.hotel.locationDescription]];
     [telLabel setTextColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
     [telLabel setFont:[UIFont systemFontOfSize:20]];
@@ -222,7 +222,7 @@
 
 - (void)imageDoubleTapped:(UITapGestureRecognizer *)gesture {
     
-     [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -231,7 +231,7 @@
 {
     if (!_flickrRequest) {
         
-         OFFlickrAPIContext *context = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
+        OFFlickrAPIContext *context = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
         
         _flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:context];
         _flickrRequest.delegate = self;
@@ -249,13 +249,8 @@
     
     self.photosArray = photos;
     
-    NSDictionary *photoDict = [photos lastObject];
-
-    NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
     
-    
-    [self.backgroundImage setImageWithURL:staticPhotoURL];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
     
     [self.spinner stopAnimating];
     
@@ -273,15 +268,41 @@
 
 -(void)changeImage
 {
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self selector:@selector(changeImage) userInfo:nil repeats:NO];
+
     self.currentCounter ++;
     
     if(self.currentCounter < [self.photosArray count])
     {
+       
         OFFlickrAPIContext *flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
-
+        
         NSDictionary *photoDict = [self.photosArray objectAtIndex:self.currentCounter];
         NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
-        [self.backgroundImage setImageWithURL:staticPhotoURL];
+        __weak UIImageView *backgroundImageViewWeak = self.backgroundImage;
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            [self.backgroundImage setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            [self.backgroundImage setImageWithURLRequest:[NSURLRequest requestWithURL:staticPhotoURL]
+                                        placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                            
+                                            [backgroundImageViewWeak setImage:image];
+                                            [UIView animateWithDuration:0.4 animations:^{
+                                                [backgroundImageViewWeak setAlpha:1.0];
+                                            }];
+                                        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                            
+                                        }];
+        }];
+        
+       
+        
+        if (CGAffineTransformIsIdentity(self.overlayViewTop.transform)) {
+            [self transitionOverlay:nil];
+        }
+        
     }
 }
 

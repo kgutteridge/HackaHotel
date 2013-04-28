@@ -120,6 +120,7 @@
     [self.locationTextField setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
     [self.locationTextField.layer setBorderColor:[UIColor blackColor].CGColor];
     [self.locationTextField.layer setBorderWidth:1.0f];
+    [self.locationTextField becomeFirstResponder];
     [self.locationTextFieldContainerView addSubview:self.locationTextField];
 }
 
