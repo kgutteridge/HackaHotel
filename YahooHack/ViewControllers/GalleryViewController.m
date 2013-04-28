@@ -19,8 +19,9 @@
 @property (nonatomic, strong) NSArray *allHotels;
 @property (nonatomic, assign) BOOL initialImageLoadComplete;
 
-@property (nonatomic, strong) UILabel *sliderValueLabel;
-@property (nonatomic, strong) UISlider *slider;
+//@property (nonatomic, strong) UILabel *sliderValueLabel;
+//@property (nonatomic, strong) UISlider *slider;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -49,17 +50,18 @@
     [self.view setBackgroundColor:[UIColor blackColor]];
     
     [self setupImagesCanvas];
-    //[self updateImages];
+    [self setupSpinner];
     
-    [self downloadHotelsforCity:@"London"
+    [self downloadHotelsforCity:@"Heathrow"
                    provinceCode:@""
                     countryCode:@"GB"
                       startDate:[NSDate date]
                         endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
+
+    [self setupTempButton];
     
-    [self setupSlider];
-    [self setupSliderValueLabel];
-    
+    // [self setupSlider];
+    // [self setupSliderValueLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,44 +89,93 @@
 
 
 #pragma mark - Setup
-- (void)setupSlider {
-    
-    self.slider = [[UISlider alloc] initWithFrame:
-                   CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
-                              400,
-                              CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.imagesCanvas.bounds) - 40,
-                              44)];
-    [self.slider setMaximumValue:144.0];
-    [self.slider setMinimumValue:1.0];
-    [self.slider setValue:144.0];
-    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    [self.view addSubview:self.slider];
-}
-
-- (void)setupSliderValueLabel {
-    
-    self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [self.sliderValueLabel setFont:[UIFont boldSystemFontOfSize:40]];
-    [self.sliderValueLabel setTextColor:[UIColor whiteColor]];
-    [self.sliderValueLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.sliderValueLabel setBackgroundColor:self.view.backgroundColor];
-    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 144]];
-    [self.sliderValueLabel setCenter:CGPointMake(CGRectGetMidX(self.slider.frame), CGRectGetMaxY(self.slider.frame) + CGRectGetHeight(self.sliderValueLabel.bounds))];
-    
-    [self.view addSubview:self.sliderValueLabel];
-}
+/*
+ - (void)setupSlider {
+ 
+ self.slider = [[UISlider alloc] initWithFrame:
+ CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
+ 400,
+ CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.imagesCanvas.bounds) - 40,
+ 44)];
+ [self.slider setMaximumValue:144.0];
+ [self.slider setMinimumValue:1.0];
+ [self.slider setValue:144.0];
+ [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+ 
+ [self.view addSubview:self.slider];
+ }
+ 
+ - (void)setupSliderValueLabel {
+ 
+ self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+ [self.sliderValueLabel setFont:[UIFont boldSystemFontOfSize:40]];
+ [self.sliderValueLabel setTextColor:[UIColor whiteColor]];
+ [self.sliderValueLabel setTextAlignment:NSTextAlignmentCenter];
+ [self.sliderValueLabel setBackgroundColor:self.view.backgroundColor];
+ [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 144]];
+ [self.sliderValueLabel setCenter:CGPointMake(CGRectGetMidX(self.slider.frame), CGRectGetMaxY(self.slider.frame) + CGRectGetHeight(self.sliderValueLabel.bounds))];
+ 
+ [self.view addSubview:self.sliderValueLabel];
+ }
+ */
 
 - (void)setupImagesCanvas {
     
     self.imagesCanvas = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 700, 700)];
-    [self.imagesCanvas setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1.0]];
+    [self.imagesCanvas setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
     [self.view addSubview:self.imagesCanvas];
 }
 
+- (void)setupSpinner {
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [self.spinner setCenter:CGPointMake(CGRectGetMidX(self.imagesCanvas.bounds), CGRectGetMidY(self.imagesCanvas.bounds))];
+    [self.spinner setHidesWhenStopped:YES];
+    [self.spinner startAnimating];
+    [self.imagesCanvas addSubview:self.spinner];
+}
+
+- (void)setupTempButton {
+    
+    UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [tempButton setFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 80, 50, 80, 40)];
+    [tempButton setTitle:@"Remove 20 Hotels" forState:UIControlStateNormal];
+    [tempButton addTarget:self action:@selector(tempButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tempButton];
+}
+
+- (void)tempButtonPressed:(UIButton *)sender {
+    
+    // pick 20 random hotels to remove
+    NSMutableArray *randomHotels = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    while ([randomHotels count] < 20) {
+        
+        int randomIndex = rand() % ([self.allHotels count] - 1);
+        Hotel *randomHotel = [self.allHotels objectAtIndex:randomIndex];
+        
+        if (![randomHotels containsObject:randomHotel]) {
+            [randomHotels addObject:randomHotel];
+        }
+    }
+
+NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.allHotels];
+[subSelectionHotels removeObjectsInArray:randomHotels];
+
+[self updateUIWithHotels:subSelectionHotels];
+
+}
+
+#pragma mark - UpdateUI
+/*
+ - (void)updateSlider {
+ [self.sliderValueLabel setText:[NSString stringWithFormat:@"%2.0f", [self.slider value]]];
+ }
+ */
+
 - (void)updateImages {
     
-    int newNumberOfHotels = [self.slider value];
+    int newNumberOfHotels = 10; //= [self.slider value];
     
     NSMutableArray *newSelectedHotels = [[NSMutableArray alloc] initWithCapacity:newNumberOfHotels];
     
@@ -133,21 +184,35 @@
     }
     
     [self updateUIWithHotels:newSelectedHotels];
-    [self updateSlider];
-}
-
-
-#pragma mark - UpdateUI
-- (void)updateSlider {
-    
-    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%2.0f", [self.slider value]]];
+    //  [self updateSlider];
 }
 
 - (void)updateUIWithHotels:(NSArray *)selectedHotels {
     
-    for (UIView *subView  in self.imagesCanvas.subviews) {
-        [subView removeFromSuperview];
+    [self.spinner stopAnimating];
+    
+    NSMutableArray *selectedImageViews = [[NSMutableArray alloc] init];
+    NSMutableArray *unSelectedImageViews = [[NSMutableArray alloc] init];
+    
+    // go through all existing HotelImageViews and separate the selected from the unselected in allHotels
+    for (Hotel *hotel in selectedHotels) {
+        
+        BOOL hotelIsInSelected = NO;
+        for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+            if ([hotel.hotelId integerValue] == hotelImageView.tag) {
+                hotelIsInSelected = YES;
+                [selectedImageViews addObject:hotelImageView];
+                break;
+            }
+        }
     }
+    
+    for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+        if (![selectedImageViews containsObject:hotelImageView]) {
+            [unSelectedImageViews addObject:hotelImageView];
+        }
+    }
+    NSLog(@"Number Selected/UnSelected : %d / %d", [selectedImageViews count], [unSelectedImageViews count]);
     
     int square = [self getSquare:[selectedHotels count]];
     int hotelCount = [selectedHotels count];
@@ -174,8 +239,9 @@
                                       (y * imageSize),
                                       imageSize, imageSize);
             
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotelSelected:)];
             
+            
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotelSelected:)];
             UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
             [hotelImageView setUserInteractionEnabled:YES];
             [hotelImageView addGestureRecognizer:tapGesture];
@@ -200,46 +266,8 @@
     }
     
     if (!self.initialImageLoadComplete) {
-        [UIView animateWithDuration:1.0
-                              delay:0.0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             for (UIView *hotelImageView in self.imagesCanvas.subviews) {
-                                 [hotelImageView setTransform:CGAffineTransformIdentity];
-                             }
-                         }
-                         completion:^(BOOL finished) {
-                             self.initialImageLoadComplete = YES;
-                             
-                             [UIView animateWithDuration:0.3
-                                              animations:^{
-                                                  for (UIView *hotelImageView in self.imagesCanvas.subviews) {
-                                                      [hotelImageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
-                                                      [hotelImageView setAlpha:0.7];
-                                                  }
-                                              } completion:^(BOOL finished) {
-                                                  [UIView animateWithDuration:0.3
-                                                                   animations:^{
-                                                                       for (UIView *hotelImageView in self.imagesCanvas.subviews) {
-                                                                           [hotelImageView setTransform:CGAffineTransformMakeScale(1.05, 1.05)];
-                                                                           [hotelImageView setAlpha:1.0];
-                                                                       }
-                                                                   }
-                                                                   completion:^(BOOL finished) {
-                                                                       [UIView animateWithDuration:0.3
-                                                                                        animations:^{
-                                                                                            for (UIView *hotelImageView in self.imagesCanvas.subviews) {
-                                                                                                [hotelImageView setTransform:CGAffineTransformIdentity];
-                                                                                            }
-                                                                                        } completion:nil
-                                                                        ];
-                                                                       
-                                                                   }];
-                                              }];
-                             
-                         }];
+        [self onboardAnimateHotelImageViews];
     }
-    
 }
 
 
@@ -297,9 +325,9 @@
                                    
                                    if(!thisHotel)
                                    {
-                                         thisHotel = [Hotel MR_createEntity];
+                                       thisHotel = [Hotel MR_createEntity];
                                    }
-
+                                   
                                    [thisHotel setPropertiesFromDictionary:hotelDict];
                                    [hotels addObject:thisHotel];
                                    
@@ -315,6 +343,7 @@
                            }
                             andFailure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON) {
                                 NSLog(@"ERROR : %@", error);
+                                [self.spinner stopAnimating];
                             }];
 }
 
@@ -333,6 +362,49 @@
     randY = (randY % 2 == 0) ? randY * -1 : randY;
     
     [view setTransform:CGAffineTransformMakeTranslation(randX, randY)];
+}
+
+
+#pragma mark - Animation Helpers
+- (void)onboardAnimateHotelImageViews {
+    [UIView animateWithDuration:1.0
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                             [hotelImageView setTransform:CGAffineTransformIdentity];
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         self.initialImageLoadComplete = YES;
+                         
+                         [UIView animateWithDuration:0.3
+                                          animations:^{
+                                              for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                  [hotelImageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
+                                                  [hotelImageView setAlpha:0.7];
+                                              }
+                                          } completion:^(BOOL finished) {
+                                              [UIView animateWithDuration:0.3
+                                                               animations:^{
+                                                                   for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                                       [hotelImageView setTransform:CGAffineTransformMakeScale(1.05, 1.05)];
+                                                                       [hotelImageView setAlpha:1.0];
+                                                                   }
+                                                               }
+                                                               completion:^(BOOL finished) {
+                                                                   [UIView animateWithDuration:0.3
+                                                                                    animations:^{
+                                                                                        for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                                                                            [hotelImageView setTransform:CGAffineTransformIdentity];
+                                                                                        }
+                                                                                    } completion:nil
+                                                                    ];
+                                                                   
+                                                               }];
+                                          }];
+                         
+                     }];
 }
 
 @end
