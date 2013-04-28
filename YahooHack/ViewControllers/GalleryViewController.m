@@ -15,7 +15,7 @@
 #import "HotelDetailViewController.h"
 #import "MGCheckbox.h"
 
-@interface GalleryViewController () <MGCheckboxDelegate, NSFetchedResultsControllerDelegate>
+@interface GalleryViewController () <MGCheckboxDelegate, NSFetchedResultsControllerDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UIView *imagesCanvas;
 @property (nonatomic, strong) NSArray *allHotels;
 @property (nonatomic, assign) BOOL initialImageLoadComplete;
@@ -25,14 +25,14 @@
 @property (nonatomic, strong) UIView *locationTextFieldContainerView;
 @property (nonatomic, strong) UIView *filterContainerView;
 
+@property (nonatomic, strong) UITextField *locationTextField;
+
 @end
 
 #define MAX_IMAGES_PER_ROW 10.0f
 #define MAX_ROWS 5
 #define MIN_PADDING_BETWEEN_IMAGES 5.0f
 #define HOTEL_IMAGEVIEW_EDGE_INSET 3.0f
-
-#define MEDIA_URL_PREFIX @"http://media.expedia.com"
 
 @implementation GalleryViewController
 
@@ -54,13 +54,13 @@
     [self setupImagesCanvas];
     [self setupSpinner];
     
-    [self downloadHotelsforCity:@"London"
-                   provinceCode:@""
-                    countryCode:@"GB"
-                      startDate:[NSDate date]
-                        endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
+//    [self downloadHotelsforCity:@"London"
+//                   provinceCode:@""
+//                    countryCode:@"GB"
+//                      startDate:[NSDate date]
+//                        endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
     
-    [self setupTempButton];
+   // [self setupTempButton];
     [self setLocationTextFieldContainerView];
     [self setupFilterView];
 }
@@ -95,11 +95,23 @@
     self.locationTextFieldContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
                                                                                   CGRectGetMinY(self.imagesCanvas.frame),
                                                                                   CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.imagesCanvas.frame) - 40,
-                                                                                  90)];
+                                                                                  110)];
     
     [self.locationTextFieldContainerView setBackgroundColor:self.imagesCanvas.backgroundColor];
     [self.view addSubview:self.locationTextFieldContainerView];
     [self.view sendSubviewToBack:self.locationTextFieldContainerView];
+    
+    
+    self.locationTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, CGRectGetWidth(self.locationTextFieldContainerView.bounds) - 20, 30)];
+    [self.locationTextField setDelegate:self];
+    [self.locationTextField setPlaceholder:@"City/Location"];
+    [self.locationTextField setTextAlignment:NSTextAlignmentCenter];
+    [self.locationTextField setFont:[UIFont systemFontOfSize:24]];
+    [self.locationTextField setTextColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
+    [self.locationTextField setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+    [self.locationTextField.layer setBorderColor:[UIColor blackColor].CGColor];
+    [self.locationTextField.layer setBorderWidth:1.0f];
+    [self.locationTextFieldContainerView addSubview:self.locationTextField];
 }
 
 - (void)setupFilterView {
@@ -118,76 +130,79 @@
     [self.view addSubview:self.filterContainerView];
     [self.view sendSubviewToBack:self.filterContainerView];
     
-    MGCheckbox *kidsActivity        = [self checkboxWithCenter:CGPointMake(40, 80) tag:kChildrensActivities];
+    MGCheckbox *kidsActivity        = [self checkboxWithCenter:CGPointMake(40, 30) tag:kChildrensActivities];
     [filterScrollView addSubview:kidsActivity];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Childrens Activities" withFrame:CGRectMake(CGRectGetMaxX(kidsActivity.frame)+5, CGRectGetMinY(kidsActivity.frame), 200, CGRectGetHeight(kidsActivity.bounds))]];
-    MGCheckbox *kitchen             = [self checkboxWithCenter:CGPointMake(40, 130) tag:kKitchen];
-    [filterScrollView addSubview:kitchen];
-    [filterScrollView addSubview:[self labelForCheckboxTitled:@"Kitchen" withFrame:CGRectMake(CGRectGetMaxX(kitchen.frame)+5, CGRectGetMinY(kitchen.frame), 200, CGRectGetHeight(kitchen.bounds))]];
-    MGCheckbox *allowsPets          = [self checkboxWithCenter:CGPointMake(40, 180) tag:kPetsAllowed];
+    MGCheckbox *businessCenter        = [self checkboxWithCenter:CGPointMake(40, 80) tag:kBusinessCenter];
+    [filterScrollView addSubview:businessCenter];
+    [filterScrollView addSubview:[self labelForCheckboxTitled:@"Business Center" withFrame:CGRectMake(CGRectGetMaxX(businessCenter.frame)+5, CGRectGetMinY(businessCenter.frame), 200, CGRectGetHeight(businessCenter.bounds))]];
+    //MGCheckbox *kitchen             = [self checkboxWithCenter:CGPointMake(40, 130) tag:kKitchen];
+    //[filterScrollView addSubview:kitchen];
+    //[filterScrollView addSubview:[self labelForCheckboxTitled:@"Kitchen" withFrame:CGRectMake(CGRectGetMaxX(kitchen.frame)+5, CGRectGetMinY(kitchen.frame), 200, CGRectGetHeight(kitchen.bounds))]];
+    MGCheckbox *allowsPets          = [self checkboxWithCenter:CGPointMake(40, 130) tag:kPetsAllowed];
     [filterScrollView addSubview:allowsPets];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Pets Allowed" withFrame:CGRectMake(CGRectGetMaxX(allowsPets.frame)+5, CGRectGetMinY(allowsPets.frame), 200, CGRectGetHeight(allowsPets.bounds))]];
-    MGCheckbox *pool                = [self checkboxWithCenter:CGPointMake(40, 230) tag:kPool];
+    MGCheckbox *pool                = [self checkboxWithCenter:CGPointMake(40, 180) tag:kPool];
     [filterScrollView addSubview:pool];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"With Pool" withFrame:CGRectMake(CGRectGetMaxX(pool.frame)+5, CGRectGetMinY(pool.frame), 200, CGRectGetHeight(pool.bounds))]];
-    MGCheckbox *restaurantOnSite    = [self checkboxWithCenter:CGPointMake(40, 280) tag:kOnSiteRestaurant];
+    MGCheckbox *restaurantOnSite    = [self checkboxWithCenter:CGPointMake(40, 230) tag:kOnSiteRestaurant];
     [filterScrollView addSubview:restaurantOnSite];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"OnSite Restaurant" withFrame:CGRectMake(CGRectGetMaxX(restaurantOnSite.frame)+5, CGRectGetMinY(restaurantOnSite.frame), 200, CGRectGetHeight(restaurantOnSite.bounds))]];
-    MGCheckbox *spaOnSite           = [self checkboxWithCenter:CGPointMake(40, 330) tag:kOnSiteSpa];
+    MGCheckbox *spaOnSite           = [self checkboxWithCenter:CGPointMake(40, 280) tag:kOnSiteSpa];
     [filterScrollView addSubview:spaOnSite];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"OnSite Spa" withFrame:CGRectMake(CGRectGetMaxX(spaOnSite.frame)+5, CGRectGetMinY(spaOnSite.frame), 200, CGRectGetHeight(spaOnSite.bounds))]];
-    MGCheckbox *whirlpool           = [self checkboxWithCenter:CGPointMake(40, 380) tag:kWhirlpool];
+    MGCheckbox *whirlpool           = [self checkboxWithCenter:CGPointMake(40, 330) tag:kWhirlpool];
     [filterScrollView addSubview:whirlpool];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Whirlpool" withFrame:CGRectMake(CGRectGetMaxX(whirlpool.frame)+5, CGRectGetMinY(whirlpool.frame), 200, CGRectGetHeight(whirlpool.bounds))]];
-    MGCheckbox *breakfast           = [self checkboxWithCenter:CGPointMake(40, 430) tag:kBreakfast];
+    MGCheckbox *breakfast           = [self checkboxWithCenter:CGPointMake(40, 380) tag:kBreakfast];
     [filterScrollView addSubview:breakfast];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Breakfast" withFrame:CGRectMake(CGRectGetMaxX(breakfast.frame)+5, CGRectGetMinY(breakfast.frame), 200, CGRectGetHeight(breakfast.bounds))]];
-    MGCheckbox *babysiting          = [self checkboxWithCenter:CGPointMake(40, 480) tag:kBabySiting];
-    [filterScrollView addSubview:babysiting];
-    [filterScrollView addSubview:[self labelForCheckboxTitled:@"Baby Sitting" withFrame:CGRectMake(CGRectGetMaxX(babysiting.frame)+5, CGRectGetMinY(babysiting.frame), 200, CGRectGetHeight(babysiting.bounds))]];
-    MGCheckbox *jacuzzi             = [self checkboxWithCenter:CGPointMake(40, 530) tag:kJacuzzi];
+    MGCheckbox *fitnessCenter          = [self checkboxWithCenter:CGPointMake(40, 430) tag:kFitnessCenter];
+    [filterScrollView addSubview:fitnessCenter];
+    [filterScrollView addSubview:[self labelForCheckboxTitled:@"Fitness Center" withFrame:CGRectMake(CGRectGetMaxX(fitnessCenter.frame)+5, CGRectGetMinY(fitnessCenter.frame), 200, CGRectGetHeight(fitnessCenter.bounds))]];
+    MGCheckbox *jacuzzi             = [self checkboxWithCenter:CGPointMake(40, 480) tag:kJacuzzi];
     [filterScrollView addSubview:jacuzzi];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Jacuzzi" withFrame:CGRectMake(CGRectGetMaxX(jacuzzi.frame)+5, CGRectGetMinY(jacuzzi.frame), 200, CGRectGetHeight(jacuzzi.bounds))]];
-    MGCheckbox *parking             = [self checkboxWithCenter:CGPointMake(40, 580) tag:kParking];
+    MGCheckbox *parking             = [self checkboxWithCenter:CGPointMake(40, 530) tag:kParking];
     [filterScrollView addSubview:parking];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Parking" withFrame:CGRectMake(CGRectGetMaxX(parking.frame)+5, CGRectGetMinY(parking.frame), 200, CGRectGetHeight(parking.bounds))]];
-    MGCheckbox *roomService         = [self checkboxWithCenter:CGPointMake(40, 630) tag:kRoomService];
+    MGCheckbox *roomService         = [self checkboxWithCenter:CGPointMake(40, 580) tag:kRoomService];
     [filterScrollView addSubview:roomService];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Room Service" withFrame:CGRectMake(CGRectGetMaxX(roomService.frame)+5, CGRectGetMinY(roomService.frame), 200, CGRectGetHeight(roomService.bounds))]];
-    MGCheckbox *accesibleTravel     = [self checkboxWithCenter:CGPointMake(40, 680) tag:kAccessableTravel];
+    MGCheckbox *accesibleTravel     = [self checkboxWithCenter:CGPointMake(40, 630) tag:kAccessableTravel];
     [filterScrollView addSubview:accesibleTravel];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Accesible Travel" withFrame:CGRectMake(CGRectGetMaxX(accesibleTravel.frame)+5, CGRectGetMinY(accesibleTravel.frame), 200, CGRectGetHeight(accesibleTravel.bounds))]];
-    MGCheckbox *accesibleBathroom   = [self checkboxWithCenter:CGPointMake(40, 730) tag:kAccesibleBathroom];
+    MGCheckbox *accesibleBathroom   = [self checkboxWithCenter:CGPointMake(40, 680) tag:kAccesibleBathroom];
     [filterScrollView addSubview:accesibleBathroom];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Accesible Bathroom" withFrame:CGRectMake(CGRectGetMaxX(accesibleBathroom.frame)+5, CGRectGetMinY(accesibleBathroom.frame), 200, CGRectGetHeight(accesibleBathroom.bounds))]];
-    MGCheckbox *rollInShower        = [self checkboxWithCenter:CGPointMake(40, 780) tag:kRollInShower];
+    MGCheckbox *rollInShower        = [self checkboxWithCenter:CGPointMake(40, 730) tag:kRollInShower];
     [filterScrollView addSubview:rollInShower];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Roll-in Shower" withFrame:CGRectMake(CGRectGetMaxX(rollInShower.frame)+5, CGRectGetMinY(rollInShower.frame), 200, CGRectGetHeight(rollInShower.bounds))]];
-    MGCheckbox *handicapParking     = [self checkboxWithCenter:CGPointMake(40, 830) tag:kHandicapParking];
+    MGCheckbox *handicapParking     = [self checkboxWithCenter:CGPointMake(40, 780) tag:kHandicapParking];
     [filterScrollView addSubview:handicapParking];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Handicap Parking" withFrame:CGRectMake(CGRectGetMaxX(handicapParking.frame)+5, CGRectGetMinY(handicapParking.frame), 200, CGRectGetHeight(handicapParking.bounds))]];
-    MGCheckbox *roomAccesibility    = [self checkboxWithCenter:CGPointMake(40, 880) tag:kRoomAccesibility];
+    MGCheckbox *roomAccesibility    = [self checkboxWithCenter:CGPointMake(40, 830) tag:kRoomAccesibility];
     [filterScrollView addSubview:roomAccesibility];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Room Accesibility" withFrame:CGRectMake(CGRectGetMaxX(roomAccesibility.frame)+5, CGRectGetMinY(roomAccesibility.frame), 200, CGRectGetHeight(roomAccesibility.bounds))]];
-    MGCheckbox *deafEquipment       = [self checkboxWithCenter:CGPointMake(40, 930) tag:kDeafEquipment];
+    MGCheckbox *deafEquipment       = [self checkboxWithCenter:CGPointMake(40, 880) tag:kDeafEquipment];
     [filterScrollView addSubview:deafEquipment];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Deaf Equipment" withFrame:CGRectMake(CGRectGetMaxX(deafEquipment.frame)+5, CGRectGetMinY(deafEquipment.frame), 200, CGRectGetHeight(deafEquipment.bounds))]];
-    MGCheckbox *braille             = [self checkboxWithCenter:CGPointMake(40, 980) tag:kBraille];
+    MGCheckbox *braille             = [self checkboxWithCenter:CGPointMake(40, 930) tag:kBraille];
     [filterScrollView addSubview:braille];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Braille" withFrame:CGRectMake(CGRectGetMaxX(braille.frame)+5, CGRectGetMinY(braille.frame), 200, CGRectGetHeight(braille.bounds))]];
-    MGCheckbox *indoorPool          = [self checkboxWithCenter:CGPointMake(40, 1030) tag:kIndoorPool];
+    MGCheckbox *indoorPool          = [self checkboxWithCenter:CGPointMake(40, 980) tag:kIndoorPool];
     [filterScrollView addSubview:indoorPool];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Indoor Pool" withFrame:CGRectMake(CGRectGetMaxX(indoorPool.frame)+5, CGRectGetMinY(indoorPool.frame), 200, CGRectGetHeight(indoorPool.bounds))]];
-    MGCheckbox *outdoorPool         = [self checkboxWithCenter:CGPointMake(40, 1080) tag:kOutdoorPool];
+    MGCheckbox *outdoorPool         = [self checkboxWithCenter:CGPointMake(40, 1030) tag:kOutdoorPool];
     [filterScrollView addSubview:outdoorPool];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Outdoor Pool" withFrame:CGRectMake(CGRectGetMaxX(outdoorPool.frame)+5, CGRectGetMinY(outdoorPool.frame), 200, CGRectGetHeight(outdoorPool.bounds))]];
-    MGCheckbox *freeAirportShuttle  = [self checkboxWithCenter:CGPointMake(40, 1130) tag:kFreeAirportShuttle];
+    MGCheckbox *freeAirportShuttle  = [self checkboxWithCenter:CGPointMake(40, 1080) tag:kFreeAirportShuttle];
     [filterScrollView addSubview:freeAirportShuttle];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Free Airport Shuttle" withFrame:CGRectMake(CGRectGetMaxX(freeAirportShuttle.frame)+5, CGRectGetMinY(freeAirportShuttle.frame), 200, CGRectGetHeight(freeAirportShuttle.bounds))]];
-    MGCheckbox *extendedParking     = [self checkboxWithCenter:CGPointMake(40, 1180) tag:kExtendedParking];
+    MGCheckbox *extendedParking     = [self checkboxWithCenter:CGPointMake(40, 1130) tag:kExtendedParking];
     [filterScrollView addSubview:extendedParking];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Extended Parking" withFrame:CGRectMake(CGRectGetMaxX(extendedParking.frame)+5, CGRectGetMinY(extendedParking.frame), 200, CGRectGetHeight(extendedParking.bounds))]];
-    MGCheckbox *freeParking         = [self checkboxWithCenter:CGPointMake(40, 1230) tag:kFreeParking];
+    MGCheckbox *freeParking         = [self checkboxWithCenter:CGPointMake(40, 1180) tag:kFreeParking];
     [filterScrollView addSubview:freeParking];
     [filterScrollView addSubview:[self labelForCheckboxTitled:@"Free Parking" withFrame:CGRectMake(CGRectGetMaxX(freeParking.frame)+5, CGRectGetMinY(freeParking.frame), 200, CGRectGetHeight(freeParking.bounds))]];
     
@@ -226,7 +241,6 @@
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [self.spinner setCenter:CGPointMake(CGRectGetMidX(self.imagesCanvas.bounds), CGRectGetMidY(self.imagesCanvas.bounds))];
     [self.spinner setHidesWhenStopped:YES];
-    [self.spinner startAnimating];
     [self.imagesCanvas addSubview:self.spinner];
 }
 
@@ -410,6 +424,8 @@
 #pragma mark - Update
 - (void)downloadHotelsforCity:(NSString *)city provinceCode:(NSString *)provinceCode countryCode:(NSString *)countyCode startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
     
+    [self.spinner startAnimating];
+    
     [EANWebService hotelDetailsForCity:city
                      stateProvinceCode:provinceCode
                            countryCode:countyCode
@@ -515,8 +531,7 @@
 - (void)checkbox:(MGCheckbox *)checkbox didChangeState:(BOOL)selected {
     NSLog(@"%s", __FUNCTION__);
     
-    
-    
+
     NSMutableArray * searchPredicates = [NSMutableArray array];
     
    
@@ -525,10 +540,16 @@
     {
          [searchPredicates addObject:[NSPredicate predicateWithFormat:@"kidsActivities == 1"]];
     }
-    
-    if([(MGCheckbox *)[self.filterContainerView viewWithTag:kKitchen] isSelected])
+   
+    if([(MGCheckbox *)[self.filterContainerView viewWithTag:kBusinessCenter] isSelected])
     {
-         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"kitchen == 1"]];
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"businessCenter == 1"]];
+    }
+    
+    
+    if([(MGCheckbox *)[self.filterContainerView viewWithTag:kFitnessCenter] isSelected])
+    {
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"fitnessCenter == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kPetsAllowed] isSelected])
@@ -560,12 +581,12 @@
     {
          [searchPredicates addObject:[NSPredicate predicateWithFormat:@"breakfast == 1"]];
     }
-    
+    /*
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kBabySiting] isSelected])
     {
          [searchPredicates addObject:[NSPredicate predicateWithFormat:@"babySitting == 1"]];
     }
-    
+    */
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kJacuzzi] isSelected])
     {
          [searchPredicates addObject:[NSPredicate predicateWithFormat:@"jacuzzi == 1"]];
@@ -657,6 +678,33 @@
     NSLog(@"Hotels %@",hotels);
     
     [self updateUIWithHotels:hotels];
+}
+
+- (void)clear {
+    
+    for (UIView *subview in self.imagesCanvas.subviews) {
+        if ([subview isKindOfClass:[UIImageView class]]) {
+            [subview removeFromSuperview];
+        }
+        
+        self.allHotels = nil;
+    }
+}
+
+
+#pragma mark - TextField Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    [self clear];
+    
+    [self downloadHotelsforCity:textField.text
+                   provinceCode:@""
+                    countryCode:@"GB"
+                      startDate:[NSDate date]
+                        endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
+    
+    return YES;
 }
 
 @end

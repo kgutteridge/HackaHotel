@@ -7,10 +7,9 @@
 //
 
 #import "HotelDetailViewController.h"
-#import <objectiveflickr/ObjectiveFlickr.h>
+#import "UIImageView+AFNetworking.h"
 
-
-@interface HotelDetailViewController() <OFFlickrAPIRequestDelegate>
+@interface HotelDetailViewController ()
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIView *overlayViewTop;
 @property (nonatomic, strong) UIView *overlayViewBottom;
@@ -25,7 +24,7 @@
     // Switch view to be Landscape Only - Flip Height and Width
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, applicationFrame.size.height, applicationFrame.size.width)];
-    contentView.backgroundColor = [UIColor blackColor];
+    contentView.backgroundColor = [UIColor whiteColor];
     
     self.view = contentView;
 }
@@ -91,10 +90,16 @@
 
 - (void)setupBackgroundImageView {
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDoubleTapped:)];
+    [doubleTapGesture setNumberOfTapsRequired:2];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(transitionOverlay:)];
+    [tapGesture requireGestureRecognizerToFail:doubleTapGesture];
+    
     self.backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.backgroundImage setUserInteractionEnabled:YES];
     [self.backgroundImage addGestureRecognizer:tapGesture];
+    [self.backgroundImage addGestureRecognizer:doubleTapGesture];
     
     [self.view addSubview:self.backgroundImage];
 }
@@ -103,7 +108,7 @@
     
     self.overlayViewTop = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 150)];
     [self.overlayViewTop setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [self.overlayViewTop setTransform:CGAffineTransformMakeTranslation(0, CGRectGetHeight(self.overlayViewTop.bounds))];
+    [self.overlayViewTop setTransform:CGAffineTransformMakeTranslation(0, -CGRectGetHeight(self.overlayViewTop.bounds))];
     [self.overlayViewTop setAlpha:0.5];
     
     [self.view addSubview:self.overlayViewTop];
@@ -112,19 +117,59 @@
 - (void)setupOverlayBottom {
     self.overlayViewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 150, CGRectGetWidth(self.view.bounds), 150)];
     [self.overlayViewBottom setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [self.overlayViewBottom setTransform:CGAffineTransformMakeTranslation(0, CGRectGetHeight(self.overlayViewTop.bounds))];
+    [self.overlayViewBottom setTransform:CGAffineTransformMakeTranslation(0, CGRectGetHeight(self.overlayViewBottom.bounds))];
     [self.overlayViewBottom setAlpha:0.5];
+    
+    UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 110, 110)];
+    [hotelImageView setClipsToBounds:YES];
+    [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
+    NSString *hotelImageURL = [NSString stringWithFormat:@"%@%@",MEDIA_URL_PREFIX,self.hotel.thumbnailURL];
+    [hotelImageView setImageWithURL:[NSURL URLWithString:hotelImageURL]];
+    [self.overlayViewBottom addSubview:hotelImageView];
+    
+    UILabel *hotelNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(hotelImageView.frame) + 20,
+                                                                       CGRectGetMinY(hotelImageView.frame),
+                                                                        CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 40)];
+    [hotelNameLabel setText:self.hotel.name];
+    [hotelNameLabel setTextColor:[UIColor colorWithWhite:0.95 alpha:1.0]];
+    [hotelNameLabel setFont:[UIFont boldSystemFontOfSize:36]];
+    [hotelNameLabel setShadowColor:[UIColor darkGrayColor]];
+    [hotelNameLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    [hotelNameLabel setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(hotelImageView.frame) + 20,
+                                                                        CGRectGetMaxY(hotelNameLabel.frame) + 10,
+                                                                        CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
+    [addressLabel setText:[NSString stringWithFormat:@"%@ %@ %@", self.hotel.address1, self.hotel.city, self.hotel.postalCode]];
+    [addressLabel setTextColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
+    [addressLabel setFont:[UIFont systemFontOfSize:20]];
+    [addressLabel setShadowColor:[UIColor darkGrayColor]];
+    [addressLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    [addressLabel setBackgroundColor:[UIColor clearColor]];
+    
+    [self.overlayViewBottom addSubview:hotelImageView];
+    [self.overlayViewBottom addSubview:hotelNameLabel];
+    [self.overlayViewBottom addSubview:addressLabel];
     
     [self.view addSubview:self.overlayViewBottom];
 }
 
-- (void)transitionOverlay {
+- (void)transitionOverlay:(UIGestureRecognizer *)gesture {
     
-    if (!CGAffineTransformIsIdentity(self.overlayViewTop.transform)) {
-        [self.overlayViewTop setTransform:CGAffineTransformIdentity];
-        [self.overlayViewBottom setTransform:CGAffineTransformIdentity];
-    }
-    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         if (!CGAffineTransformIsIdentity(self.overlayViewTop.transform)) {
+                             [self.overlayViewTop setTransform:CGAffineTransformIdentity];
+                             [self.overlayViewBottom setTransform:CGAffineTransformIdentity];
+                             [self.overlayViewTop setAlpha:1.0];
+                             [self.overlayViewBottom setAlpha:1.0];
+                         } else {
+                             [self.overlayViewTop setTransform:CGAffineTransformMakeTranslation(0, -CGRectGetHeight(self.overlayViewTop.bounds))];
+                             [self.overlayViewBottom setTransform:CGAffineTransformMakeTranslation(0, CGRectGetHeight(self.overlayViewBottom.bounds))];
+                             [self.overlayViewTop setAlpha:0.5];
+                             [self.overlayViewBottom setAlpha:0.5];
+                         }
+                     }];
 }
 
 -(IBAction)backButtonPressed:(id)sender
@@ -132,7 +177,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)imageTapped:(UITapGestureRecognizer *)gesture {
+- (void)imageDoubleTapped:(UITapGestureRecognizer *)gesture {
     
     UIImageView *backgroundImageView = (UIImageView *) [gesture view];
     

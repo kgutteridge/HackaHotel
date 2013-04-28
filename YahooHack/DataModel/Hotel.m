@@ -93,7 +93,7 @@
     self.accessibleBathroomValue = [self hasAccessibleBathroom];
     self.rollinShowerValue = [self hasRollInShower];
     self.handicapParkingValue = [self hasHandicapParking];
-    self.inRoomAccesibilityValue = [self hasInRoomAccesibility];
+   /* self.inRoomAccesibilityValue = [self hasInRoomAccesibility];
     self.deafEquipmentValue = [self hasDeafEquipment];
     self.brailleValue = [self hasBraille];
     self.freeAirportShuttleValue = [self hasFreeAirportShuttle];
@@ -101,7 +101,7 @@
     self.outdoorPoolValue = [self outdoorPoolValue];
     self.extendingParkingValue = [self hasExtendedParking];
     self.freeParkingValue = [self hasFreeParking];
-    
+    */
 }
 
 -(BOOL)hasBusinessCenter
