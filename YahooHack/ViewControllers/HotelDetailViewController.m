@@ -7,11 +7,15 @@
 //
 
 #import "HotelDetailViewController.h"
+#import <objectiveflickr/ObjectiveFlickr.h>
 
-@interface HotelDetailViewController ()
+
+@interface HotelDetailViewController() <OFFlickrAPIRequestDelegate>
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIView *overlayViewTop;
 @property (nonatomic, strong) UIView *overlayViewBottom;
+
+@property (nonatomic, strong) OFFlickrAPIRequest *flickrRequest;
 @end
 
 @implementation HotelDetailViewController
@@ -34,6 +38,22 @@
     
     [self setupOverlayTop];
     [self setupOverlayBottom];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"Hotel location %@,%@",self.hotel.latitude, self.hotel.longtitude);
+    
+    //http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=4cb26b7f09f917e2f9154d48087de93d&lat=51.48929&lon=-0.18007&format=rest
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"25", @"per_page",
+                            nil]
+    
+    [self.flickrRequest callAPIMethodWithGET:@"flickr.photos.search" arguments:params];
 }
 
 
@@ -117,6 +137,35 @@
     UIImageView *backgroundImageView = (UIImageView *) [gesture view];
     
     //DO SOMETHING TO TRANSITION TO NEW IMAGE
+}
+
+
+#pragma mark flickr integration
+- (OFFlickrAPIRequest *)flickrRequest
+{
+    if (!_flickrRequest) {
+        
+         OFFlickrAPIContext *context = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
+        
+        _flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:context];
+        _flickrRequest.delegate = self;
+		_flickrRequest.requestTimeoutInterval = 60.0;
+    }
+    
+    return _flickrRequest;
+}
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+{
+    
+}
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+    
+}
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes
+{
+    
 }
 
 @end
