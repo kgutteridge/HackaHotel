@@ -11,6 +11,7 @@
 #import "Math.h"
 #import "EANWebService.h"
 #import "Hotel.h"
+#import "NSDictionary+Helper.h"
 
 @interface GalleryViewController ()
 @property (nonatomic, strong) UIView *imagesCanvas;
@@ -214,10 +215,19 @@
                                
                                for(NSDictionary *hotelDict in hotelSummaries) {
                                    
-                                   //need to search and see if this is unique 
-                                   Hotel *hotel = [Hotel MR_createEntity];
-                                   [hotel setPropertiesFromDictionary:hotelDict];
-                                   [hotels addObject:hotel];
+                                   //need to search and see if this is unique
+                                   
+                                   NSNumber * hotelId = [hotelDict objectForKeyNotNull:@"hotelId"];
+                                   
+                                   Hotel *thisHotel = [Hotel MR_findFirstByAttribute:@"hotelId" withValue:hotelId];
+                                   
+                                   if(!thisHotel)
+                                   {
+                                         thisHotel = [Hotel MR_createEntity];
+                                   }
+
+                                   [thisHotel setPropertiesFromDictionary:hotelDict];
+                                   [hotels addObject:thisHotel];
                                    
                                    if ([hotels count] >= 144) {
                                        break;
