@@ -27,6 +27,8 @@
 #define MIN_PADDING_BETWEEN_IMAGES 5.0f
 #define HOTEL_IMAGEVIEW_EDGE_INSET 1.0f
 
+#define MEDIA_URL_PREFIX @"http://media.expedia.com"
+
 @implementation GalleryViewController
 
 - (void)loadView {
@@ -46,14 +48,16 @@
     
     [self setupImagesCanvas];
     //[self updateImages];
-    //[self setupSlider];
-    //[self setupSliderValueLabel];
     
     [self downloadHotelsforCity:@"London"
                    provinceCode:@""
                     countryCode:@"GB"
                       startDate:[NSDate date]
                         endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
+    
+    [self setupSlider];
+    [self setupSliderValueLabel];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -88,9 +92,9 @@
                               400,
                               CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.imagesCanvas.bounds) - 40,
                               44)];
-    [self.slider setMaximumValue:256.0];
+    [self.slider setMaximumValue:144.0];
     [self.slider setMinimumValue:1.0];
-    [self.slider setValue:10];
+    [self.slider setValue:144.0];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:self.slider];
@@ -103,7 +107,7 @@
     [self.sliderValueLabel setTextColor:[UIColor whiteColor]];
     [self.sliderValueLabel setTextAlignment:NSTextAlignmentCenter];
     [self.sliderValueLabel setBackgroundColor:self.view.backgroundColor];
-    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 10]];
+    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 144]];
     [self.sliderValueLabel setCenter:CGPointMake(CGRectGetMidX(self.slider.frame), CGRectGetMaxY(self.slider.frame) + CGRectGetHeight(self.sliderValueLabel.bounds))];
     
     [self.view addSubview:self.sliderValueLabel];
@@ -117,28 +121,31 @@
 }
 
 - (void)updateImages {
-  /*
-    for (UIView *subview in self.imagesCanvas.subviews) {
-        [subview removeFromSuperview];
-    }
-    [self.hotelImagesURL removeAllObjects];
-    self.hotelImagesURL = nil;
+
+    int newNumberOfHotels = [self.slider value];
     
-    // temp
-    int numberOfImages = floorf([self.slider value]) > 0 ? floorf([self.slider value]) : 10 ;
+    NSMutableArray *newSelectedHotels = [[NSMutableArray alloc] initWithCapacity:newNumberOfHotels];
     
-    self.hotelImagesURL = [[NSMutableArray alloc] init];
-    for (int loop = 0; loop < numberOfImages; loop++) {
-        int filenumber = loop % 3;
-        NSString *url = [NSString stringWithFormat:@"http://farm9.staticflickr.com/8536/8685310573_c8b50f7e59_d.jpg"];
-        [self.hotelImagesURL addObject:url];
+    for (int index = 0; index < newNumberOfHotels; index++) {
+        [newSelectedHotels addObject:self.allHotels[index]];
     }
-    */
+    
+    [self updateUIWithHotels:newSelectedHotels];
+    [self updateSlider];
 }
 
 
 #pragma mark - UpdateUI
+- (void)updateSlider {
+    
+    [self.sliderValueLabel setText:[NSString stringWithFormat:@"%2.0f", [self.slider value]]];
+}
+
 - (void)updateUIWithHotels:(NSArray *)selectedHotels {
+    
+    for (UIView *subView  in self.imagesCanvas.subviews) {
+        [subView removeFromSuperview];
+    }
     
     int square = [self getSquare:[selectedHotels count]];
     int hotelCount = [selectedHotels count];
@@ -173,7 +180,8 @@
                 [hotelImageView setBackgroundColor:[UIColor clearColor]];
             } else {
                 Hotel *hotel = selectedHotels[currentHotel];
-                [hotelImageView setImageWithURL:[NSURL URLWithString:hotel.thumbnailURL]];
+                NSString *hotelImageURL = [NSString stringWithFormat:@"%@%@",MEDIA_URL_PREFIX,hotel.thumbnailURL];
+                [hotelImageView setImageWithURL:[NSURL URLWithString:hotelImageURL]];
             }
             
             [self.imagesCanvas addSubview:hotelImageView];
@@ -186,7 +194,6 @@
 #pragma mark - UISlider Listener
 - (void)sliderValueChanged:(UISlider *)sender {
     [self updateImages];
-  //  [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", [self.hotelImagesURL count]]];
 }
 
 
@@ -204,17 +211,23 @@
                                NSArray *hotelSummaries = json[@"HotelListResponse"][@"HotelList"][@"HotelSummary"];
                                
                                NSMutableArray *hotels = [NSMutableArray array];
-                               for(NSDictionary *hotelDict in hotelSummaries)
-                               {
+                               
+                               for(NSDictionary *hotelDict in hotelSummaries) {
                                    
                                    //need to search and see if this is unique 
                                    Hotel *hotel = [Hotel MR_createEntity];
                                    [hotel setPropertiesFromDictionary:hotelDict];
                                    [hotels addObject:hotel];
+                                   
+                                   if ([hotels count] >= 144) {
+                                       break;
+                                   }
+                                   //NSLog(@"%d", [hotels count]);
                                }
                                
+                               self.allHotels = hotels;
                                
-                               [self updateUIWithHotels:hotels];
+                               [self updateUIWithHotels:self.allHotels];
                            }
                             andFailure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON) {
                                 NSLog(@"ERROR : %@", error);
