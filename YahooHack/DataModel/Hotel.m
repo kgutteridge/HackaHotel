@@ -72,11 +72,11 @@
      self.deepLink= [dictionary objectForKeyNotNull:@"thumbNailUrl"];
      self.thumbnailURL = [dictionary objectForKeyNotNull:@"thumbNailUrl"];
     
-    
+    /*
     self.businessCenterValue = [self hasBusinessCenter];
     self.fitnessCenterValue = [self hasFitnessCenter];
     self.hotTubValue = [self hasHotTub];
-    /*
+    
      ....
      
      */

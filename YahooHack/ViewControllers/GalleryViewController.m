@@ -13,22 +13,24 @@
 #import "Hotel.h"
 #import "NSDictionary+Helper.h"
 #import "HotelDetailViewController.h"
+#import "MGCheckbox.h"
 
-@interface GalleryViewController ()
+@interface GalleryViewController () <MGCheckboxDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, strong) UIView *imagesCanvas;
 @property (nonatomic, strong) NSArray *allHotels;
 @property (nonatomic, assign) BOOL initialImageLoadComplete;
 
-//@property (nonatomic, strong) UILabel *sliderValueLabel;
-//@property (nonatomic, strong) UISlider *slider;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
+@property (nonatomic, strong) UIView *locationTextFieldContainerView;
+@property (nonatomic, strong) UIView *filterContainerView;
 
 @end
 
 #define MAX_IMAGES_PER_ROW 10.0f
 #define MAX_ROWS 5
 #define MIN_PADDING_BETWEEN_IMAGES 5.0f
-#define HOTEL_IMAGEVIEW_EDGE_INSET 1.0f
+#define HOTEL_IMAGEVIEW_EDGE_INSET 3.0f
 
 #define MEDIA_URL_PREFIX @"http://media.expedia.com"
 
@@ -59,11 +61,8 @@
                         endDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
     
     [self setupTempButton];
-    
-    [self setupViewDeckButtons];
-    
-    // [self setupSlider];
-    // [self setupSliderValueLabel];
+    [self setLocationTextFieldContainerView];
+    [self setupFilterView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -91,35 +90,94 @@
 
 
 #pragma mark - Setup
-/*
- - (void)setupSlider {
- 
- self.slider = [[UISlider alloc] initWithFrame:
- CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
- 400,
- CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.imagesCanvas.bounds) - 40,
- 44)];
- [self.slider setMaximumValue:144.0];
- [self.slider setMinimumValue:1.0];
- [self.slider setValue:144.0];
- [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
- 
- [self.view addSubview:self.slider];
- }
- 
- - (void)setupSliderValueLabel {
- 
- self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
- [self.sliderValueLabel setFont:[UIFont boldSystemFontOfSize:40]];
- [self.sliderValueLabel setTextColor:[UIColor whiteColor]];
- [self.sliderValueLabel setTextAlignment:NSTextAlignmentCenter];
- [self.sliderValueLabel setBackgroundColor:self.view.backgroundColor];
- [self.sliderValueLabel setText:[NSString stringWithFormat:@"%d", 144]];
- [self.sliderValueLabel setCenter:CGPointMake(CGRectGetMidX(self.slider.frame), CGRectGetMaxY(self.slider.frame) + CGRectGetHeight(self.sliderValueLabel.bounds))];
- 
- [self.view addSubview:self.sliderValueLabel];
- }
- */
+- (void)setLocationTextFieldContainerView {
+    
+    self.locationTextFieldContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
+                                                                                  CGRectGetMinY(self.imagesCanvas.frame),
+                                                                                  CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.imagesCanvas.frame) - 40,
+                                                                                  90)];
+    
+    [self.locationTextFieldContainerView setBackgroundColor:self.imagesCanvas.backgroundColor];
+    [self.view addSubview:self.locationTextFieldContainerView];
+    [self.view sendSubviewToBack:self.locationTextFieldContainerView];
+}
+
+- (void)setupFilterView {
+    
+    self.filterContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.imagesCanvas.frame) + 20,
+                                                                        CGRectGetMaxY(self.locationTextFieldContainerView.frame) + 20,
+                                                                        CGRectGetWidth(self.locationTextFieldContainerView.bounds),
+                                                                        CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.locationTextFieldContainerView.frame) - 78)];
+    
+    [self.filterContainerView setTransform:CGAffineTransformMakeTranslation(500, 0)];
+    
+    [self.filterContainerView setBackgroundColor:self.imagesCanvas.backgroundColor];
+    UIScrollView *filterScrollView = [[UIScrollView alloc] initWithFrame:UIEdgeInsetsInsetRect(self.filterContainerView.bounds, UIEdgeInsetsMake(20, 0, 10, 0))];
+    [self.filterContainerView addSubview:filterScrollView];
+    
+    [self.view addSubview:self.filterContainerView];
+    [self.view sendSubviewToBack:self.filterContainerView];
+    
+    MGCheckbox *kidsActivity        = [self checkboxWithCenter:CGPointMake(40, 80) tag:4];
+    [filterScrollView addSubview:kidsActivity];
+    MGCheckbox *kitchen             = [self checkboxWithCenter:CGPointMake(40, 130) tag:5];
+    [filterScrollView addSubview:kitchen];
+    MGCheckbox *allowsPets          = [self checkboxWithCenter:CGPointMake(40, 180) tag:6];
+    [filterScrollView addSubview:allowsPets];
+    MGCheckbox *pool                = [self checkboxWithCenter:CGPointMake(40, 230) tag:7];
+    [filterScrollView addSubview:pool];
+    MGCheckbox *restaurantOnSite    = [self checkboxWithCenter:CGPointMake(40, 280) tag:8];
+    [filterScrollView addSubview:restaurantOnSite];
+    MGCheckbox *spaOnSite           = [self checkboxWithCenter:CGPointMake(40, 330) tag:9];
+    [filterScrollView addSubview:spaOnSite];
+    MGCheckbox *Whirlpool           = [self checkboxWithCenter:CGPointMake(40, 380) tag:10];
+    [filterScrollView addSubview:Whirlpool];
+    MGCheckbox *breakfast           = [self checkboxWithCenter:CGPointMake(40, 430) tag:11];
+    [filterScrollView addSubview:breakfast];
+    MGCheckbox *babysiting          = [self checkboxWithCenter:CGPointMake(40, 480) tag:12];
+    [filterScrollView addSubview:babysiting];
+    MGCheckbox *jacuzzi             = [self checkboxWithCenter:CGPointMake(40, 530) tag:13];
+    [filterScrollView addSubview:jacuzzi];
+    MGCheckbox *parking             = [self checkboxWithCenter:CGPointMake(40, 580) tag:14];
+    [filterScrollView addSubview:parking];
+    MGCheckbox *roomService         = [self checkboxWithCenter:CGPointMake(40, 630) tag:15];
+    [filterScrollView addSubview:roomService];
+    MGCheckbox *accesibleTravel     = [self checkboxWithCenter:CGPointMake(40, 680) tag:16];
+    [filterScrollView addSubview:accesibleTravel];
+    MGCheckbox *accesibleBathroom   = [self checkboxWithCenter:CGPointMake(40, 730) tag:17];
+    [filterScrollView addSubview:accesibleBathroom];
+    MGCheckbox *rollInShower        = [self checkboxWithCenter:CGPointMake(40, 780) tag:18];
+    [filterScrollView addSubview:rollInShower];
+    MGCheckbox *handicapParking     = [self checkboxWithCenter:CGPointMake(40, 830) tag:19];
+    [filterScrollView addSubview:handicapParking];
+    MGCheckbox *roomAccesibility    = [self checkboxWithCenter:CGPointMake(40, 880) tag:20];
+    [filterScrollView addSubview:roomAccesibility];
+    MGCheckbox *deafEquipment       = [self checkboxWithCenter:CGPointMake(40, 930) tag:21];
+    [filterScrollView addSubview:deafEquipment];
+    MGCheckbox *braille             = [self checkboxWithCenter:CGPointMake(40, 980) tag:22];
+    [filterScrollView addSubview:braille];
+    MGCheckbox *indoorPool          = [self checkboxWithCenter:CGPointMake(40, 1030) tag:23];
+    [filterScrollView addSubview:indoorPool];
+    MGCheckbox *outdoorPool         = [self checkboxWithCenter:CGPointMake(40, 1080) tag:24];
+    [filterScrollView addSubview:outdoorPool];
+    MGCheckbox *freeAirportShuttle  = [self checkboxWithCenter:CGPointMake(40, 1130) tag:25];
+    [filterScrollView addSubview:freeAirportShuttle];
+    MGCheckbox *extendedParking     = [self checkboxWithCenter:CGPointMake(40, 1180) tag:26];
+    [filterScrollView addSubview:extendedParking];
+    MGCheckbox *freeParking         = [self checkboxWithCenter:CGPointMake(40, 1230) tag:27];
+    [filterScrollView addSubview:freeParking];
+    
+    [filterScrollView setContentSize:CGSizeMake(CGRectGetWidth(filterScrollView.bounds), CGRectGetMaxY(freeParking.frame))];
+}
+
+- (MGCheckbox *)checkboxWithCenter:(CGPoint)center tag:(NSInteger)tag {
+    MGCheckbox *checkbox = [MGCheckbox checkbox];
+    [checkbox setCenter:center];
+    [checkbox setDelegate:self];
+    [checkbox setTag:tag];
+    
+    return checkbox;
+}
 
 - (void)setupImagesCanvas {
     
@@ -146,30 +204,6 @@
     [self.view addSubview:tempButton];
 }
 
-- (void)setupViewDeckButtons {
-    
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [leftButton setFrame:CGRectMake(0, 0, 60, 60)];
-    [leftButton setTitle:@">" forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:leftButton];
-    
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [rightButton setFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - 60, 0, 60, 60)];
-    [rightButton setTitle:@"<" forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:rightButton];
-    
-}
-
-- (void)leftButtonPressed:(UIButton *)sender {
-    NSLog(@"%s", __FUNCTION__);
-}
-
-- (void)rightButtonPressed:(UIButton *)sender {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)tempButtonPressed:(UIButton *)sender {
     
     // pick 100 random hotels to remove
@@ -193,26 +227,6 @@
 }
 
 #pragma mark - UpdateUI
-/*
- - (void)updateSlider {
- [self.sliderValueLabel setText:[NSString stringWithFormat:@"%2.0f", [self.slider value]]];
- }
- */
-
-- (void)updateImages {
-    
-    int newNumberOfHotels = 10; //= [self.slider value];
-    
-    NSMutableArray *newSelectedHotels = [[NSMutableArray alloc] initWithCapacity:newNumberOfHotels];
-    
-    for (int index = 0; index < newNumberOfHotels; index++) {
-        [newSelectedHotels addObject:self.allHotels[index]];
-    }
-    
-    [self updateUIWithHotels:newSelectedHotels];
-    //  [self updateSlider];
-}
-
 - (void)updateUIWithHotels:(NSArray *)selectedHotels {
     
     [self.spinner stopAnimating];
@@ -225,7 +239,6 @@
         for (UIView *hotelImageView in self.imagesCanvas.subviews) {
             if ([hotel.hotelId integerValue] == hotelImageView.tag) {
                 [selectedImageViews addObject:hotelImageView];
-                NSLog(@"X: %d", hotelImageView.tag);
                 break;
             }
         }
@@ -236,9 +249,9 @@
             [unSelectedImageViews addObject:thisView];
         }
     }
+    //NSLog(@"Selected/Unselected : %d/%d", [selectedImageViews count], [unSelectedImageViews count]);
     
-    
-    // Do the Grid sums based on whether or not we have existing views (either Selected or UnSelected)
+    // Do the Grid sums based on whether or not we have existing views (eg. Selected or UnSelected)
     int square      = [selectedImageViews count] > 0 ? [self getSquare:[selectedImageViews count]] : [self getSquare:[selectedHotels count]];
     int hotelCount  = [selectedImageViews count] > 0 ? [selectedImageViews count] : [selectedHotels count];
     
@@ -276,24 +289,24 @@
                                                           if(currentHotel >= hotelCount) {
                                                              // Just Ignore
                                                           } else {
-                                                              
-                                                              //   Hotel *hotel = (Hotel *)selectedHotels[currentHotel];
-                                                              //   UIImageView *thisHotelImageView = (UIImageView *)[self.imagesCanvas viewWithTag:[hotel.hotelId integerValue]];
-                                                              
-                                                              //[thisHotelImageView setCenter:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
-                                                              [selectedImageViews[currentHotel] setFrame:frame];
+                                                              UIImageView *hotelImageView = selectedImageViews[currentHotel];
+                                                              if (!CGAffineTransformIsIdentity(hotelImageView.transform)) {
+                                                                  [hotelImageView setTransform:CGAffineTransformIdentity];
+                                                              }
+                                                              [hotelImageView setFrame:frame];
+                                                              [hotelImageView setAlpha:1.0];
                                                           }
                                                           
                                                           currentHotel++;
                                                       }
                                                   }
-                                              } completion:^(BOOL finished) {
+                                              }
+                                              completion:^(BOOL finished) {
                                                   NSLog(@"Reordering Selected Hotels");
                                               }];
                          }];
-        
     } else {
-        
+        // This is the first load
         int currentHotel = 0;
         for (int y = 0; y < rows; y++)
         {
@@ -359,12 +372,6 @@
 }
 
 
-#pragma mark - UISlider Listener
-- (void)sliderValueChanged:(UISlider *)sender {
-    [self updateImages];
-}
-
-
 #pragma mark - Update
 - (void)downloadHotelsforCity:(NSString *)city provinceCode:(NSString *)provinceCode countryCode:(NSString *)countyCode startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
     
@@ -398,7 +405,6 @@
                                    if ([hotels count] >= 144) {
                                        break;
                                    }
-                                   //NSLog(@"%d", [hotels count]);
                                }
                                
                                self.allHotels = hotels;
@@ -453,8 +459,9 @@
                                                                animations:^{
                                                                    for (UIView *hotelImageView in self.imagesCanvas.subviews) {
                                                                        [hotelImageView setTransform:CGAffineTransformMakeScale(1.05, 1.05)];
-                                                                       [hotelImageView setAlpha:1.0];
+                                                                       [hotelImageView setAlpha:1.0]; 
                                                                    }
+                                                                   [self.filterContainerView setTransform:CGAffineTransformIdentity];
                                                                }
                                                                completion:^(BOOL finished) {
                                                                    [UIView animateWithDuration:0.3
@@ -462,13 +469,23 @@
                                                                                         for (UIView *hotelImageView in self.imagesCanvas.subviews) {
                                                                                             [hotelImageView setTransform:CGAffineTransformIdentity];
                                                                                         }
-                                                                                    } completion:nil
-                                                                    ];
+                                                                                    } completion:nil];
                                                                    
                                                                }];
                                           }];
                          
                      }];
+}
+
+
+#pragma mark - MGCheckBox Delegate
+- (void)checkbox:(MGCheckbox *)checkbox didChangeState:(BOOL)selected {
+    NSLog(@"%s", __FUNCTION__);
+    
+    NSPredicate *filter = [NSPredicate predicateWithFormat:@"name LIKE[c] %@", @"Hilton"];
+    NSArray *hotels = [[Hotel MR_fetchAllSortedBy:@"name" ascending:NO withPredicate:filter groupBy:nil delegate:self] fetchedObjects];
+     
+    [self updateUIWithHotels:hotels];
 }
 
 @end
