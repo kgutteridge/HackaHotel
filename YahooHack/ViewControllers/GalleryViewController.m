@@ -505,10 +505,8 @@
                                                                                             [hotelImageView setTransform:CGAffineTransformIdentity];
                                                                                         }
                                                                                     } completion:nil];
-                                                                   
                                                                }];
                                           }];
-                         
                      }];
 }
 
