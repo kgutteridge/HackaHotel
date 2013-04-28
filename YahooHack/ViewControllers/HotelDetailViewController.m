@@ -17,6 +17,11 @@
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @property (nonatomic, strong) OFFlickrAPIRequest *flickrRequest;
+@property (nonatomic, strong) NSArray *photosArray;
+@property (nonatomic) int currentCounter;
+@property (nonatomic, strong) NSTimer *timer;
+
+
 @end
 
 @implementation HotelDetailViewController
@@ -46,9 +51,9 @@
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"Hotel location %@,%@",self.hotel.latitude, self.hotel.longtitude);
+   // NSLog(@"Hotel location %@,%@",self.hotel.latitude, self.hotel.longtitude);
     
-    //http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=4cb26b7f09f917e2f9154d48087de93d&lat=51.48929&lon=-0.18007&format=rest
+    self.currentCounter = 0;
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSString stringWithFormat:@"%@",self.hotel.latitude],@"lat",
@@ -97,6 +102,7 @@
     [self.backgroundImage setUserInteractionEnabled:YES];
     [self.backgroundImage addGestureRecognizer:tapGesture];
     [self.backgroundImage addGestureRecognizer:doubleTapGesture];
+    [self.backgroundImage setContentMode:UIViewContentModeScaleAspectFit];
     
     [self.view addSubview:self.backgroundImage];
 }
@@ -180,7 +186,6 @@
     [telLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [telLabel setBackgroundColor:[UIColor clearColor]];
     
-    
     [self.overlayViewBottom addSubview:hotelImageView];
     [self.overlayViewBottom addSubview:hotelNameLabel];
     [self.overlayViewBottom addSubview:addressLabel];
@@ -241,13 +246,21 @@
     OFFlickrAPIContext *flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
     
     NSArray *photos = [inResponseDictionary valueForKeyPath:@"photos.photo"];
+    
+    self.photosArray = photos;
+    
     NSDictionary *photoDict = [photos lastObject];
-    NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
 
-    [self.backgroundImage setImageWithURL:staticPhotoURL placeholderImage:nil];
+    NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
+    
+    
+    [self.backgroundImage setImageWithURL:staticPhotoURL];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
+    
     [self.spinner stopAnimating];
     
-  //  [[UIApplication sharedApplication] openURL:staticPhotoURL];
+    //  [[UIApplication sharedApplication] openURL:staticPhotoURL];
+    
 }
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
@@ -257,5 +270,21 @@
 {
     
 }
+
+-(void)changeImage
+{
+    self.currentCounter ++;
+    
+    if(self.currentCounter < [self.photosArray count])
+    {
+        OFFlickrAPIContext *flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
+
+        NSDictionary *photoDict = [self.photosArray objectAtIndex:self.currentCounter];
+        NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
+        [self.backgroundImage setImageWithURL:staticPhotoURL];
+    }
+}
+
+
 
 @end
