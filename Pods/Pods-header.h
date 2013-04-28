@@ -8,3 +8,4 @@
 #define __POD_MagicalRecord
 #define __POD_SVProgressHUD
 #define __POD_ViewDeck
+#define __POD_objectiveflickr
