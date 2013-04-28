@@ -37,11 +37,11 @@
 		E256EA64172C266300379760 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = E256EA61172C266300379760 /* 1.png */; };
 		E256EA65172C266300379760 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = E256EA62172C266300379760 /* 0.png */; };
 		FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD257460172C2CF800EE0E85 /* HotelModel.xcdatamodeld */; };
-		FD257482172C36C100EE0E85 /* _Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD25747F172C36C100EE0E85 /* _Hotel.m */; };
-		FD257483172C36C100EE0E85 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257481172C36C100EE0E85 /* Hotel.m */; };
 		FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257488172C373200EE0E85 /* NSString+Helper.m */; };
 		FD257496172C75A900EE0E85 /* EANWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257495172C75A900EE0E85 /* EANWebService.m */; };
 		FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */; };
+		FDAAFAEB172CC95900BB8C52 /* _Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDAAFAE8172CC95900BB8C52 /* _Hotel.m */; };
+		FDAAFAEC172CC95900BB8C52 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDAAFAEA172CC95900BB8C52 /* Hotel.m */; };
 		FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC48F1F172C25830037B17F /* EANAPIManager.m */; };
 /* End PBXBuildFile section */
 
@@ -69,10 +69,6 @@
 		E256EA61172C266300379760 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		E256EA62172C266300379760 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		FD257461172C2CF800EE0E85 /* HotelModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HotelModel.xcdatamodel; sourceTree = "<group>"; };
-		FD25747E172C36C100EE0E85 /* _Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Hotel.h; path = DataModel/_Hotel.h; sourceTree = SOURCE_ROOT; };
-		FD25747F172C36C100EE0E85 /* _Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Hotel.m; path = DataModel/_Hotel.m; sourceTree = SOURCE_ROOT; };
-		FD257480172C36C100EE0E85 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hotel.h; path = DataModel/Hotel.h; sourceTree = SOURCE_ROOT; };
-		FD257481172C36C100EE0E85 /* Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hotel.m; path = DataModel/Hotel.m; sourceTree = SOURCE_ROOT; };
 		FD257487172C373200EE0E85 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "YahooHack/NSString+Helper.h"; sourceTree = SOURCE_ROOT; };
 		FD257488172C373200EE0E85 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "YahooHack/NSString+Helper.m"; sourceTree = SOURCE_ROOT; };
 		FD25748B172C475100EE0E85 /* ConfigSensitiveData-TEMPLATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfigSensitiveData-TEMPLATE.h"; sourceTree = "<group>"; };
@@ -81,6 +77,10 @@
 		FD257495172C75A900EE0E85 /* EANWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANWebService.m; sourceTree = "<group>"; };
 		FD25749A172C95F600EE0E85 /* NSDictionary+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Helper.h"; path = "YahooHack/NSDictionary+Helper.h"; sourceTree = SOURCE_ROOT; };
 		FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Helper.m"; path = "YahooHack/NSDictionary+Helper.m"; sourceTree = SOURCE_ROOT; };
+		FDAAFAE7172CC95900BB8C52 /* _Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Hotel.h; path = YahooHack/DataModel/_Hotel.h; sourceTree = SOURCE_ROOT; };
+		FDAAFAE8172CC95900BB8C52 /* _Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Hotel.m; path = YahooHack/DataModel/_Hotel.m; sourceTree = SOURCE_ROOT; };
+		FDAAFAE9172CC95900BB8C52 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hotel.h; path = YahooHack/DataModel/Hotel.h; sourceTree = SOURCE_ROOT; };
+		FDAAFAEA172CC95900BB8C52 /* Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hotel.m; path = YahooHack/DataModel/Hotel.m; sourceTree = SOURCE_ROOT; };
 		FDC48F1A172C24E00037B17F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = YahooHack/Config.h; sourceTree = "<group>"; };
 		FDC48F1E172C25830037B17F /* EANAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EANAPIManager.h; sourceTree = "<group>"; };
 		FDC48F1F172C25830037B17F /* EANAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANAPIManager.m; sourceTree = "<group>"; };
@@ -225,10 +225,10 @@
 		FDC48F21172C26590037B17F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				FD25747E172C36C100EE0E85 /* _Hotel.h */,
-				FD25747F172C36C100EE0E85 /* _Hotel.m */,
-				FD257480172C36C100EE0E85 /* Hotel.h */,
-				FD257481172C36C100EE0E85 /* Hotel.m */,
+				FDAAFAE7172CC95900BB8C52 /* _Hotel.h */,
+				FDAAFAE8172CC95900BB8C52 /* _Hotel.m */,
+				FDAAFAE9172CC95900BB8C52 /* Hotel.h */,
+				FDAAFAEA172CC95900BB8C52 /* Hotel.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd DataModel\nmogenerator --template-var arc=true -m HotelModel.xcdatamodeld/HotelModel.xcdatamodel/";
+			shellScript = "cd YahooHack/DataModel\nmogenerator --template-var arc=true -m HotelModel.xcdatamodeld/HotelModel.xcdatamodel/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -354,11 +354,11 @@
 				E256EA5F172C1E4500379760 /* HotelDetailViewController.m in Sources */,
 				FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */,
 				FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */,
-				FD257482172C36C100EE0E85 /* _Hotel.m in Sources */,
-				FD257483172C36C100EE0E85 /* Hotel.m in Sources */,
 				FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */,
 				FD257496172C75A900EE0E85 /* EANWebService.m in Sources */,
 				FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */,
+				FDAAFAEB172CC95900BB8C52 /* _Hotel.m in Sources */,
+				FDAAFAEC172CC95900BB8C52 /* Hotel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

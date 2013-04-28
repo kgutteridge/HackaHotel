@@ -8,20 +8,28 @@ extern const struct HotelAttributes {
 	__unsafe_unretained NSString *address1;
 	__unsafe_unretained NSString *airportCode;
 	__unsafe_unretained NSString *amenityMask;
+	__unsafe_unretained NSString *businessCenter;
 	__unsafe_unretained NSString *city;
 	__unsafe_unretained NSString *confidenceRating;
 	__unsafe_unretained NSString *countryCode;
 	__unsafe_unretained NSString *deepLink;
 	__unsafe_unretained NSString *eanShortDescription;
+	__unsafe_unretained NSString *fitnessCenter;
 	__unsafe_unretained NSString *highRate;
+	__unsafe_unretained NSString *hotTub;
 	__unsafe_unretained NSString *hotelId;
 	__unsafe_unretained NSString *hotelInDestination;
 	__unsafe_unretained NSString *hotelRating;
+	__unsafe_unretained NSString *internetAccessAvailable;
+	__unsafe_unretained NSString *kidsActivities;
+	__unsafe_unretained NSString *kitchen;
 	__unsafe_unretained NSString *latitude;
 	__unsafe_unretained NSString *locationDescription;
 	__unsafe_unretained NSString *longtitude;
 	__unsafe_unretained NSString *lowRate;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *petsAllowed;
+	__unsafe_unretained NSString *pool;
 	__unsafe_unretained NSString *postalCode;
 	__unsafe_unretained NSString *propertyCategory;
 	__unsafe_unretained NSString *proximityDistance;
@@ -38,6 +46,14 @@ extern const struct HotelRelationships {
 
 extern const struct HotelFetchedProperties {
 } HotelFetchedProperties;
+
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +130,20 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* businessCenter;
+
+
+
+@property BOOL businessCenterValue;
+- (BOOL)businessCenterValue;
+- (void)setBusinessCenterValue:(BOOL)value_;
+
+//- (BOOL)validateBusinessCenter:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* city;
 
 
@@ -168,6 +198,20 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* fitnessCenter;
+
+
+
+@property BOOL fitnessCenterValue;
+- (BOOL)fitnessCenterValue;
+- (void)setFitnessCenterValue:(BOOL)value_;
+
+//- (BOOL)validateFitnessCenter:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* highRate;
 
 
@@ -177,6 +221,20 @@ extern const struct HotelFetchedProperties {
 - (void)setHighRateValue:(float)value_;
 
 //- (BOOL)validateHighRate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* hotTub;
+
+
+
+@property BOOL hotTubValue;
+- (BOOL)hotTubValue;
+- (void)setHotTubValue:(BOOL)value_;
+
+//- (BOOL)validateHotTub:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -219,6 +277,48 @@ extern const struct HotelFetchedProperties {
 - (void)setHotelRatingValue:(float)value_;
 
 //- (BOOL)validateHotelRating:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* internetAccessAvailable;
+
+
+
+@property BOOL internetAccessAvailableValue;
+- (BOOL)internetAccessAvailableValue;
+- (void)setInternetAccessAvailableValue:(BOOL)value_;
+
+//- (BOOL)validateInternetAccessAvailable:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* kidsActivities;
+
+
+
+@property BOOL kidsActivitiesValue;
+- (BOOL)kidsActivitiesValue;
+- (void)setKidsActivitiesValue:(BOOL)value_;
+
+//- (BOOL)validateKidsActivities:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* kitchen;
+
+
+
+@property BOOL kitchenValue;
+- (BOOL)kitchenValue;
+- (void)setKitchenValue:(BOOL)value_;
+
+//- (BOOL)validateKitchen:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -281,6 +381,34 @@ extern const struct HotelFetchedProperties {
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* petsAllowed;
+
+
+
+@property BOOL petsAllowedValue;
+- (BOOL)petsAllowedValue;
+- (void)setPetsAllowedValue:(BOOL)value_;
+
+//- (BOOL)validatePetsAllowed:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* pool;
+
+
+
+@property BOOL poolValue;
+- (BOOL)poolValue;
+- (void)setPoolValue:(BOOL)value_;
+
+//- (BOOL)validatePool:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -419,6 +547,15 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveBusinessCenter;
+- (void)setPrimitiveBusinessCenter:(NSNumber*)value;
+
+- (BOOL)primitiveBusinessCenterValue;
+- (void)setPrimitiveBusinessCenterValue:(BOOL)value_;
+
+
+
+
 - (NSString*)primitiveCity;
 - (void)setPrimitiveCity:(NSString*)value;
 
@@ -452,11 +589,29 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveFitnessCenter;
+- (void)setPrimitiveFitnessCenter:(NSNumber*)value;
+
+- (BOOL)primitiveFitnessCenterValue;
+- (void)setPrimitiveFitnessCenterValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitiveHighRate;
 - (void)setPrimitiveHighRate:(NSNumber*)value;
 
 - (float)primitiveHighRateValue;
 - (void)setPrimitiveHighRateValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitiveHotTub;
+- (void)setPrimitiveHotTub:(NSNumber*)value;
+
+- (BOOL)primitiveHotTubValue;
+- (void)setPrimitiveHotTubValue:(BOOL)value_;
 
 
 
@@ -484,6 +639,33 @@ extern const struct HotelFetchedProperties {
 
 - (float)primitiveHotelRatingValue;
 - (void)setPrimitiveHotelRatingValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitiveInternetAccessAvailable;
+- (void)setPrimitiveInternetAccessAvailable:(NSNumber*)value;
+
+- (BOOL)primitiveInternetAccessAvailableValue;
+- (void)setPrimitiveInternetAccessAvailableValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveKidsActivities;
+- (void)setPrimitiveKidsActivities:(NSNumber*)value;
+
+- (BOOL)primitiveKidsActivitiesValue;
+- (void)setPrimitiveKidsActivitiesValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveKitchen;
+- (void)setPrimitiveKitchen:(NSNumber*)value;
+
+- (BOOL)primitiveKitchenValue;
+- (void)setPrimitiveKitchenValue:(BOOL)value_;
 
 
 
@@ -523,6 +705,24 @@ extern const struct HotelFetchedProperties {
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitivePetsAllowed;
+- (void)setPrimitivePetsAllowed:(NSNumber*)value;
+
+- (BOOL)primitivePetsAllowedValue;
+- (void)setPrimitivePetsAllowedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitivePool;
+- (void)setPrimitivePool:(NSNumber*)value;
+
+- (BOOL)primitivePoolValue;
+- (void)setPrimitivePoolValue:(BOOL)value_;
 
 
 

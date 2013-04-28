@@ -1,4 +1,6 @@
 #import "Hotel.h"
+
+
 #import "NSString+Helper.h"
 #import "NSDictionary+Helper.h"
 
@@ -70,16 +72,16 @@
      self.deepLink= [dictionary objectForKeyNotNull:@"thumbNailUrl"];
      self.thumbnailURL = [dictionary objectForKeyNotNull:@"thumbNailUrl"];
     
-    NSLog(@"hotel name %@",self.name);
-    if([self hasFreeAirportShuttle])
-    {
-        NSLog(@" does have a free shuttle");
-    }
-    else
-    {
-        NSLog(@" Nope");
-    }
-
+    
+    self.businessCenterValue = [self hasBusinessCenter];
+    self.fitnessCenterValue = [self hasFitnessCenter];
+    self.hotTubValue = [self hasHotTub];
+    /*
+     ....
+     
+     */
+    
+  
 }
 
 -(BOOL)hasBusinessCenter
@@ -204,26 +206,22 @@
 
 -(BOOL)hasIndoorPool
 {
-    return [self.amenityMask longValue] & 16;
+    return [self.amenityMask longValue] & 16777216;
 }
 
 -(BOOL)hasOutdoorPool
 {
-    
+    return [self.amenityMask longValue] & 33554432 ;
 }
 
 -(BOOL)hasExtendedParking
 {
-    
+    return [self.amenityMask longValue] & 67108864;
 }
 
 -(BOOL)hasFreeParking
 {
-    
+    return [self.amenityMask longValue] & 134217728;
 }
-
-
-
-
 
 @end

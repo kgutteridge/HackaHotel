@@ -7,20 +7,28 @@ const struct HotelAttributes HotelAttributes = {
 	.address1 = @"address1",
 	.airportCode = @"airportCode",
 	.amenityMask = @"amenityMask",
+	.businessCenter = @"businessCenter",
 	.city = @"city",
 	.confidenceRating = @"confidenceRating",
 	.countryCode = @"countryCode",
 	.deepLink = @"deepLink",
 	.eanShortDescription = @"eanShortDescription",
+	.fitnessCenter = @"fitnessCenter",
 	.highRate = @"highRate",
+	.hotTub = @"hotTub",
 	.hotelId = @"hotelId",
 	.hotelInDestination = @"hotelInDestination",
 	.hotelRating = @"hotelRating",
+	.internetAccessAvailable = @"internetAccessAvailable",
+	.kidsActivities = @"kidsActivities",
+	.kitchen = @"kitchen",
 	.latitude = @"latitude",
 	.locationDescription = @"locationDescription",
 	.longtitude = @"longtitude",
 	.lowRate = @"lowRate",
 	.name = @"name",
+	.petsAllowed = @"petsAllowed",
+	.pool = @"pool",
 	.postalCode = @"postalCode",
 	.propertyCategory = @"propertyCategory",
 	.proximityDistance = @"proximityDistance",
@@ -69,13 +77,28 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"businessCenterValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"businessCenter"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"confidenceRatingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"confidenceRating"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"fitnessCenterValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"fitnessCenter"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"highRateValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"highRate"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"hotTubValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"hotTub"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -94,6 +117,21 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"internetAccessAvailableValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"internetAccessAvailable"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"kidsActivitiesValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"kidsActivities"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"kitchenValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"kitchen"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"latitudeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"latitude"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -106,6 +144,16 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 	}
 	if ([key isEqualToString:@"lowRateValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"lowRate"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"petsAllowedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"petsAllowed"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"poolValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"pool"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -171,6 +219,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic businessCenter;
+
+
+
+- (BOOL)businessCenterValue {
+	NSNumber *result = [self businessCenter];
+	return [result boolValue];
+}
+
+- (void)setBusinessCenterValue:(BOOL)value_ {
+	[self setBusinessCenter:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveBusinessCenterValue {
+	NSNumber *result = [self primitiveBusinessCenter];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveBusinessCenterValue:(BOOL)value_ {
+	[self setPrimitiveBusinessCenter:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic city;
 
 
@@ -225,6 +299,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic fitnessCenter;
+
+
+
+- (BOOL)fitnessCenterValue {
+	NSNumber *result = [self fitnessCenter];
+	return [result boolValue];
+}
+
+- (void)setFitnessCenterValue:(BOOL)value_ {
+	[self setFitnessCenter:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveFitnessCenterValue {
+	NSNumber *result = [self primitiveFitnessCenter];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveFitnessCenterValue:(BOOL)value_ {
+	[self setPrimitiveFitnessCenter:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic highRate;
 
 
@@ -245,6 +345,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveHighRateValue:(float)value_ {
 	[self setPrimitiveHighRate:[NSNumber numberWithFloat:value_]];
+}
+
+
+
+
+
+@dynamic hotTub;
+
+
+
+- (BOOL)hotTubValue {
+	NSNumber *result = [self hotTub];
+	return [result boolValue];
+}
+
+- (void)setHotTubValue:(BOOL)value_ {
+	[self setHotTub:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveHotTubValue {
+	NSNumber *result = [self primitiveHotTub];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveHotTubValue:(BOOL)value_ {
+	[self setPrimitiveHotTub:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -323,6 +449,84 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveHotelRatingValue:(float)value_ {
 	[self setPrimitiveHotelRating:[NSNumber numberWithFloat:value_]];
+}
+
+
+
+
+
+@dynamic internetAccessAvailable;
+
+
+
+- (BOOL)internetAccessAvailableValue {
+	NSNumber *result = [self internetAccessAvailable];
+	return [result boolValue];
+}
+
+- (void)setInternetAccessAvailableValue:(BOOL)value_ {
+	[self setInternetAccessAvailable:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveInternetAccessAvailableValue {
+	NSNumber *result = [self primitiveInternetAccessAvailable];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveInternetAccessAvailableValue:(BOOL)value_ {
+	[self setPrimitiveInternetAccessAvailable:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic kidsActivities;
+
+
+
+- (BOOL)kidsActivitiesValue {
+	NSNumber *result = [self kidsActivities];
+	return [result boolValue];
+}
+
+- (void)setKidsActivitiesValue:(BOOL)value_ {
+	[self setKidsActivities:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveKidsActivitiesValue {
+	NSNumber *result = [self primitiveKidsActivities];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveKidsActivitiesValue:(BOOL)value_ {
+	[self setPrimitiveKidsActivities:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic kitchen;
+
+
+
+- (BOOL)kitchenValue {
+	NSNumber *result = [self kitchen];
+	return [result boolValue];
+}
+
+- (void)setKitchenValue:(BOOL)value_ {
+	[self setKitchen:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveKitchenValue {
+	NSNumber *result = [self primitiveKitchen];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveKitchenValue:(BOOL)value_ {
+	[self setPrimitiveKitchen:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -416,6 +620,58 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 @dynamic name;
 
+
+
+
+
+
+@dynamic petsAllowed;
+
+
+
+- (BOOL)petsAllowedValue {
+	NSNumber *result = [self petsAllowed];
+	return [result boolValue];
+}
+
+- (void)setPetsAllowedValue:(BOOL)value_ {
+	[self setPetsAllowed:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitivePetsAllowedValue {
+	NSNumber *result = [self primitivePetsAllowed];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePetsAllowedValue:(BOOL)value_ {
+	[self setPrimitivePetsAllowed:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic pool;
+
+
+
+- (BOOL)poolValue {
+	NSNumber *result = [self pool];
+	return [result boolValue];
+}
+
+- (void)setPoolValue:(BOOL)value_ {
+	[self setPool:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitivePoolValue {
+	NSNumber *result = [self primitivePool];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePoolValue:(BOOL)value_ {
+	[self setPrimitivePool:[NSNumber numberWithBool:value_]];
+}
 
 
 
