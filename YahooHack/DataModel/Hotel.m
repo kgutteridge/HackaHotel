@@ -45,8 +45,8 @@
 // Custom logic goes here.
 -(void)setPropertiesFromDictionary:(NSDictionary *)dictionary
 {
-    self.hotelId = [dictionary objectForKeyNotNull:@"hotelId"];
-    self.name = [dictionary objectForKeyNotNull:@"name"];
+     self.hotelId = [dictionary objectForKeyNotNull:@"hotelId"];
+     self.name = [dictionary objectForKeyNotNull:@"name"];
      self.address1 = [dictionary objectForKeyNotNull:@"address1"];
      self.city = [dictionary objectForKeyNotNull:@"city"];
      self.stateProvinceCode= [dictionary objectForKeyNotNull:@"stateProvinceCode"];
@@ -102,9 +102,6 @@
     self.extendingParkingValue = [self hasExtendedParking];
     self.freeParkingValue = [self hasFreeParking];
     
-
-    
-  
 }
 
 -(BOOL)hasBusinessCenter

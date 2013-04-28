@@ -515,130 +515,147 @@
 - (void)checkbox:(MGCheckbox *)checkbox didChangeState:(BOOL)selected {
     NSLog(@"%s", __FUNCTION__);
     
+    
+    
+    NSMutableArray * searchPredicates = [NSMutableArray array];
+    
+   
+    
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kChildrensActivities] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"kidsActivities == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kKitchen] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"kitchen == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kPetsAllowed] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"petsAllowed == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kPool] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"pool == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kOnSiteRestaurant] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"restaurantOnSite == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kOnSiteSpa] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"spaOnSite == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kWhirlpool] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"whirlpool == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kBreakfast] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"breakfast == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kBabySiting] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"babySitting == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kJacuzzi] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"jacuzzi == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kParking] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"parking == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kRoomService] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"roomService == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kAccessableTravel] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"accessibleTravel == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kAccesibleBathroom] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"accessibleBathroom == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kRollInShower] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"rollinShower == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kHandicapParking] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"handicapParking == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kRoomAccesibility] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"roomService == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kDeafEquipment] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"deafEquipment == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kBraille] isSelected])
     {
-        
+        [searchPredicates addObject:[NSPredicate predicateWithFormat:@"braille == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kIndoorPool] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"indoorPool == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kOutdoorPool] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"outdoorPool == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kFreeAirportShuttle] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"freeAirportShuttle == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kExtendedParking] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"extendingParking == 1"]];
     }
     
     if([(MGCheckbox *)[self.filterContainerView viewWithTag:kFreeParking] isSelected])
     {
-        
+         [searchPredicates addObject:[NSPredicate predicateWithFormat:@"freeParking == 1"]];
     }
     
     
-    NSPredicate *filter = [NSPredicate predicateWithFormat:@"name LIKE[c] %@", @"Hilton"];
-    NSArray *hotels = [[Hotel MR_fetchAllSortedBy:@"name" ascending:NO withPredicate:filter groupBy:nil delegate:self] fetchedObjects];
-     
+    NSArray *hotels = nil;
+    if([searchPredicates count])
+    {
+        NSPredicate *filter= [NSCompoundPredicate andPredicateWithSubpredicates:searchPredicates];
+    
+        hotels = [[Hotel MR_fetchAllSortedBy:@"name" ascending:NO withPredicate:filter groupBy:nil delegate:self] fetchedObjects];
+    }
+    else
+    {
+        hotels = [Hotel MR_findAll];
+    }
+    
+    NSLog(@"Hotels %@",hotels);
+    
     [self updateUIWithHotels:hotels];
 }
 
