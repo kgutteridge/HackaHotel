@@ -101,7 +101,6 @@
     [self.view addSubview:self.locationTextFieldContainerView];
     [self.view sendSubviewToBack:self.locationTextFieldContainerView];
     
-    
     self.locationTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, CGRectGetWidth(self.locationTextFieldContainerView.bounds) - 20, 30)];
     [self.locationTextField setDelegate:self];
     [self.locationTextField setPlaceholder:@"City/Location"];
