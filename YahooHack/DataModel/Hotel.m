@@ -72,14 +72,37 @@
      self.deepLink= [dictionary objectForKeyNotNull:@"thumbNailUrl"];
      self.thumbnailURL = [dictionary objectForKeyNotNull:@"thumbNailUrl"];
     
-    /*
+    
     self.businessCenterValue = [self hasBusinessCenter];
     self.fitnessCenterValue = [self hasFitnessCenter];
     self.hotTubValue = [self hasHotTub];
+    self.internetAccessAvailableValue = [self hasInternetAccessAvailable];
+    self.kidsActivitiesValue = [self hasKidsActivities];
+    self.kitchenValue = [self hasKitchen];
+    self.petsAllowedValue = [self hasPetsAllowed];
+    self.poolValue = [self hasPool];
+    self.restaurantOnSiteValue = [self hasRestaurantOnSite];
+    self.spaOnSiteValue  = [self hasSpaOnSite];
+    self.whirlpoolValue = [self hasWhirlpool];
+    self.breakfastValue = [self hasBreakfast];
+    self.babySittingValue = [self hasBabysitting];
+    self.jacuzziValue = [self hasJacuzzi];
+    self.parkingValue = [self hasParking];
+    self.roomServiceValue = [self hasRoomService];
+    self.accessibleTravelValue = [self hasAccesibleTravel];
+    self.accessibleBathroomValue = [self hasAccessibleBathroom];
+    self.rollinShowerValue = [self hasRollInShower];
+    self.handicapParkingValue = [self hasHandicapParking];
+    self.inRoomAccesibilityValue = [self hasInRoomAccesibility];
+    self.deafEquipmentValue = [self hasDeafEquipment];
+    self.brailleValue = [self hasBraille];
+    self.freeAirportShuttleValue = [self hasFreeAirportShuttle];
+    self.indoorPoolValue = [self indoorPoolValue];
+    self.outdoorPoolValue = [self outdoorPoolValue];
+    self.extendingParkingValue = [self hasExtendedParking];
+    self.freeParkingValue = [self hasFreeParking];
     
-     ....
-     
-     */
+
     
   
 }

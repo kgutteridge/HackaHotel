@@ -5,22 +5,35 @@
 
 
 extern const struct HotelAttributes {
+	__unsafe_unretained NSString *accessibleBathroom;
+	__unsafe_unretained NSString *accessibleTravel;
 	__unsafe_unretained NSString *address1;
 	__unsafe_unretained NSString *airportCode;
 	__unsafe_unretained NSString *amenityMask;
+	__unsafe_unretained NSString *babySitting;
+	__unsafe_unretained NSString *braille;
+	__unsafe_unretained NSString *breakfast;
 	__unsafe_unretained NSString *businessCenter;
 	__unsafe_unretained NSString *city;
 	__unsafe_unretained NSString *confidenceRating;
 	__unsafe_unretained NSString *countryCode;
+	__unsafe_unretained NSString *deafEquipment;
 	__unsafe_unretained NSString *deepLink;
 	__unsafe_unretained NSString *eanShortDescription;
+	__unsafe_unretained NSString *extendingParking;
 	__unsafe_unretained NSString *fitnessCenter;
+	__unsafe_unretained NSString *freeAirportShuttle;
+	__unsafe_unretained NSString *freeParking;
+	__unsafe_unretained NSString *handicapParking;
 	__unsafe_unretained NSString *highRate;
 	__unsafe_unretained NSString *hotTub;
 	__unsafe_unretained NSString *hotelId;
 	__unsafe_unretained NSString *hotelInDestination;
 	__unsafe_unretained NSString *hotelRating;
+	__unsafe_unretained NSString *inRoomAccesibility;
+	__unsafe_unretained NSString *indoorPool;
 	__unsafe_unretained NSString *internetAccessAvailable;
+	__unsafe_unretained NSString *jacuzzi;
 	__unsafe_unretained NSString *kidsActivities;
 	__unsafe_unretained NSString *kitchen;
 	__unsafe_unretained NSString *latitude;
@@ -28,6 +41,8 @@ extern const struct HotelAttributes {
 	__unsafe_unretained NSString *longtitude;
 	__unsafe_unretained NSString *lowRate;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *outdoorPool;
+	__unsafe_unretained NSString *parking;
 	__unsafe_unretained NSString *petsAllowed;
 	__unsafe_unretained NSString *pool;
 	__unsafe_unretained NSString *postalCode;
@@ -35,10 +50,15 @@ extern const struct HotelAttributes {
 	__unsafe_unretained NSString *proximityDistance;
 	__unsafe_unretained NSString *proximityUnit;
 	__unsafe_unretained NSString *rateCurrencyCode;
+	__unsafe_unretained NSString *restaurantOnSite;
+	__unsafe_unretained NSString *rollinShower;
+	__unsafe_unretained NSString *roomService;
+	__unsafe_unretained NSString *spaOnSite;
 	__unsafe_unretained NSString *stateProvinceCode;
 	__unsafe_unretained NSString *supplierType;
 	__unsafe_unretained NSString *thumbnailURL;
 	__unsafe_unretained NSString *tripAdvisorRating;
+	__unsafe_unretained NSString *whirlpool;
 } HotelAttributes;
 
 extern const struct HotelRelationships {
@@ -46,6 +66,26 @@ extern const struct HotelRelationships {
 
 extern const struct HotelFetchedProperties {
 } HotelFetchedProperties;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -96,6 +136,34 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* accessibleBathroom;
+
+
+
+@property BOOL accessibleBathroomValue;
+- (BOOL)accessibleBathroomValue;
+- (void)setAccessibleBathroomValue:(BOOL)value_;
+
+//- (BOOL)validateAccessibleBathroom:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* accessibleTravel;
+
+
+
+@property BOOL accessibleTravelValue;
+- (BOOL)accessibleTravelValue;
+- (void)setAccessibleTravelValue:(BOOL)value_;
+
+//- (BOOL)validateAccessibleTravel:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* address1;
 
 
@@ -125,6 +193,48 @@ extern const struct HotelFetchedProperties {
 - (void)setAmenityMaskValue:(int32_t)value_;
 
 //- (BOOL)validateAmenityMask:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* babySitting;
+
+
+
+@property BOOL babySittingValue;
+- (BOOL)babySittingValue;
+- (void)setBabySittingValue:(BOOL)value_;
+
+//- (BOOL)validateBabySitting:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* braille;
+
+
+
+@property BOOL brailleValue;
+- (BOOL)brailleValue;
+- (void)setBrailleValue:(BOOL)value_;
+
+//- (BOOL)validateBraille:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* breakfast;
+
+
+
+@property BOOL breakfastValue;
+- (BOOL)breakfastValue;
+- (void)setBreakfastValue:(BOOL)value_;
+
+//- (BOOL)validateBreakfast:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -178,6 +288,20 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* deafEquipment;
+
+
+
+@property BOOL deafEquipmentValue;
+- (BOOL)deafEquipmentValue;
+- (void)setDeafEquipmentValue:(BOOL)value_;
+
+//- (BOOL)validateDeafEquipment:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* deepLink;
 
 
@@ -198,6 +322,20 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* extendingParking;
+
+
+
+@property BOOL extendingParkingValue;
+- (BOOL)extendingParkingValue;
+- (void)setExtendingParkingValue:(BOOL)value_;
+
+//- (BOOL)validateExtendingParking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* fitnessCenter;
 
 
@@ -207,6 +345,48 @@ extern const struct HotelFetchedProperties {
 - (void)setFitnessCenterValue:(BOOL)value_;
 
 //- (BOOL)validateFitnessCenter:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* freeAirportShuttle;
+
+
+
+@property BOOL freeAirportShuttleValue;
+- (BOOL)freeAirportShuttleValue;
+- (void)setFreeAirportShuttleValue:(BOOL)value_;
+
+//- (BOOL)validateFreeAirportShuttle:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* freeParking;
+
+
+
+@property BOOL freeParkingValue;
+- (BOOL)freeParkingValue;
+- (void)setFreeParkingValue:(BOOL)value_;
+
+//- (BOOL)validateFreeParking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* handicapParking;
+
+
+
+@property BOOL handicapParkingValue;
+- (BOOL)handicapParkingValue;
+- (void)setHandicapParkingValue:(BOOL)value_;
+
+//- (BOOL)validateHandicapParking:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -282,6 +462,34 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* inRoomAccesibility;
+
+
+
+@property BOOL inRoomAccesibilityValue;
+- (BOOL)inRoomAccesibilityValue;
+- (void)setInRoomAccesibilityValue:(BOOL)value_;
+
+//- (BOOL)validateInRoomAccesibility:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* indoorPool;
+
+
+
+@property BOOL indoorPoolValue;
+- (BOOL)indoorPoolValue;
+- (void)setIndoorPoolValue:(BOOL)value_;
+
+//- (BOOL)validateIndoorPool:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* internetAccessAvailable;
 
 
@@ -291,6 +499,20 @@ extern const struct HotelFetchedProperties {
 - (void)setInternetAccessAvailableValue:(BOOL)value_;
 
 //- (BOOL)validateInternetAccessAvailable:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* jacuzzi;
+
+
+
+@property BOOL jacuzziValue;
+- (BOOL)jacuzziValue;
+- (void)setJacuzziValue:(BOOL)value_;
+
+//- (BOOL)validateJacuzzi:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -386,6 +608,34 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* outdoorPool;
+
+
+
+@property BOOL outdoorPoolValue;
+- (BOOL)outdoorPoolValue;
+- (void)setOutdoorPoolValue:(BOOL)value_;
+
+//- (BOOL)validateOutdoorPool:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* parking;
+
+
+
+@property BOOL parkingValue;
+- (BOOL)parkingValue;
+- (void)setParkingValue:(BOOL)value_;
+
+//- (BOOL)validateParking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* petsAllowed;
 
 
@@ -472,6 +722,62 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* restaurantOnSite;
+
+
+
+@property BOOL restaurantOnSiteValue;
+- (BOOL)restaurantOnSiteValue;
+- (void)setRestaurantOnSiteValue:(BOOL)value_;
+
+//- (BOOL)validateRestaurantOnSite:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* rollinShower;
+
+
+
+@property BOOL rollinShowerValue;
+- (BOOL)rollinShowerValue;
+- (void)setRollinShowerValue:(BOOL)value_;
+
+//- (BOOL)validateRollinShower:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* roomService;
+
+
+
+@property BOOL roomServiceValue;
+- (BOOL)roomServiceValue;
+- (void)setRoomServiceValue:(BOOL)value_;
+
+//- (BOOL)validateRoomService:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* spaOnSite;
+
+
+
+@property BOOL spaOnSiteValue;
+- (BOOL)spaOnSiteValue;
+- (void)setSpaOnSiteValue:(BOOL)value_;
+
+//- (BOOL)validateSpaOnSite:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* stateProvinceCode;
 
 
@@ -516,6 +822,20 @@ extern const struct HotelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* whirlpool;
+
+
+
+@property BOOL whirlpoolValue;
+- (BOOL)whirlpoolValue;
+- (void)setWhirlpoolValue:(BOOL)value_;
+
+//- (BOOL)validateWhirlpool:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 
 @end
 
@@ -524,6 +844,24 @@ extern const struct HotelFetchedProperties {
 @end
 
 @interface _Hotel (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveAccessibleBathroom;
+- (void)setPrimitiveAccessibleBathroom:(NSNumber*)value;
+
+- (BOOL)primitiveAccessibleBathroomValue;
+- (void)setPrimitiveAccessibleBathroomValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveAccessibleTravel;
+- (void)setPrimitiveAccessibleTravel:(NSNumber*)value;
+
+- (BOOL)primitiveAccessibleTravelValue;
+- (void)setPrimitiveAccessibleTravelValue:(BOOL)value_;
+
+
 
 
 - (NSString*)primitiveAddress1;
@@ -543,6 +881,33 @@ extern const struct HotelFetchedProperties {
 
 - (int32_t)primitiveAmenityMaskValue;
 - (void)setPrimitiveAmenityMaskValue:(int32_t)value_;
+
+
+
+
+- (NSNumber*)primitiveBabySitting;
+- (void)setPrimitiveBabySitting:(NSNumber*)value;
+
+- (BOOL)primitiveBabySittingValue;
+- (void)setPrimitiveBabySittingValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveBraille;
+- (void)setPrimitiveBraille:(NSNumber*)value;
+
+- (BOOL)primitiveBrailleValue;
+- (void)setPrimitiveBrailleValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveBreakfast;
+- (void)setPrimitiveBreakfast:(NSNumber*)value;
+
+- (BOOL)primitiveBreakfastValue;
+- (void)setPrimitiveBreakfastValue:(BOOL)value_;
 
 
 
@@ -577,6 +942,15 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveDeafEquipment;
+- (void)setPrimitiveDeafEquipment:(NSNumber*)value;
+
+- (BOOL)primitiveDeafEquipmentValue;
+- (void)setPrimitiveDeafEquipmentValue:(BOOL)value_;
+
+
+
+
 - (NSString*)primitiveDeepLink;
 - (void)setPrimitiveDeepLink:(NSString*)value;
 
@@ -589,11 +963,47 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveExtendingParking;
+- (void)setPrimitiveExtendingParking:(NSNumber*)value;
+
+- (BOOL)primitiveExtendingParkingValue;
+- (void)setPrimitiveExtendingParkingValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitiveFitnessCenter;
 - (void)setPrimitiveFitnessCenter:(NSNumber*)value;
 
 - (BOOL)primitiveFitnessCenterValue;
 - (void)setPrimitiveFitnessCenterValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveFreeAirportShuttle;
+- (void)setPrimitiveFreeAirportShuttle:(NSNumber*)value;
+
+- (BOOL)primitiveFreeAirportShuttleValue;
+- (void)setPrimitiveFreeAirportShuttleValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveFreeParking;
+- (void)setPrimitiveFreeParking:(NSNumber*)value;
+
+- (BOOL)primitiveFreeParkingValue;
+- (void)setPrimitiveFreeParkingValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveHandicapParking;
+- (void)setPrimitiveHandicapParking:(NSNumber*)value;
+
+- (BOOL)primitiveHandicapParkingValue;
+- (void)setPrimitiveHandicapParkingValue:(BOOL)value_;
 
 
 
@@ -643,11 +1053,38 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveInRoomAccesibility;
+- (void)setPrimitiveInRoomAccesibility:(NSNumber*)value;
+
+- (BOOL)primitiveInRoomAccesibilityValue;
+- (void)setPrimitiveInRoomAccesibilityValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveIndoorPool;
+- (void)setPrimitiveIndoorPool:(NSNumber*)value;
+
+- (BOOL)primitiveIndoorPoolValue;
+- (void)setPrimitiveIndoorPoolValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitiveInternetAccessAvailable;
 - (void)setPrimitiveInternetAccessAvailable:(NSNumber*)value;
 
 - (BOOL)primitiveInternetAccessAvailableValue;
 - (void)setPrimitiveInternetAccessAvailableValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveJacuzzi;
+- (void)setPrimitiveJacuzzi:(NSNumber*)value;
+
+- (BOOL)primitiveJacuzziValue;
+- (void)setPrimitiveJacuzziValue:(BOOL)value_;
 
 
 
@@ -709,6 +1146,24 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveOutdoorPool;
+- (void)setPrimitiveOutdoorPool:(NSNumber*)value;
+
+- (BOOL)primitiveOutdoorPoolValue;
+- (void)setPrimitiveOutdoorPoolValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveParking;
+- (void)setPrimitiveParking:(NSNumber*)value;
+
+- (BOOL)primitiveParkingValue;
+- (void)setPrimitiveParkingValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitivePetsAllowed;
 - (void)setPrimitivePetsAllowed:(NSNumber*)value;
 
@@ -763,6 +1218,42 @@ extern const struct HotelFetchedProperties {
 
 
 
+- (NSNumber*)primitiveRestaurantOnSite;
+- (void)setPrimitiveRestaurantOnSite:(NSNumber*)value;
+
+- (BOOL)primitiveRestaurantOnSiteValue;
+- (void)setPrimitiveRestaurantOnSiteValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveRollinShower;
+- (void)setPrimitiveRollinShower:(NSNumber*)value;
+
+- (BOOL)primitiveRollinShowerValue;
+- (void)setPrimitiveRollinShowerValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveRoomService;
+- (void)setPrimitiveRoomService:(NSNumber*)value;
+
+- (BOOL)primitiveRoomServiceValue;
+- (void)setPrimitiveRoomServiceValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveSpaOnSite;
+- (void)setPrimitiveSpaOnSite:(NSNumber*)value;
+
+- (BOOL)primitiveSpaOnSiteValue;
+- (void)setPrimitiveSpaOnSiteValue:(BOOL)value_;
+
+
+
+
 - (NSString*)primitiveStateProvinceCode;
 - (void)setPrimitiveStateProvinceCode:(NSString*)value;
 
@@ -786,6 +1277,15 @@ extern const struct HotelFetchedProperties {
 
 - (int32_t)primitiveTripAdvisorRatingValue;
 - (void)setPrimitiveTripAdvisorRatingValue:(int32_t)value_;
+
+
+
+
+- (NSNumber*)primitiveWhirlpool;
+- (void)setPrimitiveWhirlpool:(NSNumber*)value;
+
+- (BOOL)primitiveWhirlpoolValue;
+- (void)setPrimitiveWhirlpoolValue:(BOOL)value_;
 
 
 
