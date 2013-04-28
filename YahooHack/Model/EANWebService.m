@@ -12,6 +12,7 @@
 
 @implementation EANWebService
 
+
 +(void)hotelDetailsForSearchTerm:(NSString *)searchTerm
                        startDate:(NSDate *)startDate
                          endDate:(NSDate *)endDate
@@ -19,6 +20,9 @@
                       andFailure:(void (^)(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON))failureBlock
 {
     //MM/DD/YYYY
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd/yyyy"];
+    
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                   EANMinorVersion, @"minorRev",
                   APIKey, @"apiKey",
@@ -26,8 +30,8 @@
                   @"en_US", @"locale",
                   @"abc", @"destinationString",
                   @"256",@"numberOfResults",
-                  @"6/25/2013",@"arrivalDate",
-                  @"6/27/2013",@"depatureDate",
+                  [formatter stringFromDate:startDate],@"arrivalDate",
+                  [formatter stringFromDate:endDate],@"depatureDate",
                   @"DEFAULT",@"sort",
                   @"JSON",@"type",
                                 nil];
@@ -51,7 +55,10 @@
                      withSuccess:(void (^)(NSURLRequest *request, NSURLResponse *response, id JSON))successBlock
                       andFailure:(void (^)(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON))failureBlock
 {
-    //MM/DD/YYYY
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd/yyyy"];
+    
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                 EANMinorVersion, @"minorRev",
                                 APIKey, @"apiKey",
@@ -61,8 +68,8 @@
                                 province, @"province",
                                 countyCode, @"countryCode",
                                 @"256",@"numberOfResults",
-                                @"6/25/2013",@"arrivalDate",
-                                @"6/27/2013",@"depatureDate",
+                                [formatter stringFromDate:startDate],@"arrivalDate",
+                                [formatter stringFromDate:endDate],@"depatureDate",
                                 @"DEFAULT",@"sort",
                                 @"JSON",@"type",
                                 nil];
