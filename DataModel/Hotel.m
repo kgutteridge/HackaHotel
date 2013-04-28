@@ -6,6 +6,35 @@
 
 // Private interface goes here.
 
+-(BOOL)hasBusinessCenter;
+-(BOOL)hasFitnessCenter;
+-(BOOL)hasHotTub;
+-(BOOL)hasInternetAccessAvailable;
+-(BOOL)hasKidsActivities;
+-(BOOL)hasKitchen;
+-(BOOL)hasPetsAllowed;
+-(BOOL)hasPool;
+-(BOOL)hasRestaurantOnSite;
+-(BOOL)hasSpaOnSite;
+-(BOOL)hasWhirlpool;
+-(BOOL)hasBreakfast;
+-(BOOL)hasBabysitting;
+-(BOOL)hasJacuzzi;
+-(BOOL)hasParking;
+-(BOOL)hasRoomService;
+-(BOOL)hasAccesibleTravel;
+-(BOOL)hasAccessibleBathroom;
+-(BOOL)hasRollInShower;
+-(BOOL)hasHandicapParking;
+-(BOOL)hasInRoomAccesibility;
+-(BOOL)hasDeafEquipment;
+-(BOOL)hasBraille;
+-(BOOL)hasFreeAirportShuttle;
+-(BOOL)hasIndoorPool;
+-(BOOL)hasOutdoorPool;
+-(BOOL)hasExtendedParking;
+-(BOOL)hasFreeParking;
+
 @end
 
 
@@ -41,9 +70,160 @@
      self.deepLink= [dictionary objectForKeyNotNull:@"thumbNailUrl"];
      self.thumbnailURL = [dictionary objectForKeyNotNull:@"thumbNailUrl"];
     
-    
+    NSLog(@"hotel name %@",self.name);
+    if([self hasFreeAirportShuttle])
+    {
+        NSLog(@" does have a free shuttle");
+    }
+    else
+    {
+        NSLog(@" Nope");
+    }
+
+}
+
+-(BOOL)hasBusinessCenter
+{
+    return [self.amenityMask longValue] & 1;
+}
+
+-(BOOL)hasFitnessCenter
+{
+    return [self.amenityMask longValue] & 2;
+}
+
+-(BOOL)hasHotTub
+{
+    return [self.amenityMask longValue] & 4;
+}
+
+-(BOOL)hasInternetAccessAvailable
+{
+    return [self.amenityMask longValue] & 8;
+}
+
+-(BOOL)hasKidsActivities
+{
+    return [self.amenityMask longValue] & 16;
+}
+
+-(BOOL)hasKitchen
+{
+    return [self.amenityMask longValue] & 32;
+}
+
+-(BOOL)hasPetsAllowed
+{
+    return [self.amenityMask longValue] & 64;
+}
+
+-(BOOL)hasPool
+{
+    return [self.amenityMask longValue] & 128;
+}
+
+-(BOOL)hasRestaurantOnSite
+{
+    return [self.amenityMask longValue] & 256;
+}
+
+-(BOOL)hasSpaOnSite
+{
+    return [self.amenityMask longValue] & 512;
+}
+
+-(BOOL)hasWhirlpool
+{
+    return [self.amenityMask longValue] & 1024;
+}
+
+-(BOOL)hasBreakfast
+{
+    return [self.amenityMask longValue] & 2048;
+}
+
+-(BOOL)hasBabysitting
+{
+    return [self.amenityMask longValue] & 4096;
+}
+
+-(BOOL)hasJacuzzi
+{
+    return [self.amenityMask longValue] & 8192;
+}
+
+-(BOOL)hasParking
+{
+    return [self.amenityMask longValue] & 16834;
+}
+
+-(BOOL)hasRoomService
+{
+    return [self.amenityMask longValue] & 32768;
+}
+
+-(BOOL)hasAccesibleTravel
+{
+    return [self.amenityMask longValue] & 65536;
+}
+
+-(BOOL)hasAccessibleBathroom
+{
+    return [self.amenityMask longValue] & 131072;
+}
+
+-(BOOL)hasRollInShower
+{
+    return [self.amenityMask longValue] & 262144;
+}
+
+-(BOOL)hasHandicapParking
+{
+    return [self.amenityMask longValue] & 524288;
+}
+
+-(BOOL)hasInRoomAccesibility
+{
+    return [self.amenityMask longValue] & 1048576;
+}
+
+-(BOOL)hasDeafEquipment
+{
+    return [self.amenityMask longValue] & 2097152;
+}
+
+-(BOOL)hasBraille
+{
+    return [self.amenityMask longValue] & 4194304;
+}
+
+-(BOOL)hasFreeAirportShuttle
+{
+    return [self.amenityMask longValue] & 8388608;
+}
+
+-(BOOL)hasIndoorPool
+{
+    return [self.amenityMask longValue] & 16;
+}
+
+-(BOOL)hasOutdoorPool
+{
     
 }
+
+-(BOOL)hasExtendedParking
+{
+    
+}
+
+-(BOOL)hasFreeParking
+{
+    
+}
+
+
+
 
 
 @end
