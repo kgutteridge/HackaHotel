@@ -55,7 +55,11 @@
     [self.flickrRequest callAPIMethodWithGET:@"flickr.photos.search" arguments:params];
 }
 
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self transitionOverlay:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -111,6 +115,32 @@
     [self.overlayViewTop setTransform:CGAffineTransformMakeTranslation(0, -CGRectGetHeight(self.overlayViewTop.bounds))];
     [self.overlayViewTop setAlpha:0.5];
     
+    
+    UILabel *latLongLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                      20,
+                                                                      CGRectGetWidth(self.overlayViewTop.bounds) - 12, 26)];
+    [latLongLabel setText:[NSString stringWithFormat:@"%@/%@", self.hotel.latitude, self.hotel.longtitude]];
+    [latLongLabel setTextColor:[UIColor colorWithWhite:1.0 alpha:1.0]];
+    [latLongLabel setFont:[UIFont systemFontOfSize:15]];
+    [latLongLabel setShadowColor:[UIColor darkGrayColor]];
+    [latLongLabel setTextAlignment:NSTextAlignmentRight];
+    [latLongLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    [latLongLabel setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *tripAdvisorRatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                      CGRectGetMaxY(latLongLabel.frame),
+                                                                      CGRectGetWidth(self.overlayViewTop.bounds) - 12, 26)];
+    [tripAdvisorRatingLabel setText:[NSString stringWithFormat:@"Trip Advisor Rating : %@", self.hotel.tripAdvisorRating]];
+    [tripAdvisorRatingLabel setTextColor:[UIColor colorWithWhite:1.0 alpha:1.0]];
+    [tripAdvisorRatingLabel setFont:[UIFont systemFontOfSize:15]];
+    [tripAdvisorRatingLabel setShadowColor:[UIColor darkGrayColor]];
+    [tripAdvisorRatingLabel setTextAlignment:NSTextAlignmentRight];
+    [tripAdvisorRatingLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    [tripAdvisorRatingLabel setBackgroundColor:[UIColor clearColor]];
+    
+    [self.overlayViewTop addSubview:latLongLabel];
+    [self.overlayViewTop addSubview:tripAdvisorRatingLabel];
+    
     [self.view addSubview:self.overlayViewTop];
 }
 
@@ -146,6 +176,17 @@
     [addressLabel setShadowColor:[UIColor darkGrayColor]];
     [addressLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [addressLabel setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *telLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(addressLabel.frame) + 20,
+                                                                      CGRectGetMaxY(addressLabel.frame) + 10,
+                                                                      CGRectGetWidth(self.overlayViewBottom.bounds) - CGRectGetMaxX(hotelImageView.frame) - 20, 26)];
+    [telLabel setText:[NSString stringWithFormat:@"%@", self.hotel.locationDescription]];
+    [telLabel setTextColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
+    [telLabel setFont:[UIFont systemFontOfSize:20]];
+    [telLabel setShadowColor:[UIColor darkGrayColor]];
+    [telLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    [telLabel setBackgroundColor:[UIColor clearColor]];
+    
     
     [self.overlayViewBottom addSubview:hotelImageView];
     [self.overlayViewBottom addSubview:hotelNameLabel];
