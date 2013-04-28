@@ -7,20 +7,27 @@
         <attribute name="airportCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="amenityMask" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="babySitting" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="braille" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="breakfast" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="businessCenter" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="confidenceRating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="countryCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deafEquipment" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="deepLink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eanShortDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="extendingParking" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="fitnessCenter" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="freeAirportShuttle" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="freeParking" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="handicapParking" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="highRate" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="hotelId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="hotelInDestination" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="hotelRating" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="hotTub" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="indoorPool" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="inRoomAccesibility" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="internetAccessAvailable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="jacuzzi" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="kidsActivities" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -30,6 +37,7 @@
         <attribute name="longtitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lowRate" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outdoorPool" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="parking" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="petsAllowed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pool" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -49,6 +57,6 @@
         <attribute name="whirlpool" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hotel" positionX="1960" positionY="-8406" width="128" height="735"/>
+        <element name="Hotel" positionX="1960" positionY="-8406" width="128" height="855"/>
     </elements>
 </model>

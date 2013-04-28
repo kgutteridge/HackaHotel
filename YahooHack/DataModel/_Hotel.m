@@ -4,22 +4,35 @@
 #import "_Hotel.h"
 
 const struct HotelAttributes HotelAttributes = {
+	.accessibleBathroom = @"accessibleBathroom",
+	.accessibleTravel = @"accessibleTravel",
 	.address1 = @"address1",
 	.airportCode = @"airportCode",
 	.amenityMask = @"amenityMask",
+	.babySitting = @"babySitting",
+	.braille = @"braille",
+	.breakfast = @"breakfast",
 	.businessCenter = @"businessCenter",
 	.city = @"city",
 	.confidenceRating = @"confidenceRating",
 	.countryCode = @"countryCode",
+	.deafEquipment = @"deafEquipment",
 	.deepLink = @"deepLink",
 	.eanShortDescription = @"eanShortDescription",
+	.extendingParking = @"extendingParking",
 	.fitnessCenter = @"fitnessCenter",
+	.freeAirportShuttle = @"freeAirportShuttle",
+	.freeParking = @"freeParking",
+	.handicapParking = @"handicapParking",
 	.highRate = @"highRate",
 	.hotTub = @"hotTub",
 	.hotelId = @"hotelId",
 	.hotelInDestination = @"hotelInDestination",
 	.hotelRating = @"hotelRating",
+	.inRoomAccesibility = @"inRoomAccesibility",
+	.indoorPool = @"indoorPool",
 	.internetAccessAvailable = @"internetAccessAvailable",
+	.jacuzzi = @"jacuzzi",
 	.kidsActivities = @"kidsActivities",
 	.kitchen = @"kitchen",
 	.latitude = @"latitude",
@@ -27,6 +40,8 @@ const struct HotelAttributes HotelAttributes = {
 	.longtitude = @"longtitude",
 	.lowRate = @"lowRate",
 	.name = @"name",
+	.outdoorPool = @"outdoorPool",
+	.parking = @"parking",
 	.petsAllowed = @"petsAllowed",
 	.pool = @"pool",
 	.postalCode = @"postalCode",
@@ -34,10 +49,15 @@ const struct HotelAttributes HotelAttributes = {
 	.proximityDistance = @"proximityDistance",
 	.proximityUnit = @"proximityUnit",
 	.rateCurrencyCode = @"rateCurrencyCode",
+	.restaurantOnSite = @"restaurantOnSite",
+	.rollinShower = @"rollinShower",
+	.roomService = @"roomService",
+	.spaOnSite = @"spaOnSite",
 	.stateProvinceCode = @"stateProvinceCode",
 	.supplierType = @"supplierType",
 	.thumbnailURL = @"thumbnailURL",
 	.tripAdvisorRating = @"tripAdvisorRating",
+	.whirlpool = @"whirlpool",
 };
 
 const struct HotelRelationships HotelRelationships = {
@@ -72,8 +92,33 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"accessibleBathroomValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"accessibleBathroom"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"accessibleTravelValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"accessibleTravel"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"amenityMaskValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"amenityMask"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"babySittingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"babySitting"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"brailleValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"braille"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"breakfastValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"breakfast"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -87,8 +132,33 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"deafEquipmentValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"deafEquipment"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"extendingParkingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"extendingParking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"fitnessCenterValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"fitnessCenter"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"freeAirportShuttleValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"freeAirportShuttle"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"freeParkingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"freeParking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"handicapParkingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"handicapParking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -117,8 +187,23 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"inRoomAccesibilityValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"inRoomAccesibility"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"indoorPoolValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"indoorPool"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"internetAccessAvailableValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"internetAccessAvailable"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"jacuzziValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"jacuzzi"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -147,6 +232,16 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"outdoorPoolValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"outdoorPool"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"parkingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"parking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"petsAllowedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"petsAllowed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -167,14 +262,91 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"restaurantOnSiteValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"restaurantOnSite"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"rollinShowerValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"rollinShower"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"roomServiceValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"roomService"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"spaOnSiteValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"spaOnSite"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"tripAdvisorRatingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"tripAdvisorRating"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"whirlpoolValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"whirlpool"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic accessibleBathroom;
+
+
+
+- (BOOL)accessibleBathroomValue {
+	NSNumber *result = [self accessibleBathroom];
+	return [result boolValue];
+}
+
+- (void)setAccessibleBathroomValue:(BOOL)value_ {
+	[self setAccessibleBathroom:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveAccessibleBathroomValue {
+	NSNumber *result = [self primitiveAccessibleBathroom];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveAccessibleBathroomValue:(BOOL)value_ {
+	[self setPrimitiveAccessibleBathroom:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic accessibleTravel;
+
+
+
+- (BOOL)accessibleTravelValue {
+	NSNumber *result = [self accessibleTravel];
+	return [result boolValue];
+}
+
+- (void)setAccessibleTravelValue:(BOOL)value_ {
+	[self setAccessibleTravel:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveAccessibleTravelValue {
+	NSNumber *result = [self primitiveAccessibleTravel];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveAccessibleTravelValue:(BOOL)value_ {
+	[self setPrimitiveAccessibleTravel:[NSNumber numberWithBool:value_]];
+}
+
 
 
 
@@ -213,6 +385,84 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveAmenityMaskValue:(int32_t)value_ {
 	[self setPrimitiveAmenityMask:[NSNumber numberWithInt:value_]];
+}
+
+
+
+
+
+@dynamic babySitting;
+
+
+
+- (BOOL)babySittingValue {
+	NSNumber *result = [self babySitting];
+	return [result boolValue];
+}
+
+- (void)setBabySittingValue:(BOOL)value_ {
+	[self setBabySitting:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveBabySittingValue {
+	NSNumber *result = [self primitiveBabySitting];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveBabySittingValue:(BOOL)value_ {
+	[self setPrimitiveBabySitting:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic braille;
+
+
+
+- (BOOL)brailleValue {
+	NSNumber *result = [self braille];
+	return [result boolValue];
+}
+
+- (void)setBrailleValue:(BOOL)value_ {
+	[self setBraille:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveBrailleValue {
+	NSNumber *result = [self primitiveBraille];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveBrailleValue:(BOOL)value_ {
+	[self setPrimitiveBraille:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic breakfast;
+
+
+
+- (BOOL)breakfastValue {
+	NSNumber *result = [self breakfast];
+	return [result boolValue];
+}
+
+- (void)setBreakfastValue:(BOOL)value_ {
+	[self setBreakfast:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveBreakfastValue {
+	NSNumber *result = [self primitiveBreakfast];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveBreakfastValue:(BOOL)value_ {
+	[self setPrimitiveBreakfast:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -285,6 +535,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic deafEquipment;
+
+
+
+- (BOOL)deafEquipmentValue {
+	NSNumber *result = [self deafEquipment];
+	return [result boolValue];
+}
+
+- (void)setDeafEquipmentValue:(BOOL)value_ {
+	[self setDeafEquipment:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveDeafEquipmentValue {
+	NSNumber *result = [self primitiveDeafEquipment];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveDeafEquipmentValue:(BOOL)value_ {
+	[self setPrimitiveDeafEquipment:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic deepLink;
 
 
@@ -294,6 +570,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 @dynamic eanShortDescription;
 
+
+
+
+
+
+@dynamic extendingParking;
+
+
+
+- (BOOL)extendingParkingValue {
+	NSNumber *result = [self extendingParking];
+	return [result boolValue];
+}
+
+- (void)setExtendingParkingValue:(BOOL)value_ {
+	[self setExtendingParking:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveExtendingParkingValue {
+	NSNumber *result = [self primitiveExtendingParking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveExtendingParkingValue:(BOOL)value_ {
+	[self setPrimitiveExtendingParking:[NSNumber numberWithBool:value_]];
+}
 
 
 
@@ -319,6 +621,84 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveFitnessCenterValue:(BOOL)value_ {
 	[self setPrimitiveFitnessCenter:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic freeAirportShuttle;
+
+
+
+- (BOOL)freeAirportShuttleValue {
+	NSNumber *result = [self freeAirportShuttle];
+	return [result boolValue];
+}
+
+- (void)setFreeAirportShuttleValue:(BOOL)value_ {
+	[self setFreeAirportShuttle:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveFreeAirportShuttleValue {
+	NSNumber *result = [self primitiveFreeAirportShuttle];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveFreeAirportShuttleValue:(BOOL)value_ {
+	[self setPrimitiveFreeAirportShuttle:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic freeParking;
+
+
+
+- (BOOL)freeParkingValue {
+	NSNumber *result = [self freeParking];
+	return [result boolValue];
+}
+
+- (void)setFreeParkingValue:(BOOL)value_ {
+	[self setFreeParking:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveFreeParkingValue {
+	NSNumber *result = [self primitiveFreeParking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveFreeParkingValue:(BOOL)value_ {
+	[self setPrimitiveFreeParking:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic handicapParking;
+
+
+
+- (BOOL)handicapParkingValue {
+	NSNumber *result = [self handicapParking];
+	return [result boolValue];
+}
+
+- (void)setHandicapParkingValue:(BOOL)value_ {
+	[self setHandicapParking:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveHandicapParkingValue {
+	NSNumber *result = [self primitiveHandicapParking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveHandicapParkingValue:(BOOL)value_ {
+	[self setPrimitiveHandicapParking:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -455,6 +835,58 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic inRoomAccesibility;
+
+
+
+- (BOOL)inRoomAccesibilityValue {
+	NSNumber *result = [self inRoomAccesibility];
+	return [result boolValue];
+}
+
+- (void)setInRoomAccesibilityValue:(BOOL)value_ {
+	[self setInRoomAccesibility:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveInRoomAccesibilityValue {
+	NSNumber *result = [self primitiveInRoomAccesibility];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveInRoomAccesibilityValue:(BOOL)value_ {
+	[self setPrimitiveInRoomAccesibility:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic indoorPool;
+
+
+
+- (BOOL)indoorPoolValue {
+	NSNumber *result = [self indoorPool];
+	return [result boolValue];
+}
+
+- (void)setIndoorPoolValue:(BOOL)value_ {
+	[self setIndoorPool:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIndoorPoolValue {
+	NSNumber *result = [self primitiveIndoorPool];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIndoorPoolValue:(BOOL)value_ {
+	[self setPrimitiveIndoorPool:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic internetAccessAvailable;
 
 
@@ -475,6 +907,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveInternetAccessAvailableValue:(BOOL)value_ {
 	[self setPrimitiveInternetAccessAvailable:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic jacuzzi;
+
+
+
+- (BOOL)jacuzziValue {
+	NSNumber *result = [self jacuzzi];
+	return [result boolValue];
+}
+
+- (void)setJacuzziValue:(BOOL)value_ {
+	[self setJacuzzi:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveJacuzziValue {
+	NSNumber *result = [self primitiveJacuzzi];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveJacuzziValue:(BOOL)value_ {
+	[self setPrimitiveJacuzzi:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -625,6 +1083,58 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic outdoorPool;
+
+
+
+- (BOOL)outdoorPoolValue {
+	NSNumber *result = [self outdoorPool];
+	return [result boolValue];
+}
+
+- (void)setOutdoorPoolValue:(BOOL)value_ {
+	[self setOutdoorPool:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveOutdoorPoolValue {
+	NSNumber *result = [self primitiveOutdoorPool];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveOutdoorPoolValue:(BOOL)value_ {
+	[self setPrimitiveOutdoorPool:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic parking;
+
+
+
+- (BOOL)parkingValue {
+	NSNumber *result = [self parking];
+	return [result boolValue];
+}
+
+- (void)setParkingValue:(BOOL)value_ {
+	[self setParking:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveParkingValue {
+	NSNumber *result = [self primitiveParking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveParkingValue:(BOOL)value_ {
+	[self setPrimitiveParking:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic petsAllowed;
 
 
@@ -750,6 +1260,110 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 
 
+@dynamic restaurantOnSite;
+
+
+
+- (BOOL)restaurantOnSiteValue {
+	NSNumber *result = [self restaurantOnSite];
+	return [result boolValue];
+}
+
+- (void)setRestaurantOnSiteValue:(BOOL)value_ {
+	[self setRestaurantOnSite:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveRestaurantOnSiteValue {
+	NSNumber *result = [self primitiveRestaurantOnSite];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveRestaurantOnSiteValue:(BOOL)value_ {
+	[self setPrimitiveRestaurantOnSite:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic rollinShower;
+
+
+
+- (BOOL)rollinShowerValue {
+	NSNumber *result = [self rollinShower];
+	return [result boolValue];
+}
+
+- (void)setRollinShowerValue:(BOOL)value_ {
+	[self setRollinShower:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveRollinShowerValue {
+	NSNumber *result = [self primitiveRollinShower];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveRollinShowerValue:(BOOL)value_ {
+	[self setPrimitiveRollinShower:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic roomService;
+
+
+
+- (BOOL)roomServiceValue {
+	NSNumber *result = [self roomService];
+	return [result boolValue];
+}
+
+- (void)setRoomServiceValue:(BOOL)value_ {
+	[self setRoomService:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveRoomServiceValue {
+	NSNumber *result = [self primitiveRoomService];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveRoomServiceValue:(BOOL)value_ {
+	[self setPrimitiveRoomService:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic spaOnSite;
+
+
+
+- (BOOL)spaOnSiteValue {
+	NSNumber *result = [self spaOnSite];
+	return [result boolValue];
+}
+
+- (void)setSpaOnSiteValue:(BOOL)value_ {
+	[self setSpaOnSite:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveSpaOnSiteValue {
+	NSNumber *result = [self primitiveSpaOnSite];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveSpaOnSiteValue:(BOOL)value_ {
+	[self setPrimitiveSpaOnSite:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic stateProvinceCode;
 
 
@@ -791,6 +1405,32 @@ const struct HotelFetchedProperties HotelFetchedProperties = {
 
 - (void)setPrimitiveTripAdvisorRatingValue:(int32_t)value_ {
 	[self setPrimitiveTripAdvisorRating:[NSNumber numberWithInt:value_]];
+}
+
+
+
+
+
+@dynamic whirlpool;
+
+
+
+- (BOOL)whirlpoolValue {
+	NSNumber *result = [self whirlpool];
+	return [result boolValue];
+}
+
+- (void)setWhirlpoolValue:(BOOL)value_ {
+	[self setWhirlpool:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveWhirlpoolValue {
+	NSNumber *result = [self primitiveWhirlpool];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveWhirlpoolValue:(BOOL)value_ {
+	[self setPrimitiveWhirlpool:[NSNumber numberWithBool:value_]];
 }
 
 
