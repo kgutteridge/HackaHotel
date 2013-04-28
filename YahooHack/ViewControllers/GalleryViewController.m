@@ -16,7 +16,7 @@
 @interface GalleryViewController ()
 @property (nonatomic, strong) UIView *imagesCanvas;
 @property (nonatomic, strong) NSArray *allHotels;
-//@property (nonatomic, strong) NSMutableArray *hotelImagesURL;
+@property (nonatomic, assign) BOOL initialImageLoadComplete;
 
 @property (nonatomic, strong) UILabel *sliderValueLabel;
 @property (nonatomic, strong) UISlider *slider;
@@ -122,7 +122,7 @@
 }
 
 - (void)updateImages {
-
+    
     int newNumberOfHotels = [self.slider value];
     
     NSMutableArray *newSelectedHotels = [[NSMutableArray alloc] initWithCapacity:newNumberOfHotels];
@@ -157,10 +157,10 @@
     }
     
     int rows = hotelCount -(square * square) > square ? square + 1 : square;
-//    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
+    //    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
     
     CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
-//    NSLog(@"Img Size: %f", imageSize);
+    //    NSLog(@"Img Size: %f", imageSize);
     
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
@@ -176,6 +176,9 @@
             UIImageView *hotelImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, HOTEL_IMAGEVIEW_EDGE_INSET, HOTEL_IMAGEVIEW_EDGE_INSET)];
             [hotelImageView setClipsToBounds:YES];
             [hotelImageView setContentMode:UIViewContentModeScaleAspectFill];
+            if (!self.initialImageLoadComplete) {
+                [self moveOffScreenInitialImageView:hotelImageView];
+            }
             
             if(currentHotel >= hotelCount) {
                 [hotelImageView setBackgroundColor:[UIColor clearColor]];
@@ -189,6 +192,21 @@
             currentHotel++;
         }
     }
+    
+    if (!self.initialImageLoadComplete) {
+        [UIView animateWithDuration:1.25
+                              delay:1.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             for (UIView *hotelImageView in self.imagesCanvas.subviews) {
+                                 [hotelImageView setTransform:CGAffineTransformIdentity];
+                             }
+                         }
+                         completion:^(BOOL finished) {
+                             self.initialImageLoadComplete = YES;
+                         }];
+    }
+    
 }
 
 
@@ -207,7 +225,7 @@
                              startDate:startDate
                                endDate:endDate
                            withSuccess:^(NSURLRequest *request, NSURLResponse *response, id JSON) {
-                            
+                               
                                NSDictionary *json = (NSDictionary *)JSON;
                                NSArray *hotelSummaries = json[@"HotelListResponse"][@"HotelList"][@"HotelSummary"];
                                
@@ -216,7 +234,6 @@
                                for(NSDictionary *hotelDict in hotelSummaries) {
                                    
                                    //need to search and see if this is unique
-                                   
                                    NSNumber * hotelId = [hotelDict objectForKeyNotNull:@"hotelId"];
                                    
                                    Hotel *thisHotel = [Hotel MR_findFirstByAttribute:@"hotelId" withValue:hotelId];
@@ -247,6 +264,18 @@
 #pragma mark - Math Helpers
 - (int)getSquare:(NSInteger)numToSquareRoot{
     return floor(sqrt(numToSquareRoot));
+}
+
+
+- (void)moveOffScreenInitialImageView:(UIView *)view {
+    
+    int randX = (rand() % 100) + 1024;
+    int randY = (rand() % 100) + 768;
+    
+    randX = (randX % 2 == 0) ? randX * -1 : randX;
+    randY = (randY % 2 == 0) ? randY * -1 : randY;
+    
+    [view setTransform:CGAffineTransformMakeTranslation(randX, randY)];
 }
 
 @end
