@@ -17,3 +17,29 @@
 #define APIKey                      SECRET_API_KEY
 #define APISecret                   SECRET_API_SECRET
 #define APICID                      @"55505"
+
+
+#define kChildrensActivities 4
+#define kKitchen 5
+#define kPetsAllowed 6
+#define kPool 7
+#define kOnSiteRestaurant 8
+#define kOnSiteSpa 9
+#define kWhirlpool 10
+#define kBreakfast 11
+#define kBabySiting 12
+#define kJacuzzi 13
+#define kParking 14
+#define kRoomService 15
+#define kAccessableTravel 16
+#define kAccesibleBathroom 17
+#define kRollInShower 18
+#define kHandicapParking 19
+#define kRoomAccesibility 20
+#define kDeafEquipment 21
+#define kBraille 22
+#define kIndoorPool 23
+#define kOutdoorPool 24
+#define kFreeAirportShuttle 25
+#define kExtendedParking 26
+#define kFreeParking 27
