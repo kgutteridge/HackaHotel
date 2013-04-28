@@ -18,6 +18,7 @@
 #define APISecret                   SECRET_API_SECRET
 #define APICID                      @"55505"
 
+#define MEDIA_URL_PREFIX @"http://media.expedia.com"
 
 #define kChildrensActivities 4
 #define kKitchen 5

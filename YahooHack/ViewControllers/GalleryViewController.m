@@ -32,8 +32,6 @@
 #define MIN_PADDING_BETWEEN_IMAGES 5.0f
 #define HOTEL_IMAGEVIEW_EDGE_INSET 3.0f
 
-#define MEDIA_URL_PREFIX @"http://media.expedia.com"
-
 @implementation GalleryViewController
 
 - (void)loadView {
