@@ -52,7 +52,7 @@
     [self setupImagesCanvas];
     [self setupSpinner];
     
-    [self downloadHotelsforCity:@"Heathrow"
+    [self downloadHotelsforCity:@"London"
                    provinceCode:@""
                     countryCode:@"GB"
                       startDate:[NSDate date]
@@ -191,28 +191,26 @@ NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.
     
     [self.spinner stopAnimating];
     
+    // go through all existing HotelImageViews and separate the selected from the unselected in allHotels
     NSMutableArray *selectedImageViews = [[NSMutableArray alloc] init];
     NSMutableArray *unSelectedImageViews = [[NSMutableArray alloc] init];
     
-    // go through all existing HotelImageViews and separate the selected from the unselected in allHotels
     for (Hotel *hotel in selectedHotels) {
-        
-        BOOL hotelIsInSelected = NO;
         for (UIView *hotelImageView in self.imagesCanvas.subviews) {
             if ([hotel.hotelId integerValue] == hotelImageView.tag) {
-                hotelIsInSelected = YES;
                 [selectedImageViews addObject:hotelImageView];
                 break;
             }
         }
     }
     
-    for (UIView *hotelImageView in self.imagesCanvas.subviews) {
-        if (![selectedImageViews containsObject:hotelImageView]) {
-            [unSelectedImageViews addObject:hotelImageView];
+    for (UIView *thisView in self.imagesCanvas.subviews) {
+        if (![thisView isKindOfClass:[UIActivityIndicatorView class]] && ![selectedImageViews containsObject:thisView]) {
+            [unSelectedImageViews addObject:thisView];
         }
     }
-    NSLog(@"Number Selected/UnSelected : %d / %d", [selectedImageViews count], [unSelectedImageViews count]);
+    
+    NSLog(@"Selected/Unselected : %d/%d", [selectedImageViews count], [unSelectedImageViews count]);
     
     int square = [self getSquare:[selectedHotels count]];
     int hotelCount = [selectedHotels count];
@@ -222,12 +220,8 @@ NSMutableArray *subSelectionHotels = [[NSMutableArray alloc] initWithArray:self.
         cols = square;
     }
     
-    int rows = hotelCount -(square * square) > square ? square + 1 : square;
-    //    NSLog(@"Total images %i COLS(%d) ROWS(%d)", imageCount, cols, rows);
-    
-    CGFloat imageSize= floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
-    //    NSLog(@"Img Size: %f", imageSize);
-    
+    int rows = hotelCount - (square * square) > square ? square + 1 : square;
+    CGFloat imageSize = floor(CGRectGetWidth(self.imagesCanvas.bounds) / MAX(cols, rows));
     CGFloat leftInset = (CGRectGetWidth(self.imagesCanvas.bounds) - (imageSize * cols)) / 2;
     
     int currentHotel = 0;
