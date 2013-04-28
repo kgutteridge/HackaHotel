@@ -41,10 +41,10 @@
 		E2B47A24172CD91200D3D9A5 /* checkbox-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2B47A20172CD91200D3D9A5 /* checkbox-off@2x.png */; };
 		E2B47A25172CD91200D3D9A5 /* checkbox-on.png in Resources */ = {isa = PBXBuildFile; fileRef = E2B47A21172CD91200D3D9A5 /* checkbox-on.png */; };
 		E2B47A26172CD91200D3D9A5 /* checkbox-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2B47A22172CD91200D3D9A5 /* checkbox-on@2x.png */; };
-		FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD257460172C2CF800EE0E85 /* HotelModel.xcdatamodeld */; };
 		FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257488172C373200EE0E85 /* NSString+Helper.m */; };
 		FD257496172C75A900EE0E85 /* EANWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FD257495172C75A900EE0E85 /* EANWebService.m */; };
 		FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */; };
+		FD90BE57172D0A2D00A7E4F1 /* HotelModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD90BE55172D0A2D00A7E4F1 /* HotelModel.xcdatamodeld */; };
 		FDAAFAEB172CC95900BB8C52 /* _Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDAAFAE8172CC95900BB8C52 /* _Hotel.m */; };
 		FDAAFAEC172CC95900BB8C52 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDAAFAEA172CC95900BB8C52 /* Hotel.m */; };
 		FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC48F1F172C25830037B17F /* EANAPIManager.m */; };
@@ -79,7 +79,6 @@
 		E2B47A20172CD91200D3D9A5 /* checkbox-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-off@2x.png"; sourceTree = "<group>"; };
 		E2B47A21172CD91200D3D9A5 /* checkbox-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-on.png"; sourceTree = "<group>"; };
 		E2B47A22172CD91200D3D9A5 /* checkbox-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-on@2x.png"; sourceTree = "<group>"; };
-		FD257461172C2CF800EE0E85 /* HotelModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HotelModel.xcdatamodel; sourceTree = "<group>"; };
 		FD257487172C373200EE0E85 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helper.h"; path = "YahooHack/NSString+Helper.h"; sourceTree = SOURCE_ROOT; };
 		FD257488172C373200EE0E85 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helper.m"; path = "YahooHack/NSString+Helper.m"; sourceTree = SOURCE_ROOT; };
 		FD25748B172C475100EE0E85 /* ConfigSensitiveData-TEMPLATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfigSensitiveData-TEMPLATE.h"; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		FD257495172C75A900EE0E85 /* EANWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EANWebService.m; sourceTree = "<group>"; };
 		FD25749A172C95F600EE0E85 /* NSDictionary+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Helper.h"; path = "YahooHack/NSDictionary+Helper.h"; sourceTree = SOURCE_ROOT; };
 		FD25749B172C95F600EE0E85 /* NSDictionary+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Helper.m"; path = "YahooHack/NSDictionary+Helper.m"; sourceTree = SOURCE_ROOT; };
+		FD90BE56172D0A2D00A7E4F1 /* HotelModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HotelModel.xcdatamodel; sourceTree = "<group>"; };
 		FDAAFAE7172CC95900BB8C52 /* _Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Hotel.h; path = YahooHack/DataModel/_Hotel.h; sourceTree = SOURCE_ROOT; };
 		FDAAFAE8172CC95900BB8C52 /* _Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Hotel.m; path = YahooHack/DataModel/_Hotel.m; sourceTree = SOURCE_ROOT; };
 		FDAAFAE9172CC95900BB8C52 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hotel.h; path = YahooHack/DataModel/Hotel.h; sourceTree = SOURCE_ROOT; };
@@ -147,7 +147,7 @@
 		E256EA3D172C17D800379760 /* YahooHack */ = {
 			isa = PBXGroup;
 			children = (
-				FD257460172C2CF800EE0E85 /* HotelModel.xcdatamodeld */,
+				FD90BE55172D0A2D00A7E4F1 /* HotelModel.xcdatamodeld */,
 				E256EA59172C1C7D00379760 /* Support */,
 				E256EA57172C1C6D00379760 /* Resources */,
 				E256EA56172C1C5E00379760 /* ViewControllers */,
@@ -374,13 +374,13 @@
 				E256EA5C172C1D3F00379760 /* GalleryViewController.m in Sources */,
 				E256EA5F172C1E4500379760 /* HotelDetailViewController.m in Sources */,
 				FDC48F20172C25830037B17F /* EANAPIManager.m in Sources */,
-				FD257462172C2CF800EE0E85 /* HotelModel.xcdatamodeld in Sources */,
 				FD257489172C373200EE0E85 /* NSString+Helper.m in Sources */,
 				FD257496172C75A900EE0E85 /* EANWebService.m in Sources */,
 				FD25749C172C95F600EE0E85 /* NSDictionary+Helper.m in Sources */,
 				FDAAFAEB172CC95900BB8C52 /* _Hotel.m in Sources */,
 				FDAAFAEC172CC95900BB8C52 /* Hotel.m in Sources */,
 				E2B47A1E172CD8FD00D3D9A5 /* MGCheckbox.m in Sources */,
+				FD90BE57172D0A2D00A7E4F1 /* HotelModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,13 +527,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FD257460172C2CF800EE0E85 /* HotelModel.xcdatamodeld */ = {
+		FD90BE55172D0A2D00A7E4F1 /* HotelModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				FD257461172C2CF800EE0E85 /* HotelModel.xcdatamodel */,
+				FD90BE56172D0A2D00A7E4F1 /* HotelModel.xcdatamodel */,
 			);
-			currentVersion = FD257461172C2CF800EE0E85 /* HotelModel.xcdatamodel */;
-			path = HotelModel.xcdatamodeld;
+			currentVersion = FD90BE56172D0A2D00A7E4F1 /* HotelModel.xcdatamodel */;
+			name = HotelModel.xcdatamodeld;
+			path = DataModel/HotelModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
