@@ -6,4 +6,5 @@ pod 'SVProgressHUD', '~> 0.9'
 pod 'Facebook-iOS-SDK', '~> 3.5.1'
 pod 'HTAutocompleteTextField', '~> 1.1.2'
 pod 'ViewDeck', '~> 2.2.11'
+pod 'objectiveflickr', '~> 2.0.2'
 

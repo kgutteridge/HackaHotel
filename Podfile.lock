@@ -4,6 +4,7 @@ PODS:
   - Facebook-iOS-SDK (3.5.1)
   - HTAutocompleteTextField (1.1.2)
   - MagicalRecord (2.1)
+  - objectiveflickr (2.0.2)
   - SVProgressHUD (0.9)
   - ViewDeck (2.2.11)
 
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.5.1)
   - HTAutocompleteTextField (~> 1.1.2)
   - MagicalRecord (~> 2.1)
+  - objectiveflickr (~> 2.0.2)
   - SVProgressHUD (~> 0.9)
   - ViewDeck (~> 2.2.11)
 
@@ -22,6 +24,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: 0dbd897e842cefeb012ec2eb8eba659ba6b96b12
   HTAutocompleteTextField: 69eaa27fb32f44a2dcda8c969863a2aa79504d1b
   MagicalRecord: 64e7184c240087a45e9588a722eaf05b0ad837f7
+  objectiveflickr: 17f5f1fd4b9b9d6761a9545493c79221f65604c3
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   ViewDeck: b5eddc8559b0e47259ab7addbf2de6768061f139
 

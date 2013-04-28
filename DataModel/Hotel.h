@@ -6,4 +6,5 @@
 -(void)setPropertiesFromDictionary:(NSDictionary *)dictionary;
 
 
+
 @end
