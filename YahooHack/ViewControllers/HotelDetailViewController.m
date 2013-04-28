@@ -7,9 +7,10 @@
 //
 
 #import "HotelDetailViewController.h"
+#import <objectiveflickr/ObjectiveFlickr.h>
 #import "UIImageView+AFNetworking.h"
 
-@interface HotelDetailViewController ()
+@interface HotelDetailViewController () <OFFlickrAPIRequestDelegate>
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIView *overlayViewTop;
 @property (nonatomic, strong) UIView *overlayViewBottom;
@@ -49,8 +50,9 @@
     //http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=4cb26b7f09f917e2f9154d48087de93d&lat=51.48929&lon=-0.18007&format=rest
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"25", @"per_page",
-                            nil]
+                            [NSString stringWithFormat:@"%@",self.hotel.latitude],@"lat",
+                            [NSString stringWithFormat:@"%@",self.hotel.longtitude],@"lon",
+                            nil];
     
     [self.flickrRequest callAPIMethodWithGET:@"flickr.photos.search" arguments:params];
 }
@@ -202,11 +204,19 @@
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
+    OFFlickrAPIContext *flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey:SECRET_FLICKR_KEY sharedSecret:SECRET_FLICKR_SECRET];
     
+    NSArray *photos = [inResponseDictionary valueForKeyPath:@"photos.photo"];
+    NSDictionary *photoDict = [photos lastObject];
+    NSURL *staticPhotoURL = [flickrContext photoSourceURLFromDictionary:photoDict size:OFFlickrLargeSize];
+
+    [self.backgroundImage setImageWithURL:staticPhotoURL placeholderImage:nil];
+    
+  //  [[UIApplication sharedApplication] openURL:staticPhotoURL];
 }
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-    
+    NSLog(@"Error %@", inError);
 }
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes
 {
