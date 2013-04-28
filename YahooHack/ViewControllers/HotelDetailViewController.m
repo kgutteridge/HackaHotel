@@ -195,7 +195,7 @@
 
 - (void)setupSpinner {
     
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [self.spinner setCenter:self.view.center];
     [self.spinner setHidesWhenStopped:YES];
     [self.spinner startAnimating];

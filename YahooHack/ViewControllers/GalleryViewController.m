@@ -101,7 +101,17 @@
     [self.view addSubview:self.locationTextFieldContainerView];
     [self.view sendSubviewToBack:self.locationTextFieldContainerView];
     
-    self.locationTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, CGRectGetWidth(self.locationTextFieldContainerView.bounds) - 20, 30)];
+    UILabel *hakaHotelLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(self.locationTextFieldContainerView.bounds) - 20, 40)];
+    [hakaHotelLabel setTextAlignment:NSTextAlignmentCenter];
+    [hakaHotelLabel setText:@"HAKA HOTEL"];
+    [hakaHotelLabel setFont:[UIFont boldSystemFontOfSize:38]];
+    [hakaHotelLabel setBackgroundColor:[UIColor clearColor]];
+    [hakaHotelLabel setTextColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+    [hakaHotelLabel setShadowColor:[UIColor blackColor]];
+    [hakaHotelLabel setShadowOffset:CGSizeMake(0, 1.0f)];
+    [self.locationTextFieldContainerView addSubview:hakaHotelLabel];
+    
+    self.locationTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 60, CGRectGetWidth(self.locationTextFieldContainerView.bounds) - 20, 30)];
     [self.locationTextField setDelegate:self];
     [self.locationTextField setPlaceholder:@"City/Location"];
     [self.locationTextField setTextAlignment:NSTextAlignmentCenter];
